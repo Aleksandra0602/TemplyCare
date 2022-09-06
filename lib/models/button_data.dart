@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './models/button.dart';
+import 'button.dart';
 
 // ignore: unnecessary_const
 const BUTTON_DATA = const [
