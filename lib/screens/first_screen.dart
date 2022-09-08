@@ -5,9 +5,7 @@ import 'package:flutter_blue/flutter_blue.dart';
 import 'package:temp_app_v1/models/button.dart';
 import 'package:temp_app_v1/screens/categories_screen.dart';
 
-
 class FirstScreen extends StatefulWidget {
-
   final List<BluetoothDevice> devicesList = [];
   final FlutterBlue flutterBlue = FlutterBlue.instance;
 
@@ -17,25 +15,22 @@ class FirstScreen extends StatefulWidget {
   _FirstScreenState createState() => _FirstScreenState();
 }
 
-class _FirstScreenState extends State<FirstScreen>{
-
+class _FirstScreenState extends State<FirstScreen> {
   late BluetoothCharacteristic characteristic;
-  
+
   late Stream<List<int>> stream;
   List<double> trace = [];
-  
+
   BluetoothDevice? _connectedDevice;
   List<BluetoothService>? _services;
 
-
-_addDeviceTolist(final BluetoothDevice device) {
+  _addDeviceTolist(final BluetoothDevice device) {
     if (!widget.devicesList.contains(device)) {
       setState(() {
         widget.devicesList.add(device);
       });
     }
   }
-  
 
   @override
   void initState() {
@@ -54,7 +49,7 @@ _addDeviceTolist(final BluetoothDevice device) {
     });
     widget.flutterBlue.startScan();
   }
-  
+
   ListView _buildListViewOfDevices() {
     List<Container> containers = [];
     for (BluetoothDevice device in widget.devicesList) {
@@ -79,6 +74,7 @@ _addDeviceTolist(final BluetoothDevice device) {
                 ),
                 onPressed: () async {
                   widget.flutterBlue.stopScan();
+
                   try {
                     await device.connect();
                   } catch (e) {
@@ -90,6 +86,7 @@ _addDeviceTolist(final BluetoothDevice device) {
                   }
                   setState(() {
                     _connectedDevice = device;
+                    _services = _services;
                   });
                 },
               ),
@@ -110,15 +107,19 @@ _addDeviceTolist(final BluetoothDevice device) {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('My Temperature App'),
-          backgroundColor: const Color.fromRGBO(0, 50, 50, 1),
-          leading: IconButton(icon: const Icon(Icons.menu), onPressed: () {},),
-          ),
-        
-        body: _connectedDevice != null ? CategoriesScreen() : _buildListViewOfDevices(),
-      );
+      appBar: AppBar(
+        title: const Text('My Temperature App'),
+        backgroundColor: const Color.fromRGBO(0, 50, 50, 1),
+        leading: IconButton(
+          icon: const Icon(Icons.menu),
+          onPressed: () {},
+        ),
+      ),
+      body: _connectedDevice != null
+          ? CategoriesScreen(
+              services: _services,
+            )
+          : _buildListViewOfDevices(),
+    );
   }
-
-
 }
