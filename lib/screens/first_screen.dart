@@ -5,6 +5,8 @@ import 'package:flutter_blue/flutter_blue.dart';
 import 'package:temp_app_v1/models/button.dart';
 import 'package:temp_app_v1/screens/categories_screen.dart';
 
+import '../models/screens.dart';
+
 class FirstScreen extends StatefulWidget {
   final List<BluetoothDevice> devicesList = [];
   final FlutterBlue flutterBlue = FlutterBlue.instance;
@@ -23,6 +25,7 @@ class _FirstScreenState extends State<FirstScreen> {
 
   BluetoothDevice? _connectedDevice;
   List<BluetoothService>? _services;
+  ScreensEnum? screens;
 
   _addDeviceTolist(final BluetoothDevice device) {
     if (!widget.devicesList.contains(device)) {

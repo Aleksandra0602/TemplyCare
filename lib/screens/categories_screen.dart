@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 
 import '../models/button_data.dart';
+import '../models/screens.dart';
 import '../single_button.dart';
 
 class CategoriesScreen extends StatefulWidget {
@@ -13,7 +14,6 @@ class CategoriesScreen extends StatefulWidget {
   });
 
   final List<BluetoothService>? services;
-
   @override
   State<CategoriesScreen> createState() => _CategoriesScreenState();
 }
@@ -40,39 +40,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-          // SingleChildScrollView(
-          //   child: Column(
-          //     children: <Widget>[
-          //       ButtonTheme(
-          //         minWidth: 10,
-          //         height: 20,
-          //         child: Padding(
-          //           padding: const EdgeInsets.symmetric(horizontal: 4),
-          //           child: RaisedButton(
-          //               child:
-          //                   Text('NOTIFY', style: TextStyle(color: Colors.white)),
-          //               onPressed: () async {
-          //                 var characteristics =
-          //                     widget.services!.last.characteristics;
-          //                 for (BluetoothCharacteristic c in characteristics) {
-          //                   c.value.listen((value) {
-          //                     readValues[c.uuid] = value;
-          //                     setState(() {
-          //                       temperature = _dataParser(value);
-          //                     });
-          //                     print(_dataParser(value));
-          //                   });
-          //                   await c.setNotifyValue(!c.isNotifying);
-          //                 }
-          //               }),
-          //         ),
-          //       ),
-          //       Text(temperature),
-          //     ],
-          //   ),
-          // ),
-          GridView(
+      body: GridView(
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 200,
           childAspectRatio: 1,
@@ -80,12 +48,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           mainAxisSpacing: 15,
         ),
         children: BUTTON_DATA
-            .map((butData) => SingleButton(
-                  butData.id,
-                  butData.title,
-                  butData.color,
-                  widget.services,
-                ))
+            .map((butData) => SingleButton(butData.id, butData.title,
+                butData.color, widget.services, butData.screens))
             .toList(),
         padding: EdgeInsets.all(10),
       ),

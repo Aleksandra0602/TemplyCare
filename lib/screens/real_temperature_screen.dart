@@ -18,6 +18,7 @@ class RealTemperatureScreen extends StatefulWidget {
 class _RealTemperatureScreenState extends State<RealTemperatureScreen> {
   String service_uuid = "4fafc201-1fb5-459e-8fcc-c5c9c331914b";
   String charaCteristic_uuid = "beb5483e-36e1-4688-b7f5-ea07361b26a8";
+
   String temperature = "";
   List<double> trace = [];
   late Stream<List<int>> stream;
@@ -37,12 +38,12 @@ class _RealTemperatureScreenState extends State<RealTemperatureScreen> {
         if (service.uuid.toString() == service_uuid) {
           service.characteristics.forEach((characteristic) {
             if (characteristic.uuid.toString() == charaCteristic_uuid) {
-              // characteristic.setNotifyValue(!characteristic.isNotifying);
-              // characteristic.value.listen((value) {
-              //   setState(() {
-              //     temperature = _dataParser(value);
-              //   });
-              // });
+              characteristic.setNotifyValue(!characteristic.isNotifying);
+              characteristic.value.listen((value) {
+                setState(() {
+                  temperature = _dataParser(value);
+                });
+              });
               //TODO: przerobic na metode, ktora bedzie zwracac obiekt characteristic
               //ktory bedziemy wykorzystywac w StreamBuilderze jako strumien
             }
