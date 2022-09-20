@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class BatteryScreen extends StatefulWidget {
   const BatteryScreen({Key? key}) : super(key: key);
 
@@ -9,6 +8,10 @@ class BatteryScreen extends StatefulWidget {
 }
 
 class _BatteryScreenState extends State<BatteryScreen> {
+  String firstText = 'Stan baterii wynosi: ';
+  String secondText = 'tu bedzie jakas wartość w V';
+  String thirdText = 'Tu będzie jakoś obliczone na %';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,23 +26,15 @@ class _BatteryScreenState extends State<BatteryScreen> {
             height: 200,
             width: 250,
             decoration: BoxDecoration(
-              border: Border.all(width: 2, color: Colors.black)
-            ),
+                border: Border.all(width: 2, color: Colors.black)),
           ),
-          Row(
-            children: <Widget>[
-              Text('Stan baterii wynosi: '),
-              Text('tu bedzie jakas wartość w V'),
-            ],
-            
+          Text(
+            '$firstText $secondText',
           ),
-          Row(
-            children: <Widget>[
-              Text('Stan baterii'),
-              Text('Tu będzie jakoś obliczone na %'),
-            ],
+          Text(
+            '$firstText $thirdText',
           ),
-          Text('Baterii w urządzeniu wystarczy na XXX czasu'),
+          const Text('Baterii w urządzeniu wystarczy na XXX czasu'),
         ],
       ),
     );

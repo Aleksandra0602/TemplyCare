@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
-import 'package:temp_app_v1/models/button.dart';
+import 'package:temp_app_v1/widgets/button.dart';
 import 'package:temp_app_v1/screens/categories_screen.dart';
 
-import '../models/screens.dart';
+import '../widgets/screens.dart';
 
 class FirstScreen extends StatefulWidget {
   final List<BluetoothDevice> devicesList = [];
@@ -113,9 +113,8 @@ class _FirstScreenState extends State<FirstScreen> {
       appBar: AppBar(
         title: const Text('My Temperature App'),
         backgroundColor: const Color.fromRGBO(0, 50, 50, 1),
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () {},
+        leading: Icon(
+          (Icons.menu),
         ),
       ),
       body: _connectedDevice != null

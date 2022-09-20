@@ -1,47 +1,40 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-
 import 'package:flutter_blue/flutter_blue.dart';
+import 'package:temp_app_v1/utils/constans/dimensions.dart';
 
-class RealTemperatureScreen extends StatefulWidget {
+import '../utils/data_parser_method.dart';
+
+class ReadTemperatureScreen extends StatefulWidget {
   final Map<Guid, List<int>> readValues = Map<Guid, List<int>>();
 
-  RealTemperatureScreen({required this.services});
+  ReadTemperatureScreen({required this.services});
 
   final List<BluetoothService>? services;
 
   @override
-  State<RealTemperatureScreen> createState() => _RealTemperatureScreenState();
+  State<ReadTemperatureScreen> createState() => _ReadTemperatureScreenState();
 }
 
-class _RealTemperatureScreenState extends State<RealTemperatureScreen> {
-  String service_uuid = "4fafc201-1fb5-459e-8fcc-c5c9c331914b";
-  String charaCteristic_uuid = "beb5483e-36e1-4688-b7f5-ea07361b26a8";
-
+class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
   String temperature = "";
   List<double> trace = [];
   late Stream<List<int>> stream;
   final Map<Guid, List<int>> readValues = Map<Guid, List<int>>();
 
-  String _dataParser(List<int>? dataFromDevice) {
-    if (dataFromDevice != null) {
-      return utf8.decode(dataFromDevice);
-    }
-    return "null";
-  }
-
   @override
   void initState() {
     Future.delayed(Duration.zero, () async {
       widget.services!.forEach((service) {
-        if (service.uuid.toString() == service_uuid) {
+        if (service.uuid.toString() == Dimensions.service_uuid) {
           service.characteristics.forEach((characteristic) {
-            if (characteristic.uuid.toString() == charaCteristic_uuid) {
+            if (characteristic.uuid.toString() ==
+                Dimensions.charaCteristic_uuid) {
               characteristic.setNotifyValue(!characteristic.isNotifying);
               characteristic.value.listen((value) {
                 setState(() {
-                  temperature = _dataParser(value);
+                  temperature = dataParser(value);
                 });
               });
               //TODO: przerobic na metode, ktora bedzie zwracac obiekt characteristic
@@ -58,8 +51,8 @@ class _RealTemperatureScreenState extends State<RealTemperatureScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Aktualne pomiary'),
-        backgroundColor: Color.fromRGBO(0, 100, 100, 1),
+        title: const Text('Aktualne pomiary'),
+        backgroundColor: const Color.fromRGBO(0, 100, 100, 1),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -70,6 +63,8 @@ class _RealTemperatureScreenState extends State<RealTemperatureScreen> {
                 height: 20,
               ),
               Container(
+                margin: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: const Text(
                   'Temperature 1',
                   style: TextStyle(
@@ -78,38 +73,14 @@ class _RealTemperatureScreenState extends State<RealTemperatureScreen> {
                     color: Colors.white,
                   ),
                 ),
-                margin: EdgeInsets.all(20),
-                padding: EdgeInsets.all(20),
               ),
               Text(temperature),
-
-              // Container(
-              //   child: StreamBuilder<List<int>>(
-              //       stream: widget.services?.last.characteristics.first.value,
-              //       initialData: [],
-              //       builder: (BuildContext context,
-              //           AsyncSnapshot<List<int>> snapshot) {
-              //         if (snapshot.connectionState == ConnectionState.active &&
-              //             snapshot.hasData) {
-              //           String currentVal = _dataParser(snapshot.data);
-              //           //trace.add((double.parse(currentVal)));
-              //           print(currentVal);
-              //           return Row(
-              //             children: <Widget>[
-              //               Text(currentVal != null
-              //                   ? 'Value : ${currentVal}'
-              //                   : 'Brak danych')
-              //             ],
-              //           );
-              //         } else {
-              //           return Text('Check Stream');
-              //         }
-              //       }),
-              // ),
               const SizedBox(
                 height: 20,
               ),
               Container(
+                margin: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: const Text(
                   'Temperature 2',
                   style: TextStyle(
@@ -118,13 +89,13 @@ class _RealTemperatureScreenState extends State<RealTemperatureScreen> {
                     color: Colors.white,
                   ),
                 ),
-                margin: EdgeInsets.all(20),
-                padding: EdgeInsets.all(20),
               ),
               const SizedBox(
                 height: 20,
               ),
               Container(
+                margin: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: const Text(
                   'Humidity',
                   style: TextStyle(
@@ -133,8 +104,6 @@ class _RealTemperatureScreenState extends State<RealTemperatureScreen> {
                     color: Colors.white,
                   ),
                 ),
-                margin: EdgeInsets.all(20),
-                padding: EdgeInsets.all(20),
               ),
             ],
           ),

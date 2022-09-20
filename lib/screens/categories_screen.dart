@@ -2,10 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
+import 'package:temp_app_v1/utils/constans/dimensions.dart';
 
-import '../models/button_data.dart';
-import '../models/screens.dart';
-import '../single_button.dart';
+import '../widgets/button_data.dart';
+import '../widgets/screens.dart';
+import '../widgets/single_button.dart';
 
 class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({
@@ -34,7 +35,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   @override
   void initState() {
     super.initState();
-    print(widget.services);
   }
 
   @override
@@ -42,14 +42,14 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     return Scaffold(
       body: GridView(
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 200,
+          maxCrossAxisExtent: Dimensions.HEIGHT,
           childAspectRatio: 1,
-          crossAxisSpacing: 15,
-          mainAxisSpacing: 15,
+          crossAxisSpacing: Dimensions.SPACE,
+          mainAxisSpacing: Dimensions.SPACE,
         ),
         children: BUTTON_DATA
-            .map((butData) => SingleButton(butData.id, butData.title,
-                butData.color, widget.services, butData.screens))
+            .map((butData) => SingleButton(
+                butData.title, butData.color, widget.services, butData.screens))
             .toList(),
         padding: EdgeInsets.all(10),
       ),
