@@ -23,18 +23,6 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
   final _fileNameController = TextEditingController();
   String warunek = '13,5,3';
 
-  // static const List<String> measurementTime = <String>[
-  //   '5',
-  //   '10',
-  //   '15',
-  // ];
-
-  // static const List<String> sleepTime = <String>[
-  //   '3',
-  //   '5',
-  //   '10',
-  // ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,33 +44,6 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.green))),
               ),
-              // child: DropdownButtonFormField<String>(
-              //     value: dropDownValue1,
-              //     icon: const Icon(Icons.arrow_downward_outlined),
-              //     elevation: 16,
-              //     items: measurementTime
-              //         .map<DropdownMenuItem<String>>((String value) {
-              //       return DropdownMenuItem<String>(
-              //         value: value,
-              //         child: Text(value),
-              //       );
-              //     }).toList(),
-              //     decoration: InputDecoration(
-              //       labelText: 'Czas pomiaru [min]',
-              //       labelStyle:
-              //           const TextStyle(color: Color.fromRGBO(0, 80, 80, 1)),
-              //       border: OutlineInputBorder(),
-              //       focusedBorder: OutlineInputBorder(
-              //         borderSide:
-              //             BorderSide(color: Color.fromRGBO(0, 20, 20, 1)),
-              //         borderRadius: BorderRadius.circular(10),
-              //       ),
-              //     ),
-              //     onChanged: (String? value) {
-              //       setState(() {
-              //         dropDownValue1 = value!;
-              //       });
-              //     }),
             ),
             Padding(
               padding: const EdgeInsets.all(10),
@@ -95,31 +56,6 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.green))),
               ),
-              // child: DropdownButtonFormField<String>(
-              //     value: dropDownValue2,
-              //     icon: Icon(Icons.arrow_downward_outlined),
-              //     elevation: 16,
-              //     items:
-              //         sleepTime.map<DropdownMenuItem<String>>((String value2) {
-              //       return DropdownMenuItem<String>(
-              //         value: value2,
-              //         child: Text(value2),
-              //       );
-              //     }).toList(),
-              //     decoration: const InputDecoration(
-              //       labelText: 'Czas uśpienia [s]',
-              //       labelStyle: TextStyle(color: Color.fromRGBO(0, 80, 80, 1)),
-              //       border: OutlineInputBorder(),
-              //       focusedBorder: OutlineInputBorder(
-              //         borderSide:
-              //             BorderSide(color: Color.fromRGBO(0, 20, 20, 1)),
-              //       ),
-              //     ),
-              //     onChanged: (String? value2) {
-              //       setState(() {
-              //         dropDownValue2 = value2!;
-              //       });
-              //     }),
             ),
             Padding(
                 padding: const EdgeInsets.all(10),

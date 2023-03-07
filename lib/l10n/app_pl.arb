@@ -1,0 +1,57 @@
+{
+    "unknownDevice": "(nieznane urządzenie)",
+    "connectDevice": "Połącz",
+    "alreadyConnected": "Już połączono",
+    "firstAppBar": "TempApp",
+    
+    "buttonText1": "Podgląd aktualnych danych",
+    "buttonText2": "Wykonaj pomiar",
+    "buttonText3": "Stan baterii",
+    "buttonText4": "Stan karty pamięci",
+    "buttonText5": "Podgląd plików'",
+    "buttonText6": "Czas na urządzeniu",
+    "buttonText7": "Ustawienia",
+    "buttonText8": "Mój profil",
+
+    "secondAppBar": "Aktualne pomiary",
+    "tempValue1": "Temperatura 1.",
+    "tempValue2": "Temperatura 2."
+    "humValue": "Wilgotność",
+
+    "thirdAppBar": "Wybierz parametry",
+    "measurementTime": "Czas pomiaru [min]",
+    "sleepTime": "Czas uśpienia [s]",
+    "tag": "Tag",
+    "fileName": "Nazwa pliku",
+    "startButton": "Uruchom pomiar",
+    "alertDialog": "Powiadomienie",
+    "alertMessage": "uzupełnić....",
+    "alertButton": "OK",
+    "errorDialog": "Błąd",
+    "errorMessage": "Brak danych do pomiaru",
+
+    "forthAppBar": "Stan baterii",
+    "batteryStatus": "Stan baterii wynosi ... ",
+    "timeBattery": "Baterii w urządzeniu wystarczy na ... czasu",
+
+    "fifthAppBar": "Stan karty pamięci",
+
+    "sixthAppBar": "Wyświetl dostępne pliki",
+
+    "seventhAppBar": "Czas na urządzeniu pomiarowym",
+    "dateButton": "Pobierz datę",
+    "sendButton": "Prześlij",
+    "downloadButton": "Pobierz datę z urządzęnia",
+
+    "eighthAppBar": "Ustawienia",
+
+    "ninthAppBar": "Mój profil",
+
+    "logoutButton": "Wyloguj",
+
+    
+
+
+
+
+}
