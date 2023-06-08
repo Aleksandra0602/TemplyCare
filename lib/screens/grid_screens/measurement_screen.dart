@@ -1,27 +1,26 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_blue/flutter_blue.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+
 import 'package:temp_app_v1/utils/constans/dimensions.dart';
+
+import '../../utils/data_parser_method.dart';
 
 class MeasurementScreen extends StatefulWidget {
   final List<BluetoothService>? services;
 
-  MeasurementScreen({required this.services});
+  MeasurementScreen({Key? key, required this.services}) : super(key: key);
 
   @override
   State<MeasurementScreen> createState() => _MeasurementScreenState();
 }
 
 class _MeasurementScreenState extends State<MeasurementScreen> {
-  //String dropDownValue1 = measurementTime.first;
-  //String dropDownValue2 = sleepTime.first;
-
   final _measrementTimeController = TextEditingController(text: '5');
   final _sleepTimeController = TextEditingController(text: '10');
   final _tagController = TextEditingController();
   final _fileNameController = TextEditingController();
-  String warunek = '13,5,3';
 
   @override
   Widget build(BuildContext context) {
@@ -96,8 +95,8 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
                             Dimensions.charaCteristic_uuid) {
                           String var1 = _measrementTimeController.value.text;
                           String var2 = _sleepTimeController.value.text;
-                          String warunek2 = '13,$var1,$var2';
-                          characteristic.write(utf8.encode(warunek2));
+                          String warunek = '13,$var1,$var2';
+                          characteristic.write(utf8.encode(warunek));
                           _showAlert(
                               context,
                               _measrementTimeController.value.text,
@@ -150,7 +149,7 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('Błąd'),
-            content: Text('Brak danych do pomiaru'),
+            content: const Text('Brak danych do pomiaru'),
             actions: <Widget>[
               TextButton(
                   onPressed: () => Navigator.of(context).pop(),

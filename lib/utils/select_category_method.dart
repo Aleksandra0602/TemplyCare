@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_blue/flutter_blue.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
-import '../screens/battery_screen.dart';
-import '../screens/display_files_screen.dart';
-import '../screens/measurement_screen.dart';
-import '../screens/memory_card_screen.dart';
-import '../screens/my_profile_screen.dart';
-import '../screens/read_temperature_screen.dart';
-import '../screens/settings_screen.dart';
-import '../screens/time_device_screen.dart';
+import '../screens/grid_screens/battery_screen.dart';
+import '../screens/grid_screens/display_files_screen.dart';
+import '../screens/grid_screens/measurement_screen.dart';
+import '../screens/grid_screens/memory_card_screen.dart';
+import '../screens/grid_screens/my_profile_screen.dart';
+import '../screens/grid_screens/read_temperature_screen.dart';
+import '../screens/grid_screens/settings_screen.dart';
+import '../screens/grid_screens/time_device_screen.dart';
 import '../widgets/screens.dart';
 
 void selectCategory(

@@ -15,7 +15,7 @@
 
     "secondAppBar": "Aktualne pomiary",
     "tempValue1": "Temperatura 1.",
-    "tempValue2": "Temperatura 2."
+    "tempValue2": "Temperatura 2.",
     "humValue": "Wilgotność",
 
     "thirdAppBar": "Wybierz parametry",
@@ -30,28 +30,16 @@
     "errorDialog": "Błąd",
     "errorMessage": "Brak danych do pomiaru",
 
-    "forthAppBar": "Stan baterii",
+
     "batteryStatus": "Stan baterii wynosi ... ",
     "timeBattery": "Baterii w urządzeniu wystarczy na ... czasu",
 
-    "fifthAppBar": "Stan karty pamięci",
-
     "sixthAppBar": "Wyświetl dostępne pliki",
 
-    "seventhAppBar": "Czas na urządzeniu pomiarowym",
     "dateButton": "Pobierz datę",
     "sendButton": "Prześlij",
     "downloadButton": "Pobierz datę z urządzęnia",
 
-    "eighthAppBar": "Ustawienia",
-
-    "ninthAppBar": "Mój profil",
-
-    "logoutButton": "Wyloguj",
-
-    
-
-
-
+    "logoutButton": "Wyloguj"
 
 }

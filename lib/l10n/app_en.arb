@@ -1,0 +1,46 @@
+{
+    "unknownDevice": "(unknown device)",
+    "connectDevice": "Connect",
+    "alreadyConnected": "already connected",
+    "firstAppBar": "TempApp",
+    
+    "buttonText1": "Display current data",
+    "buttonText2": "Take the measurement",
+    "buttonText3": "Battery status",
+    "buttonText4": "Memory Card status",
+    "buttonText5": "View files",
+    "buttonText6": "Time on device",
+    "buttonText7": "Settings",
+    "buttonText8": "My profile",
+
+    "secondAppBar": "Current measyurements",
+    "tempValue1": "Temperature 1.",
+    "tempValue2": "Temperature 2.",
+    "humValue": "Humidity",
+
+    "thirdAppBar": "Enter parameters",
+    "measurementTime": "Measurement time [min]",
+    "sleepTime": "Sleep time [s]",
+    "tag": "Tag",
+    "fileName": "File name",
+    "startButton": "Start measurement",
+    "alertDialog": "Notification",
+    "alertMessage": "uzupełnić....",
+    "alertButton": "OK",
+    "errorDialog": "Error",
+    "errorMessage": "No data to measure",
+  
+    "batteryStatus": "Battery status is ... ",
+    "timeBattery": "The battery in the device will last for ...",
+
+    "sixthAppBar": "View available files",
+
+    "dateButton": "Download date",
+    "sendButton": "Submit",
+    "downloadButton": "Download date from the device",
+
+    "logoutButton": "Log out"
+
+
+
+}

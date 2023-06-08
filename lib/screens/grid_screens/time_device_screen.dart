@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_blue/flutter_blue.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+
 import 'package:temp_app_v1/utils/constans/dimensions.dart';
 import 'package:temp_app_v1/utils/data_parser_method.dart';
 

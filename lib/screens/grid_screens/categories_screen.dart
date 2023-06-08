@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_blue/flutter_blue.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+
 import 'package:temp_app_v1/utils/constans/dimensions.dart';
 
-import '../widgets/button_data.dart';
-import '../widgets/screens.dart';
-import '../widgets/single_button.dart';
+import '../../widgets/button_data.dart';
+import '../../widgets/single_button.dart';
 
 class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({
@@ -25,13 +25,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   final Map<Guid, List<int>> readValues = Map<Guid, List<int>>();
   List<int> value = [];
 
-  String _dataParser(List<int>? dataFromDevice) {
-    if (dataFromDevice != null) {
-      return utf8.decode(dataFromDevice);
-    }
-    return "null";
-  }
-
   @override
   void initState() {
     super.initState();
@@ -40,6 +33,11 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Temperatura'),
+        backgroundColor: const Color.fromRGBO(0, 50, 50, 1),
+        centerTitle: true,
+      ),
       body: GridView(
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: Dimensions.HEIGHT,
@@ -47,11 +45,11 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           crossAxisSpacing: Dimensions.SPACE,
           mainAxisSpacing: Dimensions.SPACE,
         ),
+        padding: const EdgeInsets.all(10),
         children: BUTTON_DATA
             .map((butData) => SingleButton(
                 butData.title, butData.color, widget.services, butData.screens))
             .toList(),
-        padding: EdgeInsets.all(10),
       ),
     );
   }

@@ -1,15 +1,13 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_blue/flutter_blue.dart';
-import 'package:temp_app_v1/widgets/button.dart';
-import 'package:temp_app_v1/screens/categories_screen.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+
+import 'package:temp_app_v1/screens/log_sign_screen.dart';
 
 import '../widgets/screens.dart';
 
 class FirstScreen extends StatefulWidget {
   final List<BluetoothDevice> devicesList = [];
-  final FlutterBlue flutterBlue = FlutterBlue.instance;
+  final FlutterBluePlus flutterBlue = FlutterBluePlus.instance;
 
   final Map<Guid, List<int>> readValues = Map<Guid, List<int>>();
 
@@ -59,41 +57,44 @@ class _FirstScreenState extends State<FirstScreen> {
       containers.add(
         Container(
           height: 60,
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                child: Column(
-                  children: <Widget>[
-                    Text(device.name == '' ? '(unknown device)' : device.name),
-                    Text(device.id.toString()),
-                  ],
+          child: Card(
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                          device.name == '' ? '(unknown device)' : device.name),
+                      Text(device.id.toString()),
+                    ],
+                  ),
                 ),
-              ),
-              FlatButton(
-                color: Color.fromRGBO(0, 100, 100, 0.8),
-                child: Text(
-                  'Connect',
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () async {
-                  widget.flutterBlue.stopScan();
+                FlatButton(
+                  color: Color.fromRGBO(0, 100, 100, 0.8),
+                  child: Text(
+                    'Connect',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () async {
+                    widget.flutterBlue.stopScan();
 
-                  try {
-                    await device.connect();
-                  } catch (e) {
-                    if (e.hashCode != 'already_connected') {
-                      throw e;
+                    try {
+                      await device.connect();
+                    } catch (e) {
+                      if (e.hashCode != 'already_connected') {
+                        throw e;
+                      }
+                    } finally {
+                      _services = await device.discoverServices();
                     }
-                  } finally {
-                    _services = await device.discoverServices();
-                  }
-                  setState(() {
-                    _connectedDevice = device;
-                    _services = _services;
-                  });
-                },
-              ),
-            ],
+                    setState(() {
+                      _connectedDevice = device;
+                      _services = _services;
+                    });
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       );
@@ -113,14 +114,17 @@ class _FirstScreenState extends State<FirstScreen> {
       appBar: AppBar(
         title: const Text('My Temperature App'),
         backgroundColor: const Color.fromRGBO(0, 50, 50, 1),
-        leading: Icon(
+        leading: const Icon(
           (Icons.menu),
         ),
       ),
       body: _connectedDevice != null
-          ? CategoriesScreen(
+          ? LogSignScreen(
               services: _services,
             )
+          // ? CategoriesScreen(
+          //     services: _services,
+          //   )
           : _buildListViewOfDevices(),
     );
   }
