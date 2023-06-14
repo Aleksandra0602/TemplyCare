@@ -34,7 +34,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Temperatura'),
+        title: const Text('TemplyCare'),
         backgroundColor: const Color.fromRGBO(0, 50, 50, 1),
         centerTitle: true,
       ),

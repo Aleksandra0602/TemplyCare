@@ -17,7 +17,7 @@ class SingleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => selectCategory(context, screens, services),
-      splashColor: Theme.of(context).primaryColor,
+      splashColor: Color.fromRGBO(25, 25, 25, 0.4),
       borderRadius: BorderRadius.circular(15),
       child: Container(
         padding: const EdgeInsets.all(10),
