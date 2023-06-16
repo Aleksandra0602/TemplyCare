@@ -67,7 +67,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(245, 255, 245, 1),
+      backgroundColor: const Color.fromRGBO(245, 255, 245, 1),
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Aktualne pomiary'),
@@ -103,9 +103,9 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
               SleekCircularSlider(
                 appearance: CircularSliderAppearance(
                   customColors: CustomSliderColors(
-                    trackColor: Color.fromRGBO(0, 70, 70, 1),
-                    progressBarColor: Color.fromRGBO(0, 75, 70, 0.5),
-                    shadowColor: Color.fromRGBO(0, 75, 70, 0.5),
+                    trackColor: const Color.fromRGBO(0, 70, 70, 1),
+                    progressBarColor: const Color.fromRGBO(0, 75, 70, 0.5),
+                    shadowColor: const Color.fromRGBO(0, 75, 70, 0.5),
                     shadowStep: 10,
                   ),
                   customWidths: CustomSliderWidths(
@@ -206,9 +206,9 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
               SleekCircularSlider(
                 appearance: CircularSliderAppearance(
                   customColors: CustomSliderColors(
-                    trackColor: Color.fromRGBO(0, 70, 70, 1),
-                    progressBarColor: Color.fromRGBO(0, 75, 70, 0.5),
-                    shadowColor: Color.fromRGBO(0, 75, 70, 0.5),
+                    trackColor: const Color.fromRGBO(0, 70, 70, 1),
+                    progressBarColor: const Color.fromRGBO(0, 75, 70, 0.5),
+                    shadowColor: const Color.fromRGBO(0, 75, 70, 0.5),
                     shadowStep: 10,
                   ),
                   customWidths: CustomSliderWidths(

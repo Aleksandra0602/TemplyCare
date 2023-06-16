@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 class Dimensions {
   static const SPACE = 16.0;
   static const HEIGHT = 200.0;

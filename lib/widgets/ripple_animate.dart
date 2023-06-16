@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:temp_app_v1/screens/first_screen.dart';
-import 'package:temp_app_v1/screens/grid_screens/categories_screen.dart';
 import 'package:temp_app_v1/widgets/paint.dart';
 
 import '../screens/log_sign_screen.dart';
 
 class RippleAnimate extends StatefulWidget {
+  const RippleAnimate({Key? key}) : super(key: key);
+
   @override
   _RippleAnimateState createState() => _RippleAnimateState();
 }
@@ -80,7 +80,7 @@ class _RippleAnimateState extends State<RippleAnimate>
 
     secondRippleController = AnimationController(
       vsync: this,
-      duration: Duration(
+      duration: const Duration(
         seconds: 3,
       ),
     );
@@ -126,7 +126,7 @@ class _RippleAnimateState extends State<RippleAnimate>
 
     thirdRippleController = AnimationController(
       vsync: this,
-      duration: Duration(
+      duration: const Duration(
         seconds: 3,
       ),
     );
@@ -170,8 +170,10 @@ class _RippleAnimateState extends State<RippleAnimate>
         },
       );
 
-    centerCircleController =
-        AnimationController(vsync: this, duration: Duration(seconds: 1));
+    centerCircleController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    );
 
     centerCircleRadiusAnimation = Tween<double>(begin: 50, end: 65).animate(
       CurvedAnimation(
@@ -196,12 +198,12 @@ class _RippleAnimateState extends State<RippleAnimate>
 
     firstRippleController.forward();
     Timer(
-      Duration(milliseconds: 765),
+      const Duration(milliseconds: 765),
       () => secondRippleController.forward(),
     );
 
     Timer(
-      Duration(milliseconds: 1050),
+      const Duration(milliseconds: 1050),
       () => thirdRippleController.forward(),
     );
 
@@ -215,17 +217,6 @@ class _RippleAnimateState extends State<RippleAnimate>
 
   late Stream<List<int>> stream;
   final FlutterBluePlus flutterBlue = FlutterBluePlus.instance;
-
-  BluetoothDevice? _connectedDevice;
-  List<BluetoothService>? _services;
-
-  _addDeviceTolist(final BluetoothDevice device) {
-    if (devicesList.contains(device)) {
-      setState(() {
-        devicesList.add(device);
-      });
-    }
-  }
 
   @override
   void dispose() {
@@ -241,6 +232,7 @@ class _RippleAnimateState extends State<RippleAnimate>
     return Scaffold(
       backgroundColor: const Color.fromRGBO(245, 255, 245, 1),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
         title: const Text('TemplyCare'),
         backgroundColor: const Color.fromRGBO(0, 25, 20, 0.8),
@@ -336,7 +328,7 @@ class _ModalBottomBodyState extends State<ModalBottomBody> {
         _addDeviceTolist(result.device);
       }
     });
-    flutterBlue.startScan(timeout: Duration(seconds: 5));
+    flutterBlue.startScan(timeout: const Duration(seconds: 2));
   }
 
   @override
@@ -352,8 +344,8 @@ class _ModalBottomBodyState extends State<ModalBottomBody> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: devicesList
             .map((element) => Card(
-                  color: Color.fromRGBO(245, 255, 245, 1),
-                  shadowColor: Color.fromRGBO(1, 100, 75, 0.8),
+                  color: const Color.fromRGBO(245, 255, 245, 1),
+                  shadowColor: const Color.fromRGBO(1, 100, 75, 0.8),
                   child: SizedBox(
                     height: 60,
                     child: Row(
@@ -367,7 +359,7 @@ class _ModalBottomBodyState extends State<ModalBottomBody> {
                                 element.name == ''
                                     ? 'Nieznane urządzenie'
                                     : element.name,
-                                style: TextStyle(fontSize: 18),
+                                style: const TextStyle(fontSize: 18),
                               ),
                               Text(
                                 element.id.toString(),
@@ -403,11 +395,11 @@ class _ModalBottomBodyState extends State<ModalBottomBody> {
                           child: Container(
                             height: 45,
                             width: 80,
-                            padding: EdgeInsets.all(5),
-                            margin: EdgeInsets.only(right: 10),
+                            padding: const EdgeInsets.all(5),
+                            margin: const EdgeInsets.only(right: 10),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
-                              color: Color.fromRGBO(0, 60, 50, 1),
+                              color: const Color.fromRGBO(0, 60, 50, 1),
                             ),
                             child: const Center(
                               child: Text(

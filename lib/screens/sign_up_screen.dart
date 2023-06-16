@@ -39,7 +39,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: Image.asset('assets/logo.png', fit: BoxFit.cover),
             ),
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -83,7 +83,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         color: Color.fromRGBO(1, 60, 50, 1),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Color.fromRGBO(1, 60, 50, 1),
                         ),
                         borderRadius: BorderRadius.circular(10),
@@ -108,7 +108,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         color: Color.fromRGBO(1, 60, 50, 1),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Color.fromRGBO(1, 60, 50, 1),
                         ),
                         borderRadius: BorderRadius.circular(10),
@@ -133,7 +133,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         color: Color.fromRGBO(1, 60, 50, 1),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Color.fromRGBO(1, 60, 50, 1),
                         ),
                         borderRadius: BorderRadius.circular(10),
@@ -148,7 +148,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             InkWell(
               onTap: (() {
-                Navigator.push(
+                Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                         builder: ((context) =>
@@ -184,8 +184,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             TextButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LogInScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LogInScreen()));
               },
               child: const Text(
                 'Zaloguj się!',

@@ -5,8 +5,6 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import 'package:temp_app_v1/utils/constans/dimensions.dart';
 
-import '../../utils/data_parser_method.dart';
-
 class MeasurementScreen extends StatefulWidget {
   final List<BluetoothService>? services;
 
