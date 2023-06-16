@@ -15,9 +15,10 @@ class _BatteryScreenState extends State<BatteryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(245, 255, 245, 1),
       appBar: AppBar(
         title: const Text('Stan Baterii'),
-        backgroundColor: const Color.fromRGBO(0, 100, 100, 1),
+        backgroundColor: const Color.fromRGBO(0, 80, 70, 1),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,

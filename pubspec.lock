@@ -172,8 +172,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.7+5"
-  page_transition:
+  modal_bottom_sheet:
     dependency: "direct main"
+    description:
+      name: modal_bottom_sheet
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.2"
+  page_transition:
+    dependency: transitive
     description:
       name: page_transition
       url: "https://pub.dartlang.org"
@@ -205,6 +212,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  sleek_circular_slider:
+    dependency: "direct main"
+    description:
+      name: sleek_circular_slider
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
   source_span:
     dependency: transitive
     description:

@@ -6,11 +6,10 @@ class MemoryCardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(245, 255, 245, 1),
       appBar: AppBar(
-        title: const Text(
-          'Stan karty pamięci'
-        ),
-        backgroundColor: const Color.fromRGBO(0, 115, 115, 1),
+        title: const Text('Stan karty pamięci'),
+        backgroundColor: const Color.fromRGBO(0, 95, 85, 1),
       ),
     );
   }

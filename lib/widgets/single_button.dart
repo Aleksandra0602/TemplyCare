@@ -21,17 +21,17 @@ class SingleButton extends StatelessWidget {
       borderRadius: BorderRadius.circular(15),
       child: Container(
         padding: const EdgeInsets.all(10),
-        child: Text(
-          title,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-          ),
-        ),
         alignment: Alignment.topLeft,
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(15),
+        ),
+        child: Text(
+          title,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+          ),
         ),
       ),
     );

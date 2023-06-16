@@ -28,12 +28,13 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(245, 255, 245, 1),
       appBar: AppBar(
         title: const Text(
           'Czas na urządzeniu pomiarowym',
           style: TextStyle(fontSize: 18),
         ),
-        backgroundColor: const Color.fromRGBO(0, 150, 150, 1),
+        backgroundColor: const Color.fromRGBO(0, 125, 115, 1),
       ),
       body: Column(
         children: <Widget>[

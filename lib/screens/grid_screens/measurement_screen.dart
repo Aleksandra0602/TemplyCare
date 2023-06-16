@@ -25,35 +25,76 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(245, 255, 245, 1),
       appBar: AppBar(
-        title: const Text('Wybierz parametry'),
-        backgroundColor: const Color.fromRGBO(0, 80, 80, 1),
+        centerTitle: true,
+        title: const Text('Ustaw parametry'),
+        backgroundColor: const Color.fromRGBO(0, 65, 55, 1),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
+            const SizedBox(
+              height: 40,
+            ),
             Padding(
               padding: const EdgeInsets.all(10),
               child: TextFormField(
+                keyboardType: TextInputType.number,
                 controller: _measrementTimeController,
                 decoration: const InputDecoration(
-                    labelText: 'Czas pomiaru [min]',
-                    labelStyle:
-                        TextStyle(color: Color.fromRGBO(0, 80, 80, 0.8)),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green))),
+                  labelText: 'Czas pomiaru [min]',
+                  labelStyle: TextStyle(
+                    color: Color.fromRGBO(0, 65, 55, 0.8),
+                    fontSize: 18,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color.fromRGBO(0, 60, 50, 1),
+                    ),
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(20),
+                      topLeft: Radius.circular(20),
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.green, width: 2),
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(20),
+                      topLeft: Radius.circular(20),
+                    ),
+                  ),
+                ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(10),
               child: TextFormField(
+                keyboardType: TextInputType.number,
                 controller: _sleepTimeController,
                 decoration: const InputDecoration(
-                    labelText: 'Czas uśpienia [s]',
-                    labelStyle:
-                        TextStyle(color: Color.fromRGBO(0, 80, 80, 0.8)),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green))),
+                  labelText: 'Czas uśpienia [s]',
+                  labelStyle: TextStyle(
+                    color: Color.fromRGBO(0, 80, 80, 0.8),
+                    fontSize: 18,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color.fromRGBO(0, 60, 50, 1),
+                    ),
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(20),
+                      topLeft: Radius.circular(20),
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.green, width: 2),
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(20),
+                      topLeft: Radius.circular(20),
+                    ),
+                  ),
+                ),
               ),
             ),
             Padding(
@@ -62,10 +103,26 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
                   controller: _tagController,
                   decoration: const InputDecoration(
                     labelText: 'Tag',
-                    labelStyle:
-                        TextStyle(color: Color.fromRGBO(0, 80, 80, 0.8)),
+                    labelStyle: TextStyle(
+                      color: Color.fromRGBO(0, 80, 80, 0.8),
+                      fontSize: 18,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color.fromRGBO(0, 60, 50, 1),
+                      ),
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(20),
+                        topLeft: Radius.circular(20),
+                      ),
+                    ),
                     focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green)),
+                      borderSide: BorderSide(color: Colors.green, width: 2),
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(20),
+                        topLeft: Radius.circular(20),
+                      ),
+                    ),
                   ),
                 )),
             Padding(
@@ -74,17 +131,33 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
                   controller: _fileNameController,
                   decoration: const InputDecoration(
                     labelText: 'File name',
-                    labelStyle:
-                        TextStyle(color: Color.fromRGBO(0, 80, 80, 0.8)),
+                    labelStyle: TextStyle(
+                      color: Color.fromRGBO(0, 80, 80, 0.8),
+                      fontSize: 18,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color.fromRGBO(0, 60, 50, 1),
+                      ),
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(20),
+                        topLeft: Radius.circular(20),
+                      ),
+                    ),
                     focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green)),
+                      borderSide: BorderSide(color: Colors.green, width: 2),
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(20),
+                        topLeft: Radius.circular(20),
+                      ),
+                    ),
                   ),
                 )),
             const SizedBox(
-              height: 40,
+              height: 120,
             ),
             InkWell(
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(20),
               splashColor: Colors.grey,
               onTap: () {
                 if (_measrementTimeController.text != null) {
@@ -110,14 +183,18 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
                 }
               },
               child: Container(
-                width: 200,
-                height: 50,
-                color: const Color.fromRGBO(0, 40, 40, 1),
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Color.fromRGBO(0, 65, 55, 0.8),
+                ),
+                height: 140,
                 child: const Center(
-                    child: Text(
-                  'Uruchom pomiar',
-                  style: TextStyle(color: Colors.white),
-                )),
+                  child: Icon(
+                    Icons.arrow_right,
+                    size: 140,
+                    color: Color.fromRGBO(235, 255, 235, 1),
+                  ),
+                ),
               ),
             ),
           ],
@@ -136,8 +213,12 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
                 'Pomiar się rozpoczyna z parametrami: \nCzas pomiaru: $var1 min\nCzas uśpienia: $var2 s'),
             actions: <Widget>[
               TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('OK'))
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text(
+                  'OK',
+                  style: TextStyle(color: Color.fromRGBO(0, 50, 30, 1)),
+                ),
+              )
             ],
           );
         });

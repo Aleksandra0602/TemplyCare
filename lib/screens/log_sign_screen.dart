@@ -16,24 +16,22 @@ class _LogSignScreenState extends State<LogSignScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   leading: IconButton(
-      //     icon: const Icon(Icons.clear_rounded),
-      //     onPressed: () {
-      //       SystemNavigator.pop();
-      //     },
-      //   ),
-      //   backgroundColor: const Color.fromRGBO(0, 50, 50, 1),
-      //   title: const Text('TempApp'),
-      //   centerTitle: true,
-      // ),
+      backgroundColor: Color.fromRGBO(245, 255, 245, 1),
+      appBar: AppBar(
+        backgroundColor: const Color.fromRGBO(0, 25, 20, 0.8),
+        title: const Text('TemplyCare'),
+        centerTitle: true,
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            height: 250,
-            //umiescic logo jesli bedzie
+          Center(
+            child: Container(
+              height: 280,
+              padding: const EdgeInsets.only(left: 15),
+              child: Image.asset('assets/logo.png', fit: BoxFit.cover),
+            ),
           ),
           const SizedBox(height: 20),
           InkWell(
@@ -51,13 +49,13 @@ class _LogSignScreenState extends State<LogSignScreen> {
                 height: 50,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: const Color.fromRGBO(0, 100, 100, 1),
+                  color: const Color.fromRGBO(1, 60, 40, 1),
                 ),
                 child: const Center(
                   child: Text(
                     'Zaloguj się',
                     style: TextStyle(
-                      color: Color.fromARGB(220, 255, 255, 255),
+                      color: Color.fromRGBO(245, 255, 245, 1),
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
@@ -86,7 +84,7 @@ class _LogSignScreenState extends State<LogSignScreen> {
                   child: Text(
                     'Zarejestruj się',
                     style: TextStyle(
-                      color: Color.fromRGBO(0, 50, 50, 0.8),
+                      color: Color.fromRGBO(1, 60, 50, 0.8),
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),

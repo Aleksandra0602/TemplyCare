@@ -6,9 +6,10 @@ class MyProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(245, 255, 245, 1),
       appBar: AppBar(
         title: const Text('Mój profil'),
-        backgroundColor: const Color.fromRGBO(0, 200, 200, 1),
+        backgroundColor: const Color.fromRGBO(0, 155, 145, 1),
       ),
     );
   }

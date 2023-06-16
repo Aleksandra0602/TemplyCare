@@ -19,11 +19,9 @@ class _FirstScreenState extends State<FirstScreen> {
   late BluetoothCharacteristic characteristic;
 
   late Stream<List<int>> stream;
-  List<double> trace = [];
 
   BluetoothDevice? _connectedDevice;
   List<BluetoothService>? _services;
-  ScreensEnum? screens;
 
   _addDeviceTolist(final BluetoothDevice device) {
     if (!widget.devicesList.contains(device)) {
@@ -51,7 +49,7 @@ class _FirstScreenState extends State<FirstScreen> {
     widget.flutterBlue.startScan();
   }
 
-  ListView _buildListViewOfDevices() {
+  ListView buildListViewOfDevices() {
     List<Container> containers = [];
     for (BluetoothDevice device in widget.devicesList) {
       containers.add(
@@ -111,21 +109,15 @@ class _FirstScreenState extends State<FirstScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('My Temperature App'),
-        backgroundColor: const Color.fromRGBO(0, 50, 50, 1),
-        leading: const Icon(
-          (Icons.menu),
-        ),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('TemplyCare'),
+      //   backgroundColor: const Color.fromRGBO(0, 25, 20, 0.8),
+      // ),
       body: _connectedDevice != null
           ? LogSignScreen(
               services: _services,
             )
-          // ? CategoriesScreen(
-          //     services: _services,
-          //   )
-          : _buildListViewOfDevices(),
+          : buildListViewOfDevices(),
     );
   }
 }

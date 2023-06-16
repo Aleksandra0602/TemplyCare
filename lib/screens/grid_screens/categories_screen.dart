@@ -33,9 +33,10 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromRGBO(245, 255, 245, 1),
       appBar: AppBar(
         title: const Text('TemplyCare'),
-        backgroundColor: const Color.fromRGBO(0, 50, 50, 1),
+        backgroundColor: const Color.fromRGBO(0, 25, 20, 0.8),
         centerTitle: true,
       ),
       body: GridView(
