@@ -3,7 +3,7 @@ import 'package:temp_app_v1/widgets/screens.dart';
 
 import 'button.dart';
 
-// ignore: unnecessary_const
+// ignore: unnecessary_const, constant_identifier_names
 const BUTTON_DATA = const [
   Button(
       title: 'Podgląd aktualnych danych',

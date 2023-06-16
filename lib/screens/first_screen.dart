@@ -3,8 +3,6 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import 'package:temp_app_v1/screens/log_sign_screen.dart';
 
-import '../widgets/screens.dart';
-
 class FirstScreen extends StatefulWidget {
   final List<BluetoothDevice> devicesList = [];
   final FlutterBluePlus flutterBlue = FlutterBluePlus.instance;
@@ -67,9 +65,8 @@ class _FirstScreenState extends State<FirstScreen> {
                     ],
                   ),
                 ),
-                FlatButton(
-                  color: Color.fromRGBO(0, 100, 100, 0.8),
-                  child: Text(
+                TextButton(
+                  child: const Text(
                     'Connect',
                     style: TextStyle(color: Colors.white),
                   ),

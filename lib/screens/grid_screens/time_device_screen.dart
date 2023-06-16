@@ -28,7 +28,7 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(245, 255, 245, 1),
+      backgroundColor: const Color.fromRGBO(245, 255, 245, 1),
       appBar: AppBar(
         title: const Text(
           'Czas na urządzeniu pomiarowym',
@@ -75,7 +75,7 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
                         wartosc = dataParser(value);
                       });
                       characteristic.read();
-                      print(wartosc);
+                      //print(wartosc);
                     }
                   });
                 }

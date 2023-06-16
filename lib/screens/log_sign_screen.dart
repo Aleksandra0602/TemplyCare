@@ -16,7 +16,7 @@ class _LogSignScreenState extends State<LogSignScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(245, 255, 245, 1),
+      backgroundColor: const Color.fromRGBO(245, 255, 245, 1),
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(0, 25, 20, 0.8),
         title: const Text('TemplyCare'),
@@ -44,9 +44,9 @@ class _LogSignScreenState extends State<LogSignScreen> {
                           )))); //zmienic
             },
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 66),
+              padding: const EdgeInsets.symmetric(horizontal: 50),
               child: Container(
-                height: 50,
+                height: 60,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: const Color.fromRGBO(1, 60, 40, 1),
@@ -70,16 +70,16 @@ class _LogSignScreenState extends State<LogSignScreen> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: ((context) => SignUpScreen()))); //zmienic
+                      builder: ((context) => const SignUpScreen()))); //zmienic
             },
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 66),
+              padding: const EdgeInsets.symmetric(horizontal: 50),
               child: Container(
-                height: 50,
+                height: 60,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(
-                        width: 3, color: Color.fromRGBO(0, 100, 100, 1))),
+                        width: 3, color: const Color.fromRGBO(0, 100, 100, 1))),
                 child: const Center(
                   child: Text(
                     'Zarejestruj się',

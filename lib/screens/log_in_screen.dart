@@ -18,7 +18,7 @@ class _LogInScreenState extends State<LogInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(245, 255, 245, 1),
+      backgroundColor: const Color.fromRGBO(245, 255, 245, 1),
       appBar: AppBar(
         title: const Text('Logowanie'),
         backgroundColor: const Color.fromRGBO(0, 25, 20, 0.8),
@@ -39,7 +39,7 @@ class _LogInScreenState extends State<LogInScreen> {
               height: 10,
             ),
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -68,7 +68,7 @@ class _LogInScreenState extends State<LogInScreen> {
               ),
             ),
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -136,8 +136,10 @@ class _LogInScreenState extends State<LogInScreen> {
             ),
             TextButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SignUpScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SignUpScreen()));
               },
               child: const Text(
                 'Zarejestruj się!',
