@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import 'package:temp_app_v1/utils/constans/dimensions.dart';
+import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:temp_app_v1/utils/data_parser_method.dart';
 
 class TimeDeviceScreen extends StatefulWidget {
@@ -28,13 +29,13 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(245, 255, 245, 1),
+      backgroundColor: MyColor.backgroundColor,
       appBar: AppBar(
         title: const Text(
           'Czas na urządzeniu pomiarowym',
           style: TextStyle(fontSize: 18),
         ),
-        backgroundColor: const Color.fromRGBO(0, 125, 115, 1),
+        backgroundColor: MyColor.primary6,
       ),
       body: Column(
         children: <Widget>[

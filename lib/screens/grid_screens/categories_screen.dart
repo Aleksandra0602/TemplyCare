@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import 'package:temp_app_v1/utils/constans/dimensions.dart';
+import 'package:temp_app_v1/utils/constans/my_color.dart';
+import 'package:temp_app_v1/widgets/main_drawer.dart';
 
 import '../../widgets/button_data.dart';
 import '../../widgets/single_button.dart';
@@ -31,12 +33,13 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(245, 255, 245, 1),
+      backgroundColor: MyColor.backgroundColor,
       appBar: AppBar(
         title: const Text('TemplyCare'),
-        backgroundColor: const Color.fromRGBO(0, 25, 20, 0.8),
+        backgroundColor: MyColor.appBarColor1,
         centerTitle: true,
       ),
+      drawer: const MainDrawer(),
       body: GridView(
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: Dimensions.HEIGHT,

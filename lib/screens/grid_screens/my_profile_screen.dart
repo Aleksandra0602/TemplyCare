@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:temp_app_v1/screens/log_sign_screen.dart';
-import 'package:temp_app_v1/widgets/ripple_animate.dart';
+import 'package:temp_app_v1/utils/constans/my_color.dart';
+import 'package:temp_app_v1/widgets/my_button.dart';
+import 'package:temp_app_v1/widgets/ripple_animate_screen.dart';
 
 class MyProfileScreen extends StatelessWidget {
   const MyProfileScreen({Key? key}) : super(key: key);
@@ -8,10 +9,11 @@ class MyProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(245, 255, 245, 1),
+      backgroundColor: MyColor.backgroundColor,
       appBar: AppBar(
+        centerTitle: true,
         title: const Text('Mój profil'),
-        backgroundColor: const Color.fromRGBO(0, 155, 145, 1),
+        backgroundColor: MyColor.primary8,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -78,28 +80,15 @@ class MyProfileScreen extends StatelessWidget {
               onTap: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => RippleAnimate()),
+                  MaterialPageRoute(
+                      builder: (context) => RippleAnimateScreen()),
                 );
               },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Container(
-                  height: 60,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.amber,
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'Wyloguj się',
-                      style: TextStyle(
-                        color: Color.fromRGBO(245, 255, 245, 1),
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
+              child: const MyButton(
+                color: MyColor.additionalColor,
+                textButton: 'Wyloguj się',
+                borderColor: MyColor.additionalColor,
+                textColor: MyColor.backgroundColor,
               ),
             ),
           ],

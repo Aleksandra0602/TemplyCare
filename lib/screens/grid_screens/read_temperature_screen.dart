@@ -3,9 +3,9 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import 'package:temp_app_v1/utils/constans/dimensions.dart';
+import 'package:temp_app_v1/utils/constans/my_color.dart';
 
 import '../../utils/data_parser_method.dart';
-//import '../../widgets/line_chart_curve.dart';
 
 class ReadTemperatureScreen extends StatefulWidget {
   final Map<Guid, List<int>> readValues = Map<Guid, List<int>>();
@@ -20,14 +20,11 @@ class ReadTemperatureScreen extends StatefulWidget {
 
 class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
   String warunek = '1,0,0';
-  String temperature = "";
   double temp = 0;
   double temp2 = 0;
   double hum = 0;
-
-  // String temperature2 = "";
-  String humidity = "";
   double temp1 = 5;
+
   List<double> trace = [];
   late Stream<List<int>> stream;
   final Map<Guid, List<int>> readValues = Map<Guid, List<int>>();
@@ -47,10 +44,9 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                   return double.parse(e);
                 }).toList();
                 setState(() {
-                  //temperature = list[0].toString();
                   temp = list[0];
-                  //temperature2 = list[1].toString();
-                  //humidity = list[1].toString();
+                  //temp2 = list[1]
+
                   hum = list[1];
                 });
               });
@@ -67,39 +63,19 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(245, 255, 245, 1),
+      backgroundColor: MyColor.backgroundColor,
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Aktualne pomiary'),
-        backgroundColor: const Color.fromRGBO(0, 50, 40, 1),
+        backgroundColor: MyColor.primary1,
       ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
             children: <Widget>[
-              SizedBox(
+              const SizedBox(
                 height: 80,
               ),
-              // Container(
-              //   padding: const EdgeInsets.all(12),
-              //   child: const Text(
-              //     'Temperature 1:',
-              //     style: TextStyle(
-              //       height: 2,
-              //       fontSize: 20,
-              //       color: Color.fromRGBO(4, 141, 111, 0.815),
-              //       fontWeight: FontWeight.bold,
-              //       fontStyle: FontStyle.italic,
-              //     ),
-              //   ),
-              // ),
-              // Text(
-              //   temperature,
-              //   style: const TextStyle(
-              //     fontSize: 24,
-              //     fontWeight: FontWeight.bold,
-              //   ),
-              // ),
               SleekCircularSlider(
                 appearance: CircularSliderAppearance(
                   customColors: CustomSliderColors(
@@ -135,26 +111,6 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
               const SizedBox(
                 height: 12,
               ),
-              // Container(
-              //   padding: const EdgeInsets.all(12),
-              //   child: const Text(
-              //     'Temperature 2:',
-              //     style: TextStyle(
-              //       height: 2,
-              //       fontSize: 20,
-              //       color: Color.fromRGBO(4, 141, 111, 0.815),
-              //       fontWeight: FontWeight.bold,
-              //       fontStyle: FontStyle.italic,
-              //     ),
-              //   ),
-              // ),
-              // Text(
-              //   temperature2,
-              //   style: const TextStyle(
-              //     fontSize: 24,
-              //     fontWeight: FontWeight.bold,
-              //   ),
-              // ),
               // SleekCircularSlider(
               //   appearance: CircularSliderAppearance(
               //     customColors: CustomSliderColors(
@@ -189,20 +145,6 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
               const SizedBox(
                 height: 12,
               ),
-              // Container(
-              //   margin: const EdgeInsets.all(12),
-              //   padding: const EdgeInsets.all(12),
-              //   child: const Text(
-              //     'Humidity:',
-              //     style: TextStyle(
-              //       height: 2,
-              //       fontSize: 20,
-              //       color: Color.fromRGBO(4, 141, 111, 0.815),
-              //       fontWeight: FontWeight.bold,
-              //       fontStyle: FontStyle.italic,
-              //     ),
-              //   ),
-              // ),
               SleekCircularSlider(
                 appearance: CircularSliderAppearance(
                   customColors: CustomSliderColors(
@@ -224,7 +166,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                       modifier: (double value) {
-                        return '${hum} %';
+                        return '$hum %';
                       }),
                   startAngle: 135,
                   angleRange: 270,
@@ -235,14 +177,6 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                 max: 100,
                 initialValue: hum,
               ),
-              // Text(
-              //   humidity,
-              //   style: const TextStyle(
-              //     fontSize: 24,
-              //     fontWeight: FontWeight.bold,
-              //   ),
-
-              // ),
             ],
           ),
         ),

@@ -33,7 +33,9 @@ void selectCategory(
       break;
     case ScreensEnum.batteryScreen:
       Navigator.of(ctx).push(MaterialPageRoute(builder: (ctx) {
-        return BatteryScreen();
+        return BatteryScreen(
+          services: services,
+        );
       }));
       break;
     case ScreensEnum.memoryCardScreen:

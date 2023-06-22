@@ -11,7 +11,7 @@ class SingleButton extends StatelessWidget {
   final List<BluetoothService>? services;
   final ScreensEnum screens;
 
-  SingleButton(this.title, this.color, this.services, this.screens);
+  const SingleButton(this.title, this.color, this.services, this.screens);
 
   @override
   Widget build(BuildContext context) {

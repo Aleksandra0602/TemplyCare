@@ -3,6 +3,9 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import 'package:temp_app_v1/screens/grid_screens/categories_screen.dart';
 import 'package:temp_app_v1/screens/sign_up_screen.dart';
+import 'package:temp_app_v1/utils/constans/my_color.dart';
+import 'package:temp_app_v1/widgets/log_sign_field.dart';
+import 'package:temp_app_v1/widgets/my_button.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key, this.services});
@@ -14,14 +17,15 @@ class LogInScreen extends StatefulWidget {
 
 class _LogInScreenState extends State<LogInScreen> {
   final _loginCheckController = TextEditingController();
+  final _passwordCheckController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(245, 255, 245, 1),
+      backgroundColor: MyColor.backgroundColor,
       appBar: AppBar(
         title: const Text('Logowanie'),
-        backgroundColor: const Color.fromRGBO(0, 25, 20, 0.8),
+        backgroundColor: MyColor.appBarColor1,
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -38,61 +42,8 @@ class _LogInScreenState extends State<LogInScreen> {
             const SizedBox(
               height: 10,
             ),
-            Container(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Login:',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  TextFormField(
-                    controller: _loginCheckController,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.person,
-                        color: Color.fromRGBO(1, 60, 50, 0.5),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.amber,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Hasło:',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  TextFormField(
-                    controller: _loginCheckController,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.password,
-                        color: Color.fromRGBO(1, 60, 50, 0.5),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.amber,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            LogSignField('Login', Icons.person, _loginCheckController),
+            LogSignField('Hasło', Icons.password, _passwordCheckController),
             const SizedBox(
               height: 40,
             ),
@@ -104,25 +55,11 @@ class _LogInScreenState extends State<LogInScreen> {
                         builder: ((context) =>
                             CategoriesScreen(services: widget.services))));
               }),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 60),
-                child: Container(
-                  height: 60,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.amber,
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'Zaloguj się',
-                      style: TextStyle(
-                        color: Color.fromRGBO(245, 255, 245, 1),
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
+              child: const MyButton(
+                color: MyColor.additionalColor,
+                textButton: 'Zaloguj się',
+                borderColor: MyColor.additionalColor,
+                textColor: MyColor.backgroundColor,
               ),
             ),
             const SizedBox(

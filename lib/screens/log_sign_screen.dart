@@ -3,6 +3,8 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import 'package:temp_app_v1/screens/log_in_screen.dart';
 import 'package:temp_app_v1/screens/sign_up_screen.dart';
+import 'package:temp_app_v1/utils/constans/my_color.dart';
+import 'package:temp_app_v1/widgets/my_button.dart';
 
 class LogSignScreen extends StatefulWidget {
   const LogSignScreen({super.key, this.services});
@@ -16,9 +18,9 @@ class _LogSignScreenState extends State<LogSignScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(245, 255, 245, 1),
+      backgroundColor: MyColor.backgroundColor,
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(0, 25, 20, 0.8),
+        backgroundColor: MyColor.appBarColor1,
         title: const Text('TemplyCare'),
         centerTitle: true,
       ),
@@ -41,27 +43,13 @@ class _LogSignScreenState extends State<LogSignScreen> {
                   MaterialPageRoute(
                       builder: ((context) => LogInScreen(
                             services: widget.services,
-                          )))); //zmienic
+                          ))));
             },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50),
-              child: Container(
-                height: 60,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: const Color.fromRGBO(1, 60, 40, 1),
-                ),
-                child: const Center(
-                  child: Text(
-                    'Zaloguj się',
-                    style: TextStyle(
-                      color: Color.fromRGBO(245, 255, 245, 1),
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
+            child: const MyButton(
+              color: MyColor.primary2,
+              textButton: 'Zaloguj się',
+              borderColor: MyColor.primary2,
+              textColor: MyColor.backgroundColor,
             ),
           ),
           const SizedBox(height: 12),
@@ -70,28 +58,13 @@ class _LogSignScreenState extends State<LogSignScreen> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: ((context) => const SignUpScreen()))); //zmienic
+                      builder: ((context) => const SignUpScreen())));
             },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50),
-              child: Container(
-                height: 60,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                        width: 3, color: const Color.fromRGBO(0, 100, 100, 1))),
-                child: const Center(
-                  child: Text(
-                    'Zarejestruj się',
-                    style: TextStyle(
-                      color: Color.fromRGBO(1, 60, 50, 0.8),
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
+            child: const MyButton(
+              color: MyColor.backgroundColor,
+              textButton: 'Zarejestruj się',
+              borderColor: MyColor.primary2,
+              textColor: MyColor.primary2,
             ),
           ),
         ],

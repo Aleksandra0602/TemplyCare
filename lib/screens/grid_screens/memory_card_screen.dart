@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:temp_app_v1/utils/constans/my_color.dart';
 
 class MemoryCardScreen extends StatelessWidget {
   const MemoryCardScreen({Key? key}) : super(key: key);
@@ -6,10 +7,10 @@ class MemoryCardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(245, 255, 245, 1),
+      backgroundColor: MyColor.backgroundColor,
       appBar: AppBar(
         title: const Text('Stan karty pamięci'),
-        backgroundColor: const Color.fromRGBO(0, 95, 85, 1),
+        backgroundColor: MyColor.primary4,
       ),
     );
   }
