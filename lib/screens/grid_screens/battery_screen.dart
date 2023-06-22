@@ -1,22 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:temp_app_v1/utils/constans/dimensions.dart';
+import 'package:temp_app_v1/utils/constans/my_color.dart';
+
+import '../../utils/data_parser_method.dart';
 
 class BatteryScreen extends StatefulWidget {
-  const BatteryScreen({Key? key}) : super(key: key);
+  BatteryScreen({Key? key, this.services}) : super(key: key);
+
+  final List<BluetoothService>? services;
+  final Map<Guid, List<int>> readValues = Map<Guid, List<int>>();
 
   @override
   State<BatteryScreen> createState() => _BatteryScreenState();
 }
 
 class _BatteryScreenState extends State<BatteryScreen> {
-  double currentBatteryValue = 75;
+  double currentBatteryValue = 0;
+  String batteryValue = '';
+
+  @override
+  void initState() {
+    Future.delayed(Duration.zero, () async {
+      widget.services!.forEach((service) {
+        if (service.uuid.toString() == Dimensions.service_uuid) {
+          service.characteristics.forEach((characteristic) {
+            if (characteristic.uuid.toString() ==
+                Dimensions.charaCteristic_uuid) {
+              characteristic.value.listen((value) {
+                //print('AAAA' + dataParser(value));
+                setState(() {
+                  widget.readValues[characteristic.uuid] = value;
+                });
+                batteryValue = dataParser(value);
+                currentBatteryValue = double.parse(batteryValue);
+              });
+
+              characteristic.read();
+            }
+          });
+        }
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(245, 255, 245, 1),
+      backgroundColor: MyColor.backgroundColor,
       appBar: AppBar(
+        centerTitle: true,
         title: const Text('Stan Baterii'),
-        backgroundColor: const Color.fromRGBO(0, 80, 70, 1),
+        backgroundColor: MyColor.primary3,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -49,7 +85,8 @@ class _BatteryScreenState extends State<BatteryScreen> {
                         data: SliderTheme.of(context).copyWith(
                           activeTrackColor: Colors.green,
                           inactiveTrackColor: Colors.grey.shade500,
-                          trackShape: RectangularSliderTrackShape(),
+                          disabledActiveTrackColor: Colors.lightGreen,
+                          trackShape: const RectangularSliderTrackShape(),
                           trackHeight: 100,
                           thumbShape: SliderComponentShape.noThumb,
                           overlayShape: const RoundSliderOverlayShape(
@@ -57,7 +94,7 @@ class _BatteryScreenState extends State<BatteryScreen> {
                           ),
                         ),
                         child: Center(
-                          child: Container(
+                          child: SizedBox(
                             height: 250,
                             child: RotatedBox(
                               quarterTurns: 3,
@@ -66,11 +103,7 @@ class _BatteryScreenState extends State<BatteryScreen> {
                                 max: 100,
                                 min: 0,
                                 divisions: 100,
-                                onChanged: (double value) {
-                                  setState(() {
-                                    currentBatteryValue = value;
-                                  });
-                                },
+                                onChanged: null,
                                 activeColor: Colors.green,
                               ),
                             ),
@@ -90,9 +123,9 @@ class _BatteryScreenState extends State<BatteryScreen> {
                     alignment: Alignment.center,
                     child: Text(
                       currentBatteryValue.toStringAsFixed(0) + '%',
-                      style: TextStyle(
-                        fontSize: 48,
-                        color: const Color.fromRGBO(245, 255, 245, 1),
+                      style: const TextStyle(
+                        fontSize: 28,
+                        color: MyColor.backgroundColor,
                       ),
                     ),
                   ),

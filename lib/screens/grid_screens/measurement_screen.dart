@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import 'package:temp_app_v1/utils/constans/dimensions.dart';
+import 'package:temp_app_v1/utils/constans/my_color.dart';
+import 'package:temp_app_v1/widgets/data_measurement_field.dart';
 
 class MeasurementScreen extends StatefulWidget {
   final List<BluetoothService>? services;
@@ -23,11 +25,11 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(245, 255, 245, 1),
+      backgroundColor: MyColor.backgroundColor,
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Ustaw parametry'),
-        backgroundColor: const Color.fromRGBO(0, 65, 55, 1),
+        backgroundColor: MyColor.primary2,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -35,122 +37,26 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
             const SizedBox(
               height: 40,
             ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: TextFormField(
-                keyboardType: TextInputType.number,
-                controller: _measrementTimeController,
-                decoration: const InputDecoration(
-                  labelText: 'Czas pomiaru [min]',
-                  labelStyle: TextStyle(
-                    color: Color.fromRGBO(0, 65, 55, 0.8),
-                    fontSize: 18,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color.fromRGBO(0, 60, 50, 1),
-                    ),
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(20),
-                      topLeft: Radius.circular(20),
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.green, width: 2),
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(20),
-                      topLeft: Radius.circular(20),
-                    ),
-                  ),
-                ),
-              ),
+            DataMeasurementField(
+              textEditingController: _measrementTimeController,
+              text: 'Czas pomiaru [min]',
+              textType: TextInputType.number,
             ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: TextFormField(
-                keyboardType: TextInputType.number,
-                controller: _sleepTimeController,
-                decoration: const InputDecoration(
-                  labelText: 'Czas uśpienia [s]',
-                  labelStyle: TextStyle(
-                    color: Color.fromRGBO(0, 80, 80, 0.8),
-                    fontSize: 18,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color.fromRGBO(0, 60, 50, 1),
-                    ),
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(20),
-                      topLeft: Radius.circular(20),
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.green, width: 2),
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(20),
-                      topLeft: Radius.circular(20),
-                    ),
-                  ),
-                ),
-              ),
+            DataMeasurementField(
+              textEditingController: _sleepTimeController,
+              text: 'Czas uśpienia [s]',
+              textType: TextInputType.number,
             ),
-            Padding(
-                padding: const EdgeInsets.all(10),
-                child: TextFormField(
-                  controller: _tagController,
-                  decoration: const InputDecoration(
-                    labelText: 'Tag',
-                    labelStyle: TextStyle(
-                      color: Color.fromRGBO(0, 80, 80, 0.8),
-                      fontSize: 18,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color.fromRGBO(0, 60, 50, 1),
-                      ),
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(20),
-                        topLeft: Radius.circular(20),
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green, width: 2),
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(20),
-                        topLeft: Radius.circular(20),
-                      ),
-                    ),
-                  ),
-                )),
-            Padding(
-                padding: const EdgeInsets.all(10),
-                child: TextFormField(
-                  controller: _fileNameController,
-                  decoration: const InputDecoration(
-                    labelText: 'File name',
-                    labelStyle: TextStyle(
-                      color: Color.fromRGBO(0, 80, 80, 0.8),
-                      fontSize: 18,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color.fromRGBO(0, 60, 50, 1),
-                      ),
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(20),
-                        topLeft: Radius.circular(20),
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green, width: 2),
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(20),
-                        topLeft: Radius.circular(20),
-                      ),
-                    ),
-                  ),
-                )),
+            DataMeasurementField(
+              textEditingController: _tagController,
+              text: 'Tag',
+              textType: TextInputType.text,
+            ),
+            DataMeasurementField(
+              textEditingController: _fileNameController,
+              text: 'Nazwa pliku',
+              textType: TextInputType.text,
+            ),
             const SizedBox(
               height: 120,
             ),

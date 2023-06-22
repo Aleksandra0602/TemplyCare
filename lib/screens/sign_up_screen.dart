@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:temp_app_v1/screens/log_in_screen.dart';
+import 'package:temp_app_v1/utils/constans/my_color.dart';
+import 'package:temp_app_v1/widgets/log_sign_field.dart';
+import 'package:temp_app_v1/widgets/my_button.dart';
 
 import 'grid_screens/categories_screen.dart';
 
@@ -13,18 +16,18 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  // final _loginController = TextEditingController();
-  // final _emailController = TextEditingController();
-  // final _password1Controller = TextEditingController();
-  // final _password2Controller = TextEditingController();
+  final _loginController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _password1Controller = TextEditingController();
+  final _password2Controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(245, 255, 245, 1),
+      backgroundColor: MyColor.backgroundColor,
       appBar: AppBar(
         title: const Text('Rejestracja'),
-        backgroundColor: const Color.fromRGBO(0, 25, 20, 0.8),
+        backgroundColor: MyColor.appBarColor1,
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -34,117 +37,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
               height: 10,
             ),
             Container(
-              height: 140,
+              height: 120,
               padding: const EdgeInsets.only(left: 10),
               child: Image.asset('assets/logo.png', fit: BoxFit.cover),
             ),
-            Container(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Login:',
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(
-                        Icons.person,
-                        color: Color.fromRGBO(1, 60, 50, 1),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: Color.fromRGBO(1, 60, 50, 1),
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  const Text(
-                    'E-mail:',
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(
-                        Icons.mail,
-                        color: Color.fromRGBO(1, 60, 50, 1),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: Color.fromRGBO(1, 60, 50, 1),
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  const Text(
-                    'Hasło:',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(
-                        Icons.password,
-                        color: Color.fromRGBO(1, 60, 50, 1),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: Color.fromRGBO(1, 60, 50, 1),
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  const Text(
-                    'Powtórz hasło:',
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(
-                        Icons.password,
-                        color: Color.fromRGBO(1, 60, 50, 1),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: Color.fromRGBO(1, 60, 50, 1),
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            LogSignField('Login', Icons.person, _loginController),
+            LogSignField('E-mail', Icons.mail, _emailController),
+            LogSignField('Hasło', Icons.password, _password1Controller),
+            LogSignField('Powtórz hasło', Icons.password, _password2Controller),
             const SizedBox(
-              height: 40,
+              height: 30,
             ),
             InkWell(
               onTap: (() {
@@ -154,25 +56,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         builder: ((context) =>
                             CategoriesScreen(services: widget.services))));
               }),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 60),
-                child: Container(
-                  height: 60,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.amber,
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'Zarejestruj się',
-                      style: TextStyle(
-                        color: Color.fromRGBO(245, 255, 245, 1),
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
+              child: const MyButton(
+                color: MyColor.additionalColor,
+                textButton: 'Zarejestruj się',
+                borderColor: MyColor.additionalColor,
+                textColor: MyColor.backgroundColor,
               ),
             ),
             const SizedBox(
@@ -194,7 +82,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
-                  color: Color.fromRGBO(1, 60, 50, 1),
+                  color: MyColor.appBarColor2,
                 ),
               ),
             ),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:temp_app_v1/screens/grid_screens/categories_screen.dart';
 import 'package:temp_app_v1/screens/log_sign_screen.dart';
-import 'package:temp_app_v1/widgets/ripple_animate.dart';
+import 'package:temp_app_v1/utils/constans/my_color.dart';
+import 'package:temp_app_v1/widgets/ripple_animate_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -27,13 +29,13 @@ class _MyAppState extends State<MyApp> {
             fontWeight: FontWeight.bold,
           ),
           colors: const [
-            Color.fromRGBO(0, 25, 20, 0.8),
-            Color.fromRGBO(1, 60, 40, 0.8),
-            Color.fromRGBO(2, 90, 60, 0.8),
+            MyColor.appBarColor1,
+            MyColor.appBarColor2,
+            MyColor.appBarColor3,
           ],
         ),
         splashTransition: SplashTransition.slideTransition,
-        // nextScreen: RippleAnimate(),
+        //nextScreen: RippleAnimateScreen(),
         nextScreen: LogSignScreen(),
       ),
     );
