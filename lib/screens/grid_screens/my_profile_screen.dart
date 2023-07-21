@@ -1,15 +1,40 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:temp_app_v1/widgets/my_button.dart';
-import 'package:temp_app_v1/widgets/ripple_animate_screen.dart';
+import 'package:temp_app_v1/screens/ripple_animate_screen.dart';
 
-class MyProfileScreen extends StatelessWidget {
+class MyProfileScreen extends StatefulWidget {
   const MyProfileScreen({Key? key}) : super(key: key);
+
+  @override
+  State<MyProfileScreen> createState() => _MyProfileScreenState();
+}
+
+class _MyProfileScreenState extends State<MyProfileScreen> {
+  bool isPasswordVisible = false;
+  String password = 'Password123.';
+  String mail = 'mail@magisterka.com';
+  String login = 'Student1998';
+
+  File? storedImage;
+
+  Future getPhoto() async {
+    final photo = ImagePicker();
+    final profilePhoto =
+        await photo.pickImage(source: ImageSource.gallery, maxWidth: 600);
+
+    setState(() {
+      storedImage = File(profilePhoto!.path);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColor.backgroundColor,
+      backgroundColor: MyColor.primary8,
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Mój profil'),
@@ -18,63 +43,184 @@ class MyProfileScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            const SizedBox(
+              height: 40,
+            ),
             Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16),
               alignment: Alignment.center,
-              height: 280,
+              height: 480,
               decoration: BoxDecoration(
-                color: const Color.fromRGBO(0, 155, 145, 0.5),
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                ),
-                boxShadow: [
+                color: MyColor.backgroundColor,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: const [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 15,
-                    offset: const Offset(4, 8),
+                    color: Colors.grey,
+                    spreadRadius: 4,
+                    blurRadius: 8,
                   ),
                 ],
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(
-                    Icons.person,
-                    color: Colors.grey.shade200,
-                    size: 150,
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          storedImage == null
+                              ? const Text(
+                                  'Dodaj zdjęcie profilowe',
+                                  style: TextStyle(fontSize: 16),
+                                )
+                              : const Text(
+                                  'Zmień zdjęcie profilowe',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.add_a_photo,
+                              color: MyColor.additionalColor,
+                            ),
+                            onPressed: getPhoto,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      storedImage == null
+                          ? Icon(
+                              Icons.person,
+                              color: Colors.grey.shade200,
+                              size: 150,
+                            )
+                          : Container(
+                              height: 180,
+                              width: 180,
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Colors.grey,
+                                            blurRadius: 15,
+                                            spreadRadius: 5),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 180,
+                                    width: 180,
+                                    child: ClipOval(
+                                      child: Image.file(
+                                        storedImage!,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      Text(
+                        login,
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 22,
+                        ),
+                      ),
+                    ],
                   ),
-                  Text(
-                    'Login',
-                    style: TextStyle(
-                      color: Colors.grey.shade200,
-                      fontSize: 22,
-                    ),
+                  Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.mail,
+                              color: MyColor.primary7,
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            const Text(
+                              'E-mail: ',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            Text(
+                              mail,
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Divider(),
+                      Container(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                const Icon(
+                                  Icons.password,
+                                  color: MyColor.primary7,
+                                ),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                const Text(
+                                  'Hasło: ',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                isPasswordVisible
+                                    ? Text(
+                                        password,
+                                        style: TextStyle(fontSize: 16),
+                                      )
+                                    : Text(
+                                        String.fromCharCodes(List.filled(
+                                            password.length, 0x2055)),
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                              ],
+                            ),
+                            Checkbox(
+                              checkColor: MyColor.backgroundColor,
+                              activeColor: MyColor.additionalColor,
+                              value: isPasswordVisible,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  isPasswordVisible = value!;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      )
+                    ],
                   ),
                 ],
               ),
             ),
             const SizedBox(
-              height: 48,
-            ),
-            Container(
-              alignment: Alignment.topLeft,
-              padding: const EdgeInsets.only(left: 5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Informacje o użytkowniku',
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
-                  Text('Tu będą jakieś informacje o użytkowniku'),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 200,
+              height: 60,
             ),
             InkWell(
               onTap: () {
@@ -84,7 +230,7 @@ class MyProfileScreen extends StatelessWidget {
                       builder: (context) => RippleAnimateScreen()),
                 );
               },
-              child: const MyButton(
+              child: MyButton(
                 color: MyColor.additionalColor,
                 textButton: 'Wyloguj się',
                 borderColor: MyColor.additionalColor,

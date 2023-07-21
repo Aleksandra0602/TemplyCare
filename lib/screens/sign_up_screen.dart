@@ -27,7 +27,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       backgroundColor: MyColor.backgroundColor,
       appBar: AppBar(
         title: const Text('Rejestracja'),
-        backgroundColor: MyColor.appBarColor1,
+        backgroundColor: MyColor.appBarColor2,
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -38,7 +38,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             Container(
               height: 120,
-              padding: const EdgeInsets.only(left: 10),
               child: Image.asset('assets/logo.png', fit: BoxFit.cover),
             ),
             LogSignField('Login', Icons.person, _loginController),
@@ -56,7 +55,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         builder: ((context) =>
                             CategoriesScreen(services: widget.services))));
               }),
-              child: const MyButton(
+              child: MyButton(
                 color: MyColor.additionalColor,
                 textButton: 'Zarejestruj się',
                 borderColor: MyColor.additionalColor,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:temp_app_v1/utils/constans/my_color.dart';
 
 import '../screens/log_sign_screen.dart';
 
@@ -63,20 +64,21 @@ class _ModalBottomBodyState extends State<ModalBottomBody> {
             padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 2),
             child: Row(
               children: [
-                const Expanded(
+                Expanded(
                   child: Text(
                     'Połącz się z urządzeniem',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: Color.fromRGBO(0, 70, 60, 1),
+                        color: MyColor.backgroundColor,
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
                 IconButton(
                   iconSize: 32,
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.clear,
+                    color: MyColor.backgroundColor,
                   ),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
@@ -87,8 +89,10 @@ class _ModalBottomBodyState extends State<ModalBottomBody> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: devicesList
                 .map((element) => Card(
-                      color: const Color.fromRGBO(235, 255, 235, 1),
-                      shadowColor: const Color.fromRGBO(1, 100, 75, 0.8),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
+                      color: MyColor.backgroundColor,
+                      shadowColor: MyColor.primary3,
                       child: SizedBox(
                         height: 60,
                         child: Row(
@@ -107,7 +111,7 @@ class _ModalBottomBodyState extends State<ModalBottomBody> {
                                   Text(
                                     element.id.toString(),
                                     style: TextStyle(
-                                        fontSize: 14,
+                                        fontSize: 12,
                                         color: Colors.grey.shade800),
                                   ),
                                 ],
@@ -124,17 +128,22 @@ class _ModalBottomBodyState extends State<ModalBottomBody> {
                                   }
                                 } finally {
                                   _services = await element.discoverServices();
+                                  print(_services.toString());
                                 }
                                 setState(() {
                                   _connectedDevice = element;
                                   _services = _services;
+
+                                  print(_services!.last);
                                 });
 
                                 Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: ((context) => LogSignScreen(
-                                            services: _services))));
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: ((context) =>
+                                        LogSignScreen(services: _services)),
+                                  ),
+                                );
                               },
                               child: Container(
                                 height: 45,

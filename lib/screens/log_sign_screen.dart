@@ -20,7 +20,7 @@ class _LogSignScreenState extends State<LogSignScreen> {
     return Scaffold(
       backgroundColor: MyColor.backgroundColor,
       appBar: AppBar(
-        backgroundColor: MyColor.appBarColor1,
+        backgroundColor: MyColor.appBarColor2,
         title: const Text('TemplyCare'),
         centerTitle: true,
       ),
@@ -29,9 +29,8 @@ class _LogSignScreenState extends State<LogSignScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Center(
-            child: Container(
+            child: SizedBox(
               height: 280,
-              padding: const EdgeInsets.only(left: 15),
               child: Image.asset('assets/logo.png', fit: BoxFit.cover),
             ),
           ),
@@ -45,7 +44,7 @@ class _LogSignScreenState extends State<LogSignScreen> {
                             services: widget.services,
                           ))));
             },
-            child: const MyButton(
+            child: MyButton(
               color: MyColor.primary2,
               textButton: 'Zaloguj się',
               borderColor: MyColor.primary2,
@@ -60,7 +59,7 @@ class _LogSignScreenState extends State<LogSignScreen> {
                   MaterialPageRoute(
                       builder: ((context) => const SignUpScreen())));
             },
-            child: const MyButton(
+            child: MyButton(
               color: MyColor.backgroundColor,
               textButton: 'Zarejestruj się',
               borderColor: MyColor.primary2,
