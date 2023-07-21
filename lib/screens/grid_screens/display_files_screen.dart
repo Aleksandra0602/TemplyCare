@@ -9,6 +9,7 @@ class DisplayFilesScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: MyColor.backgroundColor,
       appBar: AppBar(
+        centerTitle: true,
         title: const Text('Wyświetl dostępne pliki'),
         backgroundColor: MyColor.primary5,
       ),

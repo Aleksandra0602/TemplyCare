@@ -9,6 +9,7 @@ class MemoryCardScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: MyColor.backgroundColor,
       appBar: AppBar(
+        centerTitle: true,
         title: const Text('Stan karty pamięci'),
         backgroundColor: MyColor.primary4,
       ),

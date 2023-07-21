@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
@@ -28,6 +31,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
   List<double> trace = [];
   late Stream<List<int>> stream;
   final Map<Guid, List<int>> readValues = Map<Guid, List<int>>();
+  late StreamSubscription<List<int>> subscription;
 
   @override
   void initState() {
@@ -36,28 +40,41 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
         if (service.uuid.toString() == Dimensions.service_uuid) {
           service.characteristics.forEach((characteristic) {
             if (characteristic.uuid.toString() ==
-                Dimensions.charaCteristic_uuid) {
+                Dimensions.characteristic_uuid) {
+              print("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
+              print(service.uuid);
+
               characteristic.setNotifyValue(!characteristic.isNotifying);
-              characteristic.value.listen((value) {
+
+              subscription = characteristic.value.listen((value) {
+                print("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
                 List<double> list =
                     dataParser(value).split(',').map<double>((e) {
                   return double.parse(e);
                 }).toList();
-                setState(() {
-                  temp = list[0];
-                  //temp2 = list[1]
 
-                  hum = list[1];
-                });
+                if (this.mounted) {
+                  setState(() {
+                    print("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+                    temp = list[0];
+                    //temp2 = list[1]
+
+                    hum = list[1];
+                  });
+                }
               });
-              //TODO: przerobic na metode, ktora bedzie zwracac obiekt characteristic
-              //ktory bedziemy wykorzystywac w StreamBuilderze jako strumien
             }
           });
         }
       });
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    subscription.cancel();
+    super.dispose();
   }
 
   @override

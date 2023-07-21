@@ -1,12 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:temp_app_v1/utils/constans/my_color.dart';
-import 'package:temp_app_v1/widgets/paint.dart';
 
-import '../screens/log_sign_screen.dart';
-import 'modal_bottom.dart';
+import 'package:temp_app_v1/utils/constans/my_color.dart';
+
+import '../widgets/bluetooth_turned_on_body.dart';
+import '../widgets/bt_alert_dialog.dart';
 
 class RippleAnimateScreen extends StatefulWidget {
   const RippleAnimateScreen({Key? key}) : super(key: key);
@@ -234,56 +235,38 @@ class _RippleAnimateState extends State<RippleAnimateScreen>
     return Scaffold(
       backgroundColor: MyColor.backgroundColor,
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => SystemNavigator.pop(),
+          icon: const Icon(Icons.exit_to_app),
+        ),
         automaticallyImplyLeading: false,
         centerTitle: true,
         title: const Text('TemplyCare'),
         backgroundColor: MyColor.appBarColor1,
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Stack(
-            alignment: AlignmentDirectional.center,
-            children: [
-              CustomPaint(
-                painter: MyPainter(
-                  firstRippleRadiusAnimation.value,
-                  firstRippleOpacityAnimation.value,
-                  firstRippleWidthAnimation.value,
-                  secondRippleRadiusAnimation.value,
-                  secondRippleOpacityAnimation.value,
-                  secondRippleWidthAnimation.value,
-                  thirdRippleRadiusAnimation.value,
-                  thirdRippleOpacityAnimation.value,
-                  thirdRippleWidthAnimation.value,
-                  centerCircleRadiusAnimation.value,
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  showModalBottomSheet(
-                    isDismissible: false,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10),
-                      ),
-                    ),
-                    context: context,
-                    backgroundColor: MyColor.backgroundColor,
-                    builder: (context) {
-                      return const ModalBottomBody();
-                    },
-                  );
-                },
-                child: const Icon(
-                  Icons.bluetooth,
-                  size: 60,
-                  color: MyColor.backgroundColor,
-                ),
-              ),
-            ],
-          ),
-        ),
+      body: StreamBuilder<BluetoothState>(
+        stream: FlutterBluePlus.instance.state,
+        initialData: BluetoothState.unknown,
+        builder: (c, snapshot) {
+          final state = snapshot.data;
+
+          if (state == BluetoothState.on) {
+            return BluetoothTurnedOnBody(
+              firstRippleRadiusAnimation: firstRippleRadiusAnimation,
+              firstRippleOpacityAnimation: firstRippleOpacityAnimation,
+              firstRippleWidthAnimation: firstRippleWidthAnimation,
+              secondRippleRadiusAnimation: secondRippleRadiusAnimation,
+              secondRippleOpacityAnimation: secondRippleOpacityAnimation,
+              secondRippleWidthAnimation: secondRippleWidthAnimation,
+              thirdRippleRadiusAnimation: thirdRippleRadiusAnimation,
+              thirdRippleOpacityAnimation: thirdRippleOpacityAnimation,
+              thirdRippleWidthAnimation: thirdRippleWidthAnimation,
+              centerCircleRadiusAnimation: centerCircleRadiusAnimation,
+            );
+          } else {
+            return BluetoothAlertDialog();
+          }
+        },
       ),
     );
   }

@@ -36,7 +36,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       backgroundColor: MyColor.backgroundColor,
       appBar: AppBar(
         title: const Text('TemplyCare'),
-        backgroundColor: MyColor.appBarColor1,
+        backgroundColor: MyColor.appBarColor2,
         centerTitle: true,
       ),
       drawer: const MainDrawer(),

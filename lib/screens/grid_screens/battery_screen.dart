@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:temp_app_v1/utils/constans/dimensions.dart';
@@ -16,32 +18,45 @@ class BatteryScreen extends StatefulWidget {
 }
 
 class _BatteryScreenState extends State<BatteryScreen> {
-  double currentBatteryValue = 0;
-  String batteryValue = '';
+  double? currentBatteryValue = 0;
+  String batteryValue = "";
 
   @override
   void initState() {
     Future.delayed(Duration.zero, () async {
       widget.services!.forEach((service) {
-        if (service.uuid.toString() == Dimensions.service_uuid) {
+        if (service.uuid.toString() == Dimensions.battery_serv_uuid) {
           service.characteristics.forEach((characteristic) {
             if (characteristic.uuid.toString() ==
-                Dimensions.charaCteristic_uuid) {
+                Dimensions.battery_level_uuid) {
               characteristic.value.listen((value) {
-                //print('AAAA' + dataParser(value));
                 setState(() {
                   widget.readValues[characteristic.uuid] = value;
                 });
                 batteryValue = dataParser(value);
+
                 currentBatteryValue = double.parse(batteryValue);
               });
-
               characteristic.read();
+
+              // characteristic.value.listen((value) {
+              //   if (this.mounted) {
+              //     setState(() {
+              //       double? val = double.tryParse(dataParser(value));
+
+              //       currentBatteryValue = val;
+              //     });
+              //     characteristic.read();
+              //   }
+              // });
             }
+            print(characteristic.uuid);
           });
         }
+        print(service.uuid);
       });
     });
+
     super.initState();
   }
 
@@ -83,10 +98,12 @@ class _BatteryScreenState extends State<BatteryScreen> {
                     children: [
                       SliderTheme(
                         data: SliderTheme.of(context).copyWith(
-                          activeTrackColor: Colors.green,
-                          inactiveTrackColor: Colors.grey.shade500,
-                          disabledActiveTrackColor: Colors.lightGreen,
-                          trackShape: const RectangularSliderTrackShape(),
+                          // activeTrackColor:
+                          //  getBatteryColor(currentBatteryValue),
+                          inactiveTrackColor: Colors.grey.shade400,
+                          disabledActiveTrackColor:
+                              getBatteryColor(currentBatteryValue),
+                          trackShape: RectangularSliderTrackShape(),
                           trackHeight: 100,
                           thumbShape: SliderComponentShape.noThumb,
                           overlayShape: const RoundSliderOverlayShape(
@@ -94,17 +111,18 @@ class _BatteryScreenState extends State<BatteryScreen> {
                           ),
                         ),
                         child: Center(
-                          child: SizedBox(
+                          child: Container(
                             height: 250,
                             child: RotatedBox(
                               quarterTurns: 3,
                               child: Slider(
-                                value: currentBatteryValue,
+                                value: currentBatteryValue ?? 0,
                                 max: 100,
                                 min: 0,
                                 divisions: 100,
                                 onChanged: null,
-                                activeColor: Colors.green,
+                                activeColor:
+                                    getBatteryColor(currentBatteryValue),
                               ),
                             ),
                           ),
@@ -114,7 +132,7 @@ class _BatteryScreenState extends State<BatteryScreen> {
                         child: Icon(
                           Icons.flash_on,
                           size: 50,
-                          color: Colors.yellow,
+                          color: MyColor.additionalColor,
                         ),
                       ),
                     ],
@@ -122,8 +140,11 @@ class _BatteryScreenState extends State<BatteryScreen> {
                   Container(
                     alignment: Alignment.center,
                     child: Text(
-                      currentBatteryValue.toStringAsFixed(0) + '%',
-                      style: const TextStyle(
+                      currentBatteryValue == null
+                          ? ''
+                          : currentBatteryValue!.toStringAsFixed(0) + '%',
+                      //'${batteryValue}%',
+                      style: TextStyle(
                         fontSize: 28,
                         color: MyColor.backgroundColor,
                       ),
@@ -165,5 +186,22 @@ class _BatteryScreenState extends State<BatteryScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+}
+
+Color? getBatteryColor(double? level) {
+  if (level == null) {
+    return Colors.amber;
+  } else if (level <= 20.0) {
+    return Colors.red;
+  } else if (level > 20.0 && level <= 55.0) {
+    return Colors.yellow;
+  } else {
+    return Colors.green;
   }
 }

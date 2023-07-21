@@ -25,7 +25,7 @@ class _LogInScreenState extends State<LogInScreen> {
       backgroundColor: MyColor.backgroundColor,
       appBar: AppBar(
         title: const Text('Logowanie'),
-        backgroundColor: MyColor.appBarColor1,
+        backgroundColor: MyColor.appBarColor2,
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -36,7 +36,6 @@ class _LogInScreenState extends State<LogInScreen> {
             ),
             Container(
               height: 200,
-              padding: const EdgeInsets.only(left: 15),
               child: Image.asset('assets/logo.png', fit: BoxFit.cover),
             ),
             const SizedBox(
@@ -55,7 +54,7 @@ class _LogInScreenState extends State<LogInScreen> {
                         builder: ((context) =>
                             CategoriesScreen(services: widget.services))));
               }),
-              child: const MyButton(
+              child: MyButton(
                 color: MyColor.additionalColor,
                 textButton: 'Zaloguj się',
                 borderColor: MyColor.additionalColor,

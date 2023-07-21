@@ -14,6 +14,6 @@ class MyColor {
   static const Color primary7 = Color.fromRGBO(0, 140, 130, 1);
   static const Color primary8 = Color.fromRGBO(0, 155, 145, 1);
 
-  static const Color backgroundColor = Color.fromRGBO(245, 255, 245, 1);
+  static Color backgroundColor = const Color.fromRGBO(245, 255, 245, 1);
   static const Color additionalColor = Color.fromRGBO(225, 130, 30, 1);
 }

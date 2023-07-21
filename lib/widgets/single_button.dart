@@ -25,6 +25,13 @@ class SingleButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey,
+              spreadRadius: 4,
+              blurRadius: 6,
+            ),
+          ],
         ),
         child: Text(
           title,
