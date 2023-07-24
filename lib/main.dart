@@ -21,8 +21,6 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: lightTheme,
-      darkTheme: darkTheme,
       home: AnimatedSplashScreen(
         backgroundColor: MyColor.backgroundColor,
         splash: GradientText(
@@ -46,11 +44,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
-final lightTheme = ThemeData.light().copyWith(
-  scaffoldBackgroundColor: MyColor.backgroundColor,
-);
-
-final darkTheme = ThemeData.dark().copyWith(
-  scaffoldBackgroundColor: Color.fromRGBO(29, 29, 29, 1),
-);

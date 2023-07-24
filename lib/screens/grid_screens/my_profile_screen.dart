@@ -129,7 +129,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                 ],
                               ),
                             ),
-                      SizedBox(
+                      const SizedBox(
                         height: 16,
                       ),
                       Text(
@@ -164,7 +164,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                             ),
                             Text(
                               mail,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 16, color: MyColor.appBarColor1),
                             ),
                           ],
@@ -197,21 +197,21 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                 isPasswordVisible
                                     ? Text(
                                         password,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontSize: 16,
                                             color: MyColor.appBarColor1),
                                       )
                                     : Text(
                                         String.fromCharCodes(List.filled(
                                             password.length, 0x2055)),
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontSize: 16,
                                             color: MyColor.appBarColor1),
                                       ),
                               ],
                             ),
                             Checkbox(
-                              side: BorderSide(
+                              side: const BorderSide(
                                   color: MyColor.additionalColor, width: 2),
                               focusColor: MyColor.appBarColor1,
                               checkColor: MyColor.backgroundColor,

@@ -27,7 +27,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     });
   }
 
-  void timeUnitExpanded() {
+  void tempUnitExpanded() {
     setState(() {
       _isExpanded2 = !_isExpanded2;
     });
@@ -73,7 +73,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 children: [
                   ListTile(
                     leading: Image.asset('assets/pl20.png'),
-                    title: const Text('Polski'),
+                    title: const Text(
+                      'Polski',
+                    ),
                     trailing: Radio(
                       value: 1,
                       groupValue: selectedRadio,
@@ -86,7 +88,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   //Divider(),
                   ListTile(
                     leading: Image.asset('assets/GB20.png'),
-                    title: const Text('Angielski'),
+                    title: const Text(
+                      'Angielski',
+                    ),
                     trailing: Radio(
                       value: 2,
                       groupValue: selectedRadio,
@@ -109,7 +113,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               title: const Text(
                 'Tryb ciemny',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(
+                  fontSize: 20,
+                ),
               ),
               subtitle: Text(
                 _enabled ? 'Włączony' : 'Wyłączony',
@@ -141,7 +147,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
               trailing: InkWell(
-                onTap: timeUnitExpanded,
+                onTap: tempUnitExpanded,
                 child: const Icon(
                   Icons.arrow_downward,
                 ),
@@ -155,7 +161,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               child: ListView(
                 children: [
                   ListTile(
-                    title: const Text('Celsjusz'),
+                    title: const Text(
+                      'Celsjusz',
+                    ),
                     trailing: Radio(
                       value: 1,
                       groupValue: selectedRadio,
@@ -167,7 +175,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                   //Divider(),
                   ListTile(
-                    title: const Text('Fahrenheit'),
+                    title: const Text(
+                      'Fahrenheit',
+                    ),
                     trailing: Radio(
                       value: 2,
                       groupValue: selectedRadio,

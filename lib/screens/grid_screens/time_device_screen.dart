@@ -183,26 +183,31 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
                     ),
                   ),
                   InkWell(
-                    onTap: () {
-                      widget.services!.forEach((service) {
-                        if (service.uuid.toString() ==
-                            Dimensions.time_service_uuid) {
-                          service.characteristics.forEach((characteristic) {
-                            if (characteristic.uuid.toString() ==
-                                Dimensions.timeDevice_uuid) {
-                              characteristic.value.listen((value) {
-                                setState(() {
-                                  _isExpanded = !_isExpanded;
+                    // onTap: () {
+                    //   widget.services!.forEach((service) {
+                    //     if (service.uuid.toString() ==
+                    //         Dimensions.time_service_uuid) {
+                    //       service.characteristics.forEach((characteristic) {
+                    //         if (characteristic.uuid.toString() ==
+                    //             Dimensions.timeDevice_uuid) {
+                    //           characteristic.value.listen((value) {
+                    //             setState(() {
+                    //               _isExpanded = !_isExpanded;
 
-                                  widget.readValues[characteristic.uuid] =
-                                      value;
-                                });
-                                timeOnDevice = dataParser(value);
-                              });
-                              characteristic.read();
-                            }
-                          });
-                        }
+                    //               widget.readValues[characteristic.uuid] =
+                    //                   value;
+                    //             });
+                    //             timeOnDevice = dataParser(value);
+                    //           });
+                    //           characteristic.read();
+                    //         }
+                    //       });
+                    //     }
+                    //   });
+                    // },
+                    onTap: () {
+                      setState(() {
+                        _isExpanded = !_isExpanded;
                       });
                     },
                     child: Container(
@@ -225,8 +230,10 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
               duration: const Duration(
                 milliseconds: 200,
               ),
-              height: _isExpanded ? 90 : 0,
+              height: _isExpanded ? 40 : 0,
               child: Container(
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(20)),
                 child: Row(
                   children: [
                     Column(
