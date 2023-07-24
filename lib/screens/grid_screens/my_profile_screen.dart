@@ -72,11 +72,15 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                           storedImage == null
                               ? const Text(
                                   'Dodaj zdjęcie profilowe',
-                                  style: TextStyle(fontSize: 16),
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: MyColor.appBarColor1),
                                 )
                               : const Text(
                                   'Zmień zdjęcie profilowe',
-                                  style: TextStyle(fontSize: 16),
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: MyColor.appBarColor1),
                                 ),
                           IconButton(
                             icon: const Icon(
@@ -152,14 +156,16 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                             ),
                             const Text(
                               'E-mail: ',
-                              style: TextStyle(fontSize: 16),
+                              style: TextStyle(
+                                  fontSize: 16, color: MyColor.appBarColor1),
                             ),
                             const SizedBox(
                               width: 8,
                             ),
                             Text(
                               mail,
-                              style: TextStyle(fontSize: 16),
+                              style: TextStyle(
+                                  fontSize: 16, color: MyColor.appBarColor1),
                             ),
                           ],
                         ),
@@ -181,7 +187,9 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                 ),
                                 const Text(
                                   'Hasło: ',
-                                  style: TextStyle(fontSize: 16),
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: MyColor.appBarColor1),
                                 ),
                                 const SizedBox(
                                   width: 8,
@@ -189,16 +197,23 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                 isPasswordVisible
                                     ? Text(
                                         password,
-                                        style: TextStyle(fontSize: 16),
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color: MyColor.appBarColor1),
                                       )
                                     : Text(
                                         String.fromCharCodes(List.filled(
                                             password.length, 0x2055)),
-                                        style: TextStyle(fontSize: 16),
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color: MyColor.appBarColor1),
                                       ),
                               ],
                             ),
                             Checkbox(
+                              side: BorderSide(
+                                  color: MyColor.additionalColor, width: 2),
+                              focusColor: MyColor.appBarColor1,
                               checkColor: MyColor.backgroundColor,
                               activeColor: MyColor.additionalColor,
                               value: isPasswordVisible,

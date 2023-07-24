@@ -10,12 +10,6 @@ import 'package:temp_app_v1/screens/ripple_animate_screen.dart';
 
 void main() => runApp(const MyApp());
 
-// void main() {
-//   initializeDateFormatting('pl', null).then((_) {
-//     runApp(MyApp());
-//   });
-// }
-
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 

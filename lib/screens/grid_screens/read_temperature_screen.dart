@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'dart:convert';
 
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
@@ -28,10 +28,14 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
   double hum = 0;
   double temp1 = 5;
 
+  List<FlSpot> dataPoints = [];
+  List<FlSpot> humPoints = [];
+
+  StreamSubscription<double>? _dataSubscription;
+
   List<double> trace = [];
   late Stream<List<int>> stream;
   final Map<Guid, List<int>> readValues = Map<Guid, List<int>>();
-  late StreamSubscription<List<int>> subscription;
 
   @override
   void initState() {
@@ -41,28 +45,23 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
           service.characteristics.forEach((characteristic) {
             if (characteristic.uuid.toString() ==
                 Dimensions.characteristic_uuid) {
-              print("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
-              print(service.uuid);
-
               characteristic.setNotifyValue(!characteristic.isNotifying);
-
-              subscription = characteristic.value.listen((value) {
-                print("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
+              characteristic.value.listen((value) {
                 List<double> list =
                     dataParser(value).split(',').map<double>((e) {
                   return double.parse(e);
                 }).toList();
+                setState(() {
+                  temp = list[0];
+                  addDataPoint(list[0], dataPoints);
+                  //temp2 = list[1]
 
-                if (this.mounted) {
-                  setState(() {
-                    print("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-                    temp = list[0];
-                    //temp2 = list[1]
-
-                    hum = list[1];
-                  });
-                }
+                  hum = list[1];
+                  addDataPoint(list[1], humPoints);
+                });
               });
+              //TODO: przerobic na metode, ktora bedzie zwracac obiekt characteristic
+              //ktory bedziemy wykorzystywac w StreamBuilderze jako strumien
             }
           });
         }
@@ -71,10 +70,11 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    subscription.cancel();
-    super.dispose();
+  void addDataPoint(double data, List<FlSpot> dataPoints) {
+    if (dataPoints.length >= 15) {
+      dataPoints.removeAt(0);
+    }
+    dataPoints.add(FlSpot(0, data));
   }
 
   @override
