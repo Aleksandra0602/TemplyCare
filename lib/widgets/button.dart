@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:temp_app_v1/widgets/screens.dart';
+import 'package:temp_app_v1/utils/constans/screens.dart';
 
 class Button {
   final String title;

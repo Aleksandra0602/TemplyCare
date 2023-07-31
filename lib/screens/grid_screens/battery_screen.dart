@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:temp_app_v1/utils/constans/dimensions.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 
@@ -76,30 +77,31 @@ class _BatteryScreenState extends State<BatteryScreen> {
             Container(
               alignment: Alignment.center,
               height: 350,
-              decoration: BoxDecoration(
-                color: const Color.fromRGBO(0, 80, 70, 0.5),
-                borderRadius: const BorderRadius.only(
+              decoration: const BoxDecoration(
+                color: MyColor.primary3,
+                borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(20),
                   bottomRight: Radius.circular(20),
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.8),
+                    color: MyColor.shadow,
                     spreadRadius: 5,
                     blurRadius: 15,
-                    offset: const Offset(0, 8),
+                    offset: Offset(0, 8),
                   ),
                 ],
               ),
               child: Column(
                 children: [
+                  SizedBox(
+                    height: 20,
+                  ),
                   Stack(
                     alignment: Alignment.center,
                     children: [
                       SliderTheme(
                         data: SliderTheme.of(context).copyWith(
-                          // activeTrackColor:
-                          //  getBatteryColor(currentBatteryValue),
                           inactiveTrackColor: Colors.grey.shade400,
                           disabledActiveTrackColor:
                               getBatteryColor(currentBatteryValue),
@@ -107,7 +109,7 @@ class _BatteryScreenState extends State<BatteryScreen> {
                           trackHeight: 100,
                           thumbShape: SliderComponentShape.noThumb,
                           overlayShape: const RoundSliderOverlayShape(
-                            overlayRadius: 35,
+                            overlayRadius: 30,
                           ),
                         ),
                         child: Center(
@@ -154,20 +156,24 @@ class _BatteryScreenState extends State<BatteryScreen> {
               ),
             ),
             const SizedBox(
-              height: 40,
+              height: 60,
             ),
             Container(
-              alignment: Alignment.center,
-              child: Column(
+              padding: const EdgeInsets.all(4),
+              //alignment: Alignment.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: const [
                   Text(
                     'Baterii wystarczy na:',
-                    style: TextStyle(fontSize: 24),
+                    style: TextStyle(
+                      fontSize: 22,
+                      color: MyColor.appBarColor1,
+                    ),
                   ),
                   Text(
                     '8 h 32 min',
-                    style: TextStyle(
-                        fontSize: 48, color: Color.fromRGBO(0, 70, 60, 1)),
+                    style: TextStyle(fontSize: 22, color: MyColor.appBarColor1),
                   ),
                 ],
               ),

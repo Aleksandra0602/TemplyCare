@@ -1,5 +1,5 @@
 import 'package:temp_app_v1/utils/constans/my_color.dart';
-import 'package:temp_app_v1/widgets/screens.dart';
+import 'package:temp_app_v1/utils/constans/screens.dart';
 
 import 'button.dart';
 

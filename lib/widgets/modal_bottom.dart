@@ -88,86 +88,93 @@ class _ModalBottomBodyState extends State<ModalBottomBody> {
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: devicesList
-                .map((element) => Card(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 4),
-                      color: MyColor.backgroundColor,
-                      shadowColor: MyColor.primary3,
-                      child: SizedBox(
-                        height: 60,
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    element.name == ''
-                                        ? 'Nieznane urządzenie'
-                                        : element.name,
-                                    style: const TextStyle(fontSize: 18),
-                                  ),
-                                  Text(
-                                    element.id.toString(),
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.grey.shade800),
-                                  ),
-                                ],
-                              ),
+                .map(
+                  (element) => Card(
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    color: MyColor.backgroundColor,
+                    shadowColor: MyColor.shadow,
+                    child: SizedBox(
+                      height: 60,
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.bluetooth_searching,
+                              color: MyColor.additionalColor.withOpacity(0.7),
+                              size: 32,
                             ),
-                            InkWell(
-                              onTap: () async {
-                                flutterBlue.stopScan();
-                                try {
-                                  await element.connect();
-                                } catch (e) {
-                                  if (e.hashCode != 'already_connected') {
-                                    throw e;
-                                  }
-                                } finally {
-                                  _services = await element.discoverServices();
-                                  print(_services.toString());
+                          ),
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  element.name == ''
+                                      ? 'Nieznane urządzenie'
+                                      : element.name,
+                                  style: const TextStyle(fontSize: 18),
+                                ),
+                                Text(
+                                  element.id.toString(),
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.grey.shade700),
+                                ),
+                              ],
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () async {
+                              flutterBlue.stopScan();
+                              try {
+                                await element.connect();
+                              } catch (e) {
+                                if (e.hashCode != 'already_connected') {
+                                  throw e;
                                 }
-                                setState(() {
-                                  _connectedDevice = element;
-                                  _services = _services;
+                              } finally {
+                                _services = await element.discoverServices();
+                              }
+                              setState(() {
+                                _connectedDevice = element;
+                                _services = _services;
+                              });
 
-                                  print(_services!.last);
-                                });
-
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: ((context) =>
-                                        LogSignScreen(services: _services)),
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                height: 45,
-                                width: 80,
-                                padding: const EdgeInsets.all(5),
-                                margin: const EdgeInsets.only(right: 10),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: const Color.fromRGBO(0, 60, 50, 1),
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: ((context) =>
+                                      LogSignScreen(services: _services)),
                                 ),
-                                child: const Center(
-                                  child: Text(
-                                    'Połącz',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
+                              );
+                            },
+                            child: Container(
+                              height: 45,
+                              width: 80,
+                              padding: const EdgeInsets.all(5),
+                              margin: const EdgeInsets.only(right: 10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: MyColor.primary1,
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  'Połącz',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500,
                                   ),
                                 ),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ))
+                    ),
+                  ),
+                )
                 .toList(),
           ),
         ],

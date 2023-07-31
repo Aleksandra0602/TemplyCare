@@ -9,7 +9,7 @@ import '../screens/grid_screens/my_profile_screen.dart';
 import '../screens/grid_screens/read_temperature_screen.dart';
 import '../screens/grid_screens/settings_screen.dart';
 import '../screens/grid_screens/time_device_screen.dart';
-import '../widgets/screens.dart';
+import 'constans/screens.dart';
 
 void selectCategory(
   BuildContext ctx,

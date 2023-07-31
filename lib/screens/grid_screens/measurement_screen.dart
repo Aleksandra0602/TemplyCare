@@ -54,9 +54,9 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
                           decoration: const BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.grey,
-                                spreadRadius: 4,
-                                blurRadius: 6,
+                                color: MyColor.shadow,
+                                spreadRadius: 2,
+                                blurRadius: 8,
                               ),
                             ],
                             color: MyColor.primary2,
@@ -96,7 +96,7 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
                   ),
                 ),
                 Positioned(
-                  top: 350,
+                  top: 380,
                   child: InkWell(
                     onTap: () {
                       if (_measrementTimeController.text != null) {
@@ -129,14 +129,14 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey.withOpacity(0.8),
-                            spreadRadius: 2,
+                            color: MyColor.shadow,
+                            spreadRadius: 1,
                             blurRadius: 4,
-                            offset: const Offset(0, 8),
+                            offset: const Offset(0, 4),
                           ),
                         ],
                         color: MyColor.additionalColor,
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(15),
                       ),
                       child: Center(
                         child: Text(

@@ -42,7 +42,7 @@ class _RippleAnimateState extends State<RippleAnimateScreen>
       ),
     );
 
-    firstRippleRadiusAnimation = Tween<double>(begin: 0, end: 150).animate(
+    firstRippleRadiusAnimation = Tween<double>(begin: 0, end: 180).animate(
       CurvedAnimation(
         parent: firstRippleController,
         curve: Curves.ease,
@@ -84,11 +84,11 @@ class _RippleAnimateState extends State<RippleAnimateScreen>
     secondRippleController = AnimationController(
       vsync: this,
       duration: const Duration(
-        seconds: 3,
+        seconds: 2,
       ),
     );
 
-    secondRippleRadiusAnimation = Tween<double>(begin: 0, end: 150).animate(
+    secondRippleRadiusAnimation = Tween<double>(begin: 0, end: 180).animate(
       CurvedAnimation(
         parent: secondRippleController,
         curve: Curves.ease,
@@ -130,11 +130,11 @@ class _RippleAnimateState extends State<RippleAnimateScreen>
     thirdRippleController = AnimationController(
       vsync: this,
       duration: const Duration(
-        seconds: 3,
+        seconds: 2,
       ),
     );
 
-    thirdRippleRadiusAnimation = Tween<double>(begin: 0, end: 150).animate(
+    thirdRippleRadiusAnimation = Tween<double>(begin: 0, end: 180).animate(
       CurvedAnimation(
         parent: thirdRippleController,
         curve: Curves.ease,
@@ -178,7 +178,7 @@ class _RippleAnimateState extends State<RippleAnimateScreen>
       duration: const Duration(seconds: 1),
     );
 
-    centerCircleRadiusAnimation = Tween<double>(begin: 50, end: 65).animate(
+    centerCircleRadiusAnimation = Tween<double>(begin: 65, end: 90).animate(
       CurvedAnimation(
         parent: centerCircleController,
         curve: Curves.fastOutSlowIn,
@@ -242,7 +242,7 @@ class _RippleAnimateState extends State<RippleAnimateScreen>
         automaticallyImplyLeading: false,
         centerTitle: true,
         title: const Text('TemplyCare'),
-        backgroundColor: MyColor.appBarColor1,
+        backgroundColor: MyColor.appBarColor2,
       ),
       body: StreamBuilder<BluetoothState>(
         stream: FlutterBluePlus.instance.state,
@@ -264,7 +264,7 @@ class _RippleAnimateState extends State<RippleAnimateScreen>
               centerCircleRadiusAnimation: centerCircleRadiusAnimation,
             );
           } else {
-            return BluetoothAlertDialog();
+            return const BluetoothAlertDialog();
           }
         },
       ),

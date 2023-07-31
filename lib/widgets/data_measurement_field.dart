@@ -21,7 +21,7 @@ class _DataMeasurementFieldState extends State<DataMeasurementField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 6),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -34,7 +34,7 @@ class _DataMeasurementFieldState extends State<DataMeasurementField> {
             ),
           ),
           const SizedBox(
-            height: 4,
+            height: 8,
           ),
           TextFormField(
             keyboardType: widget.textType,
@@ -50,16 +50,16 @@ class _DataMeasurementFieldState extends State<DataMeasurementField> {
                   color: MyColor.backgroundColor,
                 ),
                 borderRadius: const BorderRadius.only(
-                  bottomRight: Radius.circular(20),
-                  topLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(15),
+                  topLeft: Radius.circular(15),
                 ),
               ),
               focusedBorder: const OutlineInputBorder(
                 borderSide:
                     BorderSide(color: MyColor.additionalColor, width: 2),
                 borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(20),
-                  topLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(15),
+                  topLeft: Radius.circular(15),
                 ),
               ),
             ),

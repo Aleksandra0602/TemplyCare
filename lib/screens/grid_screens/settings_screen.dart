@@ -9,7 +9,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool _enabled = true;
+  bool _enabled = false;
   bool _isExpanded = false;
   bool _isExpanded2 = false;
   late int selectedRadio = 1;

@@ -6,6 +6,7 @@ import 'package:temp_app_v1/screens/sign_up_screen.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:temp_app_v1/widgets/log_sign_field.dart';
 import 'package:temp_app_v1/widgets/my_button.dart';
+import 'package:temp_app_v1/widgets/password_field.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key, this.services});
@@ -18,6 +19,12 @@ class LogInScreen extends StatefulWidget {
 class _LogInScreenState extends State<LogInScreen> {
   final _loginCheckController = TextEditingController();
   final _passwordCheckController = TextEditingController();
+
+  String? validaton(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Musisz wypełnić to pole!';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +41,16 @@ class _LogInScreenState extends State<LogInScreen> {
             const SizedBox(
               height: 30,
             ),
-            Container(
+            SizedBox(
               height: 200,
               child: Image.asset('assets/logo.png', fit: BoxFit.cover),
             ),
             const SizedBox(
               height: 10,
             ),
-            LogSignField('Login', Icons.person, _loginCheckController),
-            LogSignField('Hasło', Icons.password, _passwordCheckController),
+            LogSignField('Login', Icons.person, _loginCheckController,
+                validaton(_loginCheckController.text)),
+            PasswordField('Hasło', Icons.password, _passwordCheckController),
             const SizedBox(
               height: 40,
             ),

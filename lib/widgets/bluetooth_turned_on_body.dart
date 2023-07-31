@@ -1,4 +1,3 @@
-import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:temp_app_v1/widgets/paint.dart';
@@ -64,7 +63,7 @@ class BluetoothTurnedOnBody extends StatelessWidget {
                     ),
                   ),
                   context: context,
-                  backgroundColor: MyColor.primary1,
+                  backgroundColor: MyColor.appBarColor2,
                   builder: (context) {
                     return const ModalBottomBody();
                   },

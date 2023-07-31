@@ -6,6 +6,8 @@ import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:temp_app_v1/widgets/my_button.dart';
 import 'package:temp_app_v1/screens/ripple_animate_screen.dart';
 
+import 'categories_screen.dart';
+
 class MyProfileScreen extends StatefulWidget {
   const MyProfileScreen({Key? key}) : super(key: key);
 
@@ -16,7 +18,7 @@ class MyProfileScreen extends StatefulWidget {
 class _MyProfileScreenState extends State<MyProfileScreen> {
   bool isPasswordVisible = false;
   String password = 'Password123.';
-  String mail = 'mail@magisterka.com';
+  String mail = 'Student1998@gmail.com';
   String login = 'Student1998';
 
   File? storedImage;
@@ -46,211 +48,232 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
             const SizedBox(
               height: 40,
             ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 16),
+            Stack(
               alignment: Alignment.center,
-              height: 480,
-              decoration: BoxDecoration(
-                color: MyColor.backgroundColor,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.grey,
-                    spreadRadius: 4,
-                    blurRadius: 8,
-                  ),
-                ],
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          storedImage == null
-                              ? const Text(
-                                  'Dodaj zdjęcie profilowe',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: MyColor.appBarColor1),
-                                )
-                              : const Text(
-                                  'Zmień zdjęcie profilowe',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: MyColor.appBarColor1),
-                                ),
-                          IconButton(
-                            icon: const Icon(
-                              Icons.add_a_photo,
-                              color: MyColor.additionalColor,
-                            ),
-                            onPressed: getPhoto,
+              children: [
+                Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 16),
+                      alignment: Alignment.center,
+                      height: 540,
+                      decoration: BoxDecoration(
+                        color: MyColor.backgroundColor,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.grey,
+                            spreadRadius: 2,
+                            blurRadius: 8,
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      storedImage == null
-                          ? Icon(
-                              Icons.person,
-                              color: Colors.grey.shade200,
-                              size: 150,
-                            )
-                          : Container(
-                              height: 180,
-                              width: 180,
-                              child: Stack(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Container(
-                                    decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: Colors.grey,
-                                            blurRadius: 15,
-                                            spreadRadius: 5),
-                                      ],
+                                  storedImage == null
+                                      ? const Text(
+                                          'Dodaj zdjęcie profilowe',
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: MyColor.appBarColor1),
+                                        )
+                                      : const Text(
+                                          'Zmień zdjęcie profilowe',
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: MyColor.appBarColor1),
+                                        ),
+                                  IconButton(
+                                    icon: const Icon(
+                                      Icons.add_a_photo,
+                                      color: MyColor.additionalColor,
                                     ),
-                                  ),
-                                  Container(
-                                    height: 180,
-                                    width: 180,
-                                    child: ClipOval(
-                                      child: Image.file(
-                                        storedImage!,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
+                                    onPressed: getPhoto,
                                   ),
                                 ],
                               ),
-                            ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      Text(
-                        login,
-                        style: const TextStyle(
-                          color: Colors.grey,
-                          fontSize: 22,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.mail,
-                              color: MyColor.primary7,
-                            ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            const Text(
-                              'E-mail: ',
-                              style: TextStyle(
-                                  fontSize: 16, color: MyColor.appBarColor1),
-                            ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            Text(
-                              mail,
-                              style: const TextStyle(
-                                  fontSize: 16, color: MyColor.appBarColor1),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const Divider(),
-                      Container(
-                        padding: const EdgeInsets.only(left: 8),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.password,
-                                  color: MyColor.primary7,
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                const Text(
-                                  'Hasło: ',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: MyColor.appBarColor1),
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                isPasswordVisible
-                                    ? Text(
-                                        password,
-                                        style: const TextStyle(
-                                            fontSize: 16,
-                                            color: MyColor.appBarColor1),
-                                      )
-                                    : Text(
-                                        String.fromCharCodes(List.filled(
-                                            password.length, 0x2055)),
-                                        style: const TextStyle(
-                                            fontSize: 16,
-                                            color: MyColor.appBarColor1),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              storedImage == null
+                                  ? Icon(
+                                      Icons.person,
+                                      color: Colors.grey.shade200,
+                                      size: 150,
+                                    )
+                                  : Container(
+                                      height: 180,
+                                      width: 180,
+                                      child: Stack(
+                                        children: [
+                                          Container(
+                                            decoration: const BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                    color: Colors.grey,
+                                                    blurRadius: 15,
+                                                    spreadRadius: 5),
+                                              ],
+                                            ),
+                                          ),
+                                          Container(
+                                            height: 180,
+                                            width: 180,
+                                            child: ClipOval(
+                                              child: Image.file(
+                                                storedImage!,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                              ],
-                            ),
-                            Checkbox(
-                              side: const BorderSide(
-                                  color: MyColor.additionalColor, width: 2),
-                              focusColor: MyColor.appBarColor1,
-                              checkColor: MyColor.backgroundColor,
-                              activeColor: MyColor.additionalColor,
-                              value: isPasswordVisible,
-                              onChanged: (bool? value) {
-                                setState(() {
-                                  isPasswordVisible = value!;
-                                });
-                              },
-                            ),
-                          ],
-                        ),
+                                    ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              Text(
+                                login,
+                                style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 22,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                child: Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.mail,
+                                      color: MyColor.primary7,
+                                    ),
+                                    const SizedBox(
+                                      width: 8,
+                                    ),
+                                    const Text(
+                                      'E-mail: ',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: MyColor.appBarColor1),
+                                    ),
+                                    const SizedBox(
+                                      width: 8,
+                                    ),
+                                    Text(
+                                      mail,
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          color: MyColor.appBarColor1),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const Divider(),
+                              Container(
+                                padding: const EdgeInsets.only(left: 8),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.password,
+                                          color: MyColor.primary7,
+                                        ),
+                                        const SizedBox(
+                                          width: 8,
+                                        ),
+                                        const Text(
+                                          'Hasło: ',
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: MyColor.appBarColor1),
+                                        ),
+                                        const SizedBox(
+                                          width: 8,
+                                        ),
+                                        isPasswordVisible
+                                            ? Text(
+                                                password,
+                                                style: const TextStyle(
+                                                    fontSize: 16,
+                                                    color:
+                                                        MyColor.appBarColor1),
+                                              )
+                                            : Text(
+                                                String.fromCharCodes(
+                                                    List.filled(password.length,
+                                                        0x2055)),
+                                                style: const TextStyle(
+                                                    fontSize: 16,
+                                                    color:
+                                                        MyColor.appBarColor1),
+                                              ),
+                                      ],
+                                    ),
+                                    Checkbox(
+                                      side: const BorderSide(
+                                          color: MyColor.additionalColor,
+                                          width: 2),
+                                      focusColor: MyColor.appBarColor1,
+                                      checkColor: MyColor.backgroundColor,
+                                      activeColor: MyColor.additionalColor,
+                                      value: isPasswordVisible,
+                                      onChanged: (bool? value) {
+                                        setState(() {
+                                          isPasswordVisible = value!;
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 70,
+                              )
+                            ],
+                          ),
+                        ],
                       ),
-                      const SizedBox(
-                        height: 20,
-                      )
-                    ],
+                    ),
+                    const SizedBox(
+                      height: 80,
+                    ),
+                  ],
+                ),
+                Positioned(
+                  top: 520,
+                  height: 64,
+                  width: 340,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RippleAnimateScreen()),
+                      );
+                    },
+                    child: MyButton(
+                      color: MyColor.additionalColor,
+                      textButton: 'Wyloguj się',
+                      borderColor: MyColor.additionalColor,
+                      textColor: MyColor.backgroundColor,
+                    ),
                   ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 60,
-            ),
-            InkWell(
-              onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => RippleAnimateScreen()),
-                );
-              },
-              child: MyButton(
-                color: MyColor.additionalColor,
-                textButton: 'Wyloguj się',
-                borderColor: MyColor.additionalColor,
-                textColor: MyColor.backgroundColor,
-              ),
+                ),
+              ],
             ),
           ],
         ),

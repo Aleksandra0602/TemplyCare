@@ -30,8 +30,9 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
 
   List<FlSpot> dataPoints = [];
   List<FlSpot> humPoints = [];
+  FlSpot mostLeftSpot = FlSpot(0, 0);
 
-  StreamSubscription<double>? _dataSubscription;
+  StreamSubscription<List<int>>? _dataSubscription;
 
   List<double> trace = [];
   late Stream<List<int>> stream;
@@ -46,18 +47,17 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
             if (characteristic.uuid.toString() ==
                 Dimensions.characteristic_uuid) {
               characteristic.setNotifyValue(!characteristic.isNotifying);
-              characteristic.value.listen((value) {
+              _dataSubscription = characteristic.value.listen((value) {
                 List<double> list =
                     dataParser(value).split(',').map<double>((e) {
                   return double.parse(e);
                 }).toList();
                 setState(() {
                   temp = list[0];
-                  addDataPoint(list[0], dataPoints);
+                  addDataPoint(temp);
                   //temp2 = list[1]
 
                   hum = list[1];
-                  addDataPoint(list[1], humPoints);
                 });
               });
               //TODO: przerobic na metode, ktora bedzie zwracac obiekt characteristic
@@ -70,11 +70,17 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
     super.initState();
   }
 
-  void addDataPoint(double data, List<FlSpot> dataPoints) {
+  @override
+  void dispose() {
+    _dataSubscription?.cancel();
+    super.dispose();
+  }
+
+  void addDataPoint(double data) {
     if (dataPoints.length >= 15) {
       dataPoints.removeAt(0);
     }
-    dataPoints.add(FlSpot(0, data));
+    dataPoints.add(FlSpot(dataPoints.length.toDouble(), data));
   }
 
   @override
@@ -96,20 +102,20 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
               SleekCircularSlider(
                 appearance: CircularSliderAppearance(
                   customColors: CustomSliderColors(
-                    trackColor: const Color.fromRGBO(0, 70, 70, 1),
-                    progressBarColor: const Color.fromRGBO(0, 75, 70, 0.5),
-                    shadowColor: const Color.fromRGBO(0, 75, 70, 0.5),
-                    shadowStep: 10,
+                    trackColor: MyColor.primary1,
+                    progressBarColor: MyColor.primary1.withOpacity(0.5),
+                    shadowColor: MyColor.primary2,
+                    shadowStep: 8,
                   ),
                   customWidths: CustomSliderWidths(
-                    trackWidth: 5,
+                    trackWidth: 4,
                     progressBarWidth: 10,
                     shadowWidth: 40,
                   ),
                   infoProperties: InfoProperties(
                       bottomLabelText: 'Temperatura 1',
                       bottomLabelStyle: const TextStyle(
-                        color: Color.fromRGBO(1, 90, 70, 0.8),
+                        color: MyColor.primary2,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -165,10 +171,10 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
               SleekCircularSlider(
                 appearance: CircularSliderAppearance(
                   customColors: CustomSliderColors(
-                    trackColor: const Color.fromRGBO(0, 70, 70, 1),
-                    progressBarColor: const Color.fromRGBO(0, 75, 70, 0.5),
-                    shadowColor: const Color.fromRGBO(0, 75, 70, 0.5),
-                    shadowStep: 10,
+                    trackColor: MyColor.primary1,
+                    progressBarColor: MyColor.primary1.withOpacity(0.5),
+                    shadowColor: MyColor.primary2,
+                    shadowStep: 8,
                   ),
                   customWidths: CustomSliderWidths(
                     trackWidth: 3,
@@ -178,7 +184,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                   infoProperties: InfoProperties(
                       bottomLabelText: 'Poziom wilgotności',
                       bottomLabelStyle: const TextStyle(
-                        color: Color.fromRGBO(1, 90, 70, 0.8),
+                        color: MyColor.primary2,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
@@ -193,6 +199,133 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                 min: 0,
                 max: 100,
                 initialValue: hum,
+              ),
+              Container(
+                height: 240,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                alignment: Alignment.centerLeft,
+                decoration: const BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: MyColor.shadow,
+                      spreadRadius: 2,
+                      blurRadius: 6,
+                    ),
+                  ],
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15),
+                  ),
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      MyColor.primary1,
+                      MyColor.primary3,
+                    ],
+                  ),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Wykres temperatury',
+                      style: TextStyle(
+                          color: MyColor.backgroundColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    Text(
+                      'Ostatnie 15 pomiarów',
+                      style: TextStyle(
+                        color: MyColor.backgroundColor,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w200,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                        vertical: 4,
+                      ),
+                      height: 180,
+                      decoration: BoxDecoration(
+                        color: MyColor.backgroundColor,
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: MyColor.shadow,
+                            spreadRadius: 1,
+                            blurRadius: 2,
+                          ),
+                        ],
+                      ),
+                      child: LineChart(
+                        LineChartData(
+                          lineTouchData: LineTouchData(
+                            touchTooltipData: LineTouchTooltipData(
+                              tooltipBgColor: MyColor.backgroundColor,
+                              tooltipBorder:
+                                  BorderSide(color: MyColor.primary5),
+                            ),
+                          ),
+                          gridData: FlGridData(
+                            show: true,
+                            drawVerticalLine: true,
+                            horizontalInterval: 1,
+                            verticalInterval: 1,
+                            getDrawingHorizontalLine: (value) {
+                              return FlLine(
+                                color: MyColor.shadow,
+                                strokeWidth: 1,
+                              );
+                            },
+                          ),
+                          titlesData: FlTitlesData(
+                            show: true,
+                            rightTitles: AxisTitles(
+                              sideTitles: SideTitles(showTitles: false),
+                            ),
+                            topTitles: AxisTitles(
+                              sideTitles: SideTitles(showTitles: false),
+                            ),
+                            bottomTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: true,
+                                reservedSize: 20,
+                                interval: 5,
+                              ),
+                            ),
+                            leftTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: true,
+                                interval: 10,
+                                reservedSize: 32,
+                              ),
+                            ),
+                          ),
+                          borderData: FlBorderData(show: true),
+                          minX: 0,
+                          maxX: 20,
+                          minY: 0,
+                          maxY: 40,
+                          lineBarsData: [
+                            LineChartBarData(
+                              spots: dataPoints,
+                              isCurved: true,
+                              color: MyColor.additionalColor,
+                              dotData: FlDotData(show: false),
+                              belowBarData: BarAreaData(show: false),
+                              barWidth: 3,
+                            ),
+                          ],
+                        ),
+                        swapAnimationDuration: Duration(seconds: 2),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:temp_app_v1/utils/constans/my_color.dart';
 
 class MyPainter extends CustomPainter {
   final double firstRippleRadius;
@@ -26,7 +27,7 @@ class MyPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    Color myColor = Colors.amber;
+    Color myColor = MyColor.additionalColor;
 
     Paint firstPaint = Paint();
     firstPaint.color = myColor.withOpacity(firstRippleOpacity);

@@ -24,49 +24,54 @@ class _LogSignScreenState extends State<LogSignScreen> {
         title: const Text('TemplyCare'),
         centerTitle: true,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Center(
-            child: SizedBox(
-              height: 280,
-              child: Image.asset('assets/logo.png', fit: BoxFit.cover),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(
+              height: 100,
             ),
-          ),
-          const SizedBox(height: 20),
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: ((context) => LogInScreen(
-                            services: widget.services,
-                          ))));
-            },
-            child: MyButton(
-              color: MyColor.primary2,
-              textButton: 'Zaloguj się',
-              borderColor: MyColor.primary2,
-              textColor: MyColor.backgroundColor,
+            Center(
+              child: SizedBox(
+                height: 280,
+                child: Image.asset('assets/logo.png', fit: BoxFit.cover),
+              ),
             ),
-          ),
-          const SizedBox(height: 12),
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: ((context) => const SignUpScreen())));
-            },
-            child: MyButton(
-              color: MyColor.backgroundColor,
-              textButton: 'Zarejestruj się',
-              borderColor: MyColor.primary2,
-              textColor: MyColor.primary2,
+            const SizedBox(height: 20),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: ((context) => LogInScreen(
+                              services: widget.services,
+                            ))));
+              },
+              child: MyButton(
+                color: MyColor.primary2,
+                textButton: 'Zaloguj się',
+                borderColor: MyColor.primary2,
+                textColor: MyColor.backgroundColor,
+              ),
             ),
-          ),
-        ],
+            const SizedBox(height: 12),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: ((context) => const SignUpScreen())));
+              },
+              child: MyButton(
+                color: MyColor.backgroundColor,
+                textButton: 'Zarejestruj się',
+                borderColor: MyColor.primary2,
+                textColor: MyColor.primary2,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -31,8 +31,9 @@ class MainDrawer extends StatelessWidget {
             end: Alignment.bottomRight,
             colors: [
               MyColor.appBarColor1,
-              MyColor.appBarColor2,
-              MyColor.appBarColor3,
+              MyColor.primary1,
+              MyColor.primary3,
+              MyColor.primary5
             ],
           ),
         ),
@@ -122,7 +123,7 @@ class MainDrawer extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => RippleAnimateScreen()),
+                          builder: (context) => const RippleAnimateScreen()),
                     );
                   },
                   child: MyButton(

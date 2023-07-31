@@ -7,6 +7,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:slide_digital_clock/slide_digital_clock.dart';
+import 'package:temp_app_v1/screens/grid_screens/categories_screen.dart';
 
 import 'package:temp_app_v1/utils/constans/dimensions.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
@@ -120,14 +121,14 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
                               ],
                             ),
                             const SizedBox(
-                              height: 20,
+                              height: 30,
                             ),
                             Text(
                               DateFormat.EEEE('pl').format(
                                 DateTime.now(),
                               ),
                               style: const TextStyle(
-                                color: MyColor.primary4,
+                                color: MyColor.appBarColor2,
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -137,7 +138,7 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
                                 DateTime.now(),
                               ),
                               style: const TextStyle(
-                                color: MyColor.primary3,
+                                color: MyColor.appBarColor3,
                                 fontSize: 24,
                                 fontStyle: FontStyle.italic,
                               ),
@@ -158,7 +159,7 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
               height: 40,
             ),
             Container(
-              height: 90,
+              height: 80,
               margin: const EdgeInsets.symmetric(horizontal: 8),
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
@@ -230,33 +231,63 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
               duration: const Duration(
                 milliseconds: 200,
               ),
-              height: _isExpanded ? 40 : 0,
+              height: _isExpanded ? 80 : 0,
               child: Container(
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: MyColor.backgroundColor,
+                  boxShadow: [
+                    _isExpanded
+                        ? const BoxShadow(
+                            blurRadius: 4,
+                            spreadRadius: 2,
+                            color: Colors.grey,
+                          )
+                        : const BoxShadow(blurRadius: 0, spreadRadius: 0),
+                  ],
+                ),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      children: [
-                        Text('Czas zapytania'),
-                        Text(''),
-                      ],
+                    SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            'Czas zapytania',
+                            style: TextStyle(
+                              color: MyColor.appBarColor1,
+                            ),
+                          ),
+                          Text('aaaaaaaaa'),
+                        ],
+                      ),
                     ),
-                    Column(
-                      children: [
-                        Text('Czas na urządzeniu'),
-                        Text(''),
-                      ],
+                    SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            'Czas na urządzeniu',
+                            style: TextStyle(
+                              color: MyColor.appBarColor1,
+                            ),
+                          ),
+                          Text('aaaaaaaaaa'),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
             ),
             const SizedBox(
-              height: 40,
+              height: 30,
             ),
             Container(
-              height: 90,
+              height: 80,
               margin: const EdgeInsets.symmetric(horizontal: 8),
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(

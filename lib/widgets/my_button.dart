@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:temp_app_v1/utils/constans/my_color.dart';
 
 class MyButton extends StatelessWidget {
   const MyButton({
@@ -24,6 +25,13 @@ class MyButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           border: Border.all(width: 3, color: borderColor),
           color: color,
+          boxShadow: const [
+            BoxShadow(
+                color: MyColor.shadow,
+                spreadRadius: 1,
+                blurRadius: 5,
+                offset: Offset(0, 2)),
+          ],
         ),
         child: Center(
           child: Text(

@@ -21,6 +21,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: AnimatedSplashScreen(
         backgroundColor: MyColor.backgroundColor,
         splash: GradientText(
@@ -38,8 +39,8 @@ class _MyAppState extends State<MyApp> {
         ),
         splashTransition: SplashTransition.slideTransition,
         //nextScreen: RippleAnimateScreen(),
-        //nextScreen: LogSignScreen(),
-        nextScreen: CategoriesScreen(),
+        nextScreen: LogSignScreen(),
+        //nextScreen: CategoriesScreen(),
       ),
     );
   }
