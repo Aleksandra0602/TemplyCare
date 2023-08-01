@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:temp_app_v1/widgets/my_button.dart';
 import 'package:temp_app_v1/screens/ripple_animate_screen.dart';
+import 'package:temp_app_v1/widgets/password_field.dart';
 
 import 'categories_screen.dart';
 
@@ -20,6 +21,8 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   String password = 'Password123.';
   String mail = 'Student1998@gmail.com';
   String login = 'Student1998';
+  final _passwordCheckController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   File? storedImage;
 
@@ -36,11 +39,11 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColor.primary8,
+      backgroundColor: MyColor.primary6,
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Mój profil'),
-        backgroundColor: MyColor.primary8,
+        backgroundColor: MyColor.primary6,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -55,7 +58,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                   children: [
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 16),
-                      alignment: Alignment.center,
+                      // alignment: Alignment.center,
                       height: 540,
                       decoration: BoxDecoration(
                         color: MyColor.backgroundColor,
@@ -240,8 +243,55 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                   ],
                                 ),
                               ),
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                child: TextButton(
+                                    onPressed: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: const Text('Zarządzaj'),
+                                              content: Container(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                    4,
+                                                // padding: EdgeInsets.all(4),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    PasswordField(
+                                                        'Nowe hasło',
+                                                        Icons.password,
+                                                        _passwordController),
+                                                    PasswordField(
+                                                        'Powtórz nowe hasło',
+                                                        Icons.password,
+                                                        _passwordCheckController),
+                                                  ],
+                                                ),
+                                              ),
+                                              actions: [
+                                                TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.of(context)
+                                                            .pop(),
+                                                    child: Text('OK'))
+                                              ],
+                                            );
+                                          });
+                                    },
+                                    child: const Text(
+                                      'Zmień hasło',
+                                      style: TextStyle(
+                                          color: MyColor.appBarColor3,
+                                          fontStyle: FontStyle.italic),
+                                    )),
+                              ),
                               const SizedBox(
-                                height: 70,
+                                height: 40,
                               )
                             ],
                           ),

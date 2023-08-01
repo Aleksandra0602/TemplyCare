@@ -127,12 +127,12 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
                       height: 72,
                       padding: const EdgeInsets.symmetric(horizontal: 96),
                       decoration: BoxDecoration(
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             color: MyColor.shadow,
                             spreadRadius: 1,
                             blurRadius: 4,
-                            offset: const Offset(0, 4),
+                            offset: Offset(0, 4),
                           ),
                         ],
                         color: MyColor.additionalColor,
