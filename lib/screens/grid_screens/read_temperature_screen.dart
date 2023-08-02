@@ -31,6 +31,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
   List<FlSpot> dataPoints = [];
   List<FlSpot> humPoints = [];
   FlSpot mostLeftSpot = FlSpot(0, 0);
+  double xValue = 0;
 
   StreamSubscription<List<int>>? _dataSubscription;
 
@@ -52,9 +53,11 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                     dataParser(value).split(',').map<double>((e) {
                   return double.parse(e);
                 }).toList();
+
                 setState(() {
                   temp = list[0];
                   addDataPoint(temp);
+
                   //temp2 = list[1]
 
                   hum = list[1];
@@ -77,10 +80,41 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
   }
 
   void addDataPoint(double data) {
-    if (dataPoints.length >= 15) {
-      dataPoints.removeAt(0);
-    }
     dataPoints.add(FlSpot(dataPoints.length.toDouble(), data));
+    if (dataPoints.length > 15) {
+      print(dataPoints);
+      dataPoints.removeAt(0);
+      for (int i = 0; i < dataPoints.length; i++) {
+        dataPoints[i] = FlSpot(dataPoints[i].x - 1, dataPoints[i].y);
+      }
+    }
+
+    xValue += 1;
+  }
+
+  Widget leftTitleWidget(double value, TitleMeta meta) {
+    String text;
+    switch (value.toInt()) {
+      case 20:
+        text = '20';
+        break;
+      case 22:
+        text = '22';
+        break;
+      case 24:
+        text = '24';
+        break;
+      case 26:
+        text = '26';
+        break;
+      case 28:
+        text = '28';
+        break;
+      default:
+        return Container();
+    }
+
+    return Text(text, textAlign: TextAlign.center);
   }
 
   @override
@@ -200,132 +234,247 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                 max: 100,
                 initialValue: hum,
               ),
-              Container(
-                height: 240,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                alignment: Alignment.centerLeft,
-                decoration: const BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: MyColor.shadow,
-                      spreadRadius: 2,
-                      blurRadius: 6,
-                    ),
-                  ],
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    topRight: Radius.circular(15),
-                  ),
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      MyColor.primary1,
-                      MyColor.primary3,
-                    ],
-                  ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Wykres temperatury',
-                      style: TextStyle(
-                          color: MyColor.backgroundColor,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500),
-                    ),
-                    Text(
-                      'Ostatnie 15 pomiarów',
-                      style: TextStyle(
-                        color: MyColor.backgroundColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w200,
+              Column(
+                children: [
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    alignment: Alignment.centerLeft,
+                    decoration: const BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: MyColor.shadow,
+                          spreadRadius: 2,
+                          blurRadius: 6,
+                        ),
+                      ],
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15),
                       ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(
-                        vertical: 4,
-                      ),
-                      height: 180,
-                      decoration: BoxDecoration(
-                        color: MyColor.backgroundColor,
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: MyColor.shadow,
-                            spreadRadius: 1,
-                            blurRadius: 2,
-                          ),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          MyColor.primary1,
+                          MyColor.primary3,
                         ],
                       ),
-                      child: LineChart(
-                        LineChartData(
-                          lineTouchData: LineTouchData(
-                            touchTooltipData: LineTouchTooltipData(
-                              tooltipBgColor: MyColor.backgroundColor,
-                              tooltipBorder:
-                                  BorderSide(color: MyColor.primary5),
-                            ),
-                          ),
-                          gridData: FlGridData(
-                            show: true,
-                            drawVerticalLine: true,
-                            horizontalInterval: 1,
-                            verticalInterval: 1,
-                            getDrawingHorizontalLine: (value) {
-                              return FlLine(
-                                color: MyColor.shadow,
-                                strokeWidth: 1,
-                              );
-                            },
-                          ),
-                          titlesData: FlTitlesData(
-                            show: true,
-                            rightTitles: AxisTitles(
-                              sideTitles: SideTitles(showTitles: false),
-                            ),
-                            topTitles: AxisTitles(
-                              sideTitles: SideTitles(showTitles: false),
-                            ),
-                            bottomTitles: AxisTitles(
-                              sideTitles: SideTitles(
-                                showTitles: true,
-                                reservedSize: 20,
-                                interval: 5,
-                              ),
-                            ),
-                            leftTitles: AxisTitles(
-                              sideTitles: SideTitles(
-                                showTitles: true,
-                                interval: 10,
-                                reservedSize: 32,
-                              ),
-                            ),
-                          ),
-                          borderData: FlBorderData(show: true),
-                          minX: 0,
-                          maxX: 20,
-                          minY: 0,
-                          maxY: 40,
-                          lineBarsData: [
-                            LineChartBarData(
-                              spots: dataPoints,
-                              isCurved: true,
-                              color: MyColor.additionalColor,
-                              dotData: FlDotData(show: false),
-                              belowBarData: BarAreaData(show: false),
-                              barWidth: 3,
-                            ),
-                          ],
-                        ),
-                        swapAnimationDuration: Duration(seconds: 2),
-                      ),
                     ),
-                  ],
-                ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Wykres temperatury',
+                          style: TextStyle(
+                              color: MyColor.backgroundColor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        Text(
+                          'Ostatnie 15 pomiarów',
+                          style: TextStyle(
+                            color: MyColor.backgroundColor,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w200,
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          margin: const EdgeInsets.symmetric(
+                            vertical: 4,
+                          ),
+                          height: 190,
+                          decoration: BoxDecoration(
+                            color: MyColor.backgroundColor,
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: MyColor.shadow,
+                                spreadRadius: 1,
+                                blurRadius: 2,
+                              ),
+                            ],
+                          ),
+                          child: AspectRatio(
+                            aspectRatio: 2,
+                            child: Padding(
+                              padding: const EdgeInsets.all(4),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: LineChart(
+                                  LineChartData(
+                                    gridData: FlGridData(
+                                      show: true,
+                                      horizontalInterval: 1,
+                                      verticalInterval: 1,
+                                    ),
+                                    titlesData: FlTitlesData(
+                                      show: true,
+                                      rightTitles: AxisTitles(
+                                        sideTitles: SideTitles(
+                                          showTitles: false,
+                                        ),
+                                      ),
+                                      topTitles: AxisTitles(
+                                        sideTitles: SideTitles(
+                                          showTitles: false,
+                                        ),
+                                      ),
+                                      bottomTitles: AxisTitles(
+                                        sideTitles: SideTitles(
+                                          showTitles: false,
+                                          reservedSize: 28,
+                                        ),
+                                      ),
+                                      leftTitles: AxisTitles(
+                                        sideTitles: SideTitles(
+                                          showTitles: true,
+                                          interval: 2,
+                                          reservedSize: 32,
+                                          getTitlesWidget: leftTitleWidget,
+                                        ),
+                                      ),
+                                    ),
+                                    borderData: FlBorderData(
+                                      show: true,
+                                      border: const Border(
+                                          bottom: BorderSide(),
+                                          left: BorderSide()),
+                                    ),
+                                    minX: 0,
+                                    maxX: dataPoints.length + 2,
+                                    minY: 20,
+                                    maxY: 28,
+                                    lineBarsData: [
+                                      LineChartBarData(
+                                        spots: dataPoints,
+                                        isCurved: true,
+                                        color: MyColor.additionalColor,
+                                        dotData: FlDotData(show: false),
+                                        belowBarData: BarAreaData(
+                                          show: true,
+                                        ),
+                                        barWidth: 2,
+                                      ),
+                                    ],
+                                  ),
+                                  swapAnimationDuration:
+                                      const Duration(seconds: 2),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Text(
+                          'Wykres wilgotności',
+                          style: TextStyle(
+                              color: MyColor.backgroundColor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        Text(
+                          'Ostatnie 15 pomiarów',
+                          style: TextStyle(
+                            color: MyColor.backgroundColor,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w200,
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          margin: const EdgeInsets.symmetric(
+                            vertical: 4,
+                          ),
+                          height: 190,
+                          decoration: BoxDecoration(
+                            color: MyColor.backgroundColor,
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: MyColor.shadow,
+                                spreadRadius: 1,
+                                blurRadius: 2,
+                              ),
+                            ],
+                          ),
+                          child: AspectRatio(
+                            aspectRatio: 2,
+                            child: Padding(
+                              padding: const EdgeInsets.all(4),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: LineChart(
+                                  LineChartData(
+                                    gridData: FlGridData(
+                                      show: true,
+                                      horizontalInterval: 25,
+                                      verticalInterval: 1,
+                                    ),
+                                    titlesData: FlTitlesData(
+                                      show: true,
+                                      rightTitles: AxisTitles(
+                                        sideTitles: SideTitles(
+                                          showTitles: false,
+                                        ),
+                                      ),
+                                      topTitles: AxisTitles(
+                                        sideTitles: SideTitles(
+                                          showTitles: false,
+                                        ),
+                                      ),
+                                      bottomTitles: AxisTitles(
+                                        sideTitles: SideTitles(
+                                          showTitles: false,
+                                          reservedSize: 28,
+                                        ),
+                                      ),
+                                      leftTitles: AxisTitles(
+                                        sideTitles: SideTitles(
+                                          showTitles: true,
+                                          interval: 25,
+                                          reservedSize: 32,
+                                        ),
+                                      ),
+                                    ),
+                                    borderData: FlBorderData(
+                                      show: true,
+                                      border: const Border(
+                                          bottom: BorderSide(),
+                                          left: BorderSide()),
+                                    ),
+                                    minX: 0,
+                                    maxX: dataPoints.length + 2,
+                                    minY: 0,
+                                    maxY: 100,
+                                    lineBarsData: [
+                                      LineChartBarData(
+                                        spots: dataPoints,
+                                        isCurved: true,
+                                        color: MyColor.additionalColor,
+                                        dotData: FlDotData(show: false),
+                                        belowBarData: BarAreaData(
+                                          show: true,
+                                        ),
+                                        barWidth: 2,
+                                      ),
+                                    ],
+                                  ),
+                                  swapAnimationDuration:
+                                      const Duration(seconds: 2),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
