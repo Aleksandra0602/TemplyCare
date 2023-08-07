@@ -22,6 +22,7 @@ class _ScreenMainState extends State<ScreenMain> {
     final double height = MediaQuery.of(context).size.height / 5;
 
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         title: const Text('TemplyCare'),
         backgroundColor: MyColor.appBarColor2,

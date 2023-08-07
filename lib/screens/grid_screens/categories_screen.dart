@@ -57,12 +57,12 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         return true;
       },
       child: Scaffold(
-        backgroundColor: MyColor.backgroundColor,
+        backgroundColor: Theme.of(context).backgroundColor,
 
         drawer: const MainDrawer(),
 
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: MyColor.backgroundColor,
+          backgroundColor: Theme.of(context).backgroundColor,
           type: BottomNavigationBarType.fixed,
           currentIndex: currentIndex,
           onTap: (index) => setState(() {

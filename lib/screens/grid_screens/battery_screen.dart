@@ -61,7 +61,7 @@ class _BatteryScreenState extends State<BatteryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColor.backgroundColor,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         centerTitle: true,
         title: Text(AppLocalizations.of(context)!.buttonText3),
@@ -164,13 +164,13 @@ class _BatteryScreenState extends State<BatteryScreen> {
                   Text(
                     AppLocalizations.of(context)!.timeBattery,
                     style: const TextStyle(
-                      fontSize: 22,
+                      fontSize: 16,
                       color: MyColor.appBarColor1,
                     ),
                   ),
                   const Text(
                     '8 h 32 min',
-                    style: TextStyle(fontSize: 22, color: MyColor.appBarColor1),
+                    style: TextStyle(fontSize: 16, color: MyColor.appBarColor1),
                   ),
                 ],
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -10,7 +11,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool _enabled = false;
+  bool _enabled = Get.isDarkMode ? true : false;
   bool _isExpanded = false;
   bool _isExpanded2 = false;
   late int selectedRadio = 1;
@@ -37,7 +38,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColor.backgroundColor,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         centerTitle: true,
         title: Text(AppLocalizations.of(context)!.bottomBar4),
@@ -83,7 +84,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       onChanged: (val) {
                         setSelectedRadio(val as int);
                       },
-                      activeColor: MyColor.additionalColor,
+                      activeColor: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
                   //Divider(),
@@ -98,7 +99,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       onChanged: (val) {
                         setSelectedRadio(val as int);
                       },
-                      activeColor: MyColor.additionalColor,
+                      activeColor: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
                 ],
@@ -132,6 +133,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onChanged: (bool? value) {
                   setState(() {
                     _enabled = value!;
+                    if (_enabled) {
+                      Get.changeTheme(ThemeData.dark().copyWith(
+                          backgroundColor: MyColor.darkBackgroundColor));
+                    } else {
+                      Get.changeTheme(ThemeData.light()
+                          .copyWith(backgroundColor: MyColor.backgroundColor));
+                    }
+                    // Get.changeTheme(
+                    //     Get.isDarkMode ? ThemeData.light() : ThemeData.dark());
                   });
                 },
               ),

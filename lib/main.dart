@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
@@ -9,6 +11,7 @@ import 'package:temp_app_v1/screens/grid_screens/categories_screen.dart';
 import 'package:temp_app_v1/screens/log_sign_screen.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:temp_app_v1/screens/ripple_animate_screen.dart';
+import 'package:temp_app_v1/utils/constans/theme.dart';
 
 void main() => runApp(const MyApp());
 
@@ -22,12 +25,15 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
+      darkTheme: darkTheme,
+      theme: lightTheme,
+      themeMode: ThemeMode.system,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       debugShowCheckedModeBanner: false,
       home: AnimatedSplashScreen(
-        backgroundColor: MyColor.backgroundColor,
+        backgroundColor: Theme.of(context).backgroundColor,
         splash: GradientText(
           "TemplyCare",
           style: const TextStyle(

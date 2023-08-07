@@ -145,7 +145,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColor.backgroundColor,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         centerTitle: true,
         title: Text(AppLocalizations.of(context)!.secondAppBar),

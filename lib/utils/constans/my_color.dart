@@ -17,4 +17,5 @@ class MyColor {
   static Color backgroundColor = const Color.fromRGBO(245, 255, 245, 1);
   static const Color additionalColor = Color.fromRGBO(225, 130, 30, 1);
   static const Color shadow = Color.fromRGBO(158, 158, 158, 0.7);
+  static const Color darkBackgroundColor = Color.fromRGBO(51, 51, 51, 1);
 }

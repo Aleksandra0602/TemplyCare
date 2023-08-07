@@ -19,7 +19,7 @@ class _LogSignScreenState extends State<LogSignScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColor.backgroundColor,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         backgroundColor: MyColor.appBarColor2,
         title: const Text('TemplyCare'),
