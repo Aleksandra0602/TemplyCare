@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:slide_digital_clock/slide_digital_clock.dart';
 import 'package:temp_app_v1/screens/grid_screens/categories_screen.dart';
@@ -70,9 +71,9 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
       backgroundColor: MyColor.primary6,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(
-          'Czas na urządzeniu pomiarowym',
-          style: TextStyle(fontSize: 18),
+        title: Text(
+          AppLocalizations.of(context)!.timeDevice,
+          style: const TextStyle(fontSize: 18),
         ),
         backgroundColor: MyColor.primary6,
       ),
@@ -148,7 +149,7 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
                       } else if (snapshot.hasError) {
                         return const Text('error');
                       } else {
-                        return const Text('Brak informacji o dacie');
+                        return Text(AppLocalizations.of(context)!.timeError);
                       }
                     },
                   ),
@@ -176,9 +177,9 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Sprawdź datę i czas na urządzeniu',
-                    style: TextStyle(
+                  Text(
+                    AppLocalizations.of(context)!.checkDate,
+                    style: const TextStyle(
                       color: MyColor.appBarColor1,
                       fontSize: 16,
                     ),
@@ -254,10 +255,10 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
                     SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
-                            'Czas zapytania',
-                            style: TextStyle(
+                            AppLocalizations.of(context)!.askTime,
+                            style: const TextStyle(
                               color: MyColor.appBarColor1,
                             ),
                           ),
@@ -268,10 +269,10 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
                     SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
-                            'Czas na urządzeniu',
-                            style: TextStyle(
+                            AppLocalizations.of(context)!.deviceTime,
+                            style: const TextStyle(
                               color: MyColor.appBarColor1,
                             ),
                           ),
@@ -304,9 +305,9 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Wyślij aktualny czas do urządzenia',
-                    style: TextStyle(
+                  Text(
+                    AppLocalizations.of(context)!.sendTime,
+                    style: const TextStyle(
                       color: MyColor.appBarColor1,
                       fontSize: 16,
                     ),

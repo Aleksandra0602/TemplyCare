@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:temp_app_v1/utils/constans/screens.dart';
@@ -34,7 +34,7 @@ class _ScreenMainState extends State<ScreenMain> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CategoryButtonSquare(
-                  title: 'Podgląd danych',
+                  title: AppLocalizations.of(context)!.buttonText1,
                   color: MyColor.primary1,
                   screens: ScreensEnum.realTemperatureScreen,
                   services: widget.services,
@@ -42,7 +42,7 @@ class _ScreenMainState extends State<ScreenMain> {
                   height: widthSquare,
                 ),
                 CategoryButtonSquare(
-                  title: 'Wykonaj pomiar',
+                  title: AppLocalizations.of(context)!.buttonText2,
                   color: MyColor.primary2,
                   screens: ScreensEnum.measurementScreen,
                   services: widget.services,
@@ -52,7 +52,7 @@ class _ScreenMainState extends State<ScreenMain> {
               ],
             ),
             CategoryButtonSquare(
-              title: 'Stan karty pamięci',
+              title: AppLocalizations.of(context)!.buttonText4,
               color: MyColor.primary3,
               screens: ScreensEnum.memoryCardScreen,
               services: widget.services,
@@ -63,7 +63,7 @@ class _ScreenMainState extends State<ScreenMain> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CategoryButtonSquare(
-                  title: 'Stan baterii',
+                  title: AppLocalizations.of(context)!.buttonText3,
                   color: MyColor.primary4,
                   screens: ScreensEnum.batteryScreen,
                   services: widget.services,
@@ -71,7 +71,7 @@ class _ScreenMainState extends State<ScreenMain> {
                   height: widthSquare,
                 ),
                 CategoryButtonSquare(
-                  title: 'Podgląd plików',
+                  title: AppLocalizations.of(context)!.buttonText5,
                   color: MyColor.primary5,
                   screens: ScreensEnum.displayFilesScreen,
                   services: widget.services,
@@ -81,7 +81,7 @@ class _ScreenMainState extends State<ScreenMain> {
               ],
             ),
             CategoryButtonSquare(
-              title: 'Czas na urządzeniu',
+              title: AppLocalizations.of(context)!.buttonText6,
               color: MyColor.primary6,
               screens: ScreensEnum.timeDeviceScreen,
               services: widget.services,

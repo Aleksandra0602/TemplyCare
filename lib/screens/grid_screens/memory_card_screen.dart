@@ -1,5 +1,4 @@
-import 'dart:ui';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
@@ -15,7 +14,7 @@ class MemoryCardScreen extends StatelessWidget {
       backgroundColor: MyColor.primary4,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Stan karty pamięci'),
+        title: Text(AppLocalizations.of(context)!.buttonText4),
         backgroundColor: MyColor.primary4,
       ),
       body: SingleChildScrollView(
@@ -89,16 +88,16 @@ class MemoryCardScreen extends StatelessWidget {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
-                        'Pamięć całkowita:',
-                        style: TextStyle(
+                        AppLocalizations.of(context)!.memorySize,
+                        style: const TextStyle(
                           color: MyColor.appBarColor1,
                           fontWeight: FontWeight.w500,
                           fontSize: 16,
                         ),
                       ),
-                      Text(
+                      const Text(
                         '16 GB',
                         style: TextStyle(
                           color: MyColor.appBarColor1,
@@ -111,16 +110,16 @@ class MemoryCardScreen extends StatelessWidget {
                   const Divider(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
-                        'Pamięć zajęta:',
-                        style: TextStyle(
+                        AppLocalizations.of(context)!.usedMemory,
+                        style: const TextStyle(
                           color: MyColor.appBarColor1,
                           fontWeight: FontWeight.w500,
                           fontSize: 16,
                         ),
                       ),
-                      Text(
+                      const Text(
                         '1 GB (10%)',
                         style: TextStyle(
                           color: MyColor.appBarColor1,
@@ -133,16 +132,16 @@ class MemoryCardScreen extends StatelessWidget {
                   const Divider(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
-                        'Wolna pamięć:',
-                        style: TextStyle(
+                        AppLocalizations.of(context)!.freeMemory,
+                        style: const TextStyle(
                           color: MyColor.appBarColor1,
                           fontWeight: FontWeight.w500,
                           fontSize: 16,
                         ),
                       ),
-                      Text(
+                      const Text(
                         '15 GB (90%)',
                         style: TextStyle(
                           color: MyColor.appBarColor1,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -39,7 +40,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       backgroundColor: MyColor.backgroundColor,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Ustawienia'),
+        title: Text(AppLocalizations.of(context)!.bottomBar4),
         backgroundColor: MyColor.primary7,
       ),
       body: SingleChildScrollView(
@@ -51,9 +52,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 color: MyColor.primary7,
                 size: 32,
               ),
-              title: const Text(
-                'Język',
-                style: TextStyle(
+              title: Text(
+                AppLocalizations.of(context)!.language,
+                style: const TextStyle(
                   fontSize: 20,
                 ),
               ),
@@ -73,8 +74,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 children: [
                   ListTile(
                     leading: Image.asset('assets/pl20.png'),
-                    title: const Text(
-                      'Polski',
+                    title: Text(
+                      AppLocalizations.of(context)!.polish,
                     ),
                     trailing: Radio(
                       value: 1,
@@ -88,8 +89,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   //Divider(),
                   ListTile(
                     leading: Image.asset('assets/GB20.png'),
-                    title: const Text(
-                      'Angielski',
+                    title: Text(
+                      AppLocalizations.of(context)!.english,
                     ),
                     trailing: Radio(
                       value: 2,
@@ -111,14 +112,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 color: MyColor.primary7,
                 size: 32,
               ),
-              title: const Text(
-                'Tryb ciemny',
-                style: TextStyle(
+              title: Text(
+                AppLocalizations.of(context)!.darkMode,
+                style: const TextStyle(
                   fontSize: 20,
                 ),
               ),
               subtitle: Text(
-                _enabled ? 'Włączony' : 'Wyłączony',
+                _enabled
+                    ? AppLocalizations.of(context)!.darkTurnOn
+                    : AppLocalizations.of(context)!.darkTurnOff,
                 style: const TextStyle(
                   fontSize: 16,
                 ),
@@ -140,9 +143,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 color: MyColor.primary7,
                 size: 32,
               ),
-              title: const Text(
-                'Jednostki metryczne',
-                style: TextStyle(
+              title: Text(
+                AppLocalizations.of(context)!.units,
+                style: const TextStyle(
                   fontSize: 20,
                 ),
               ),
@@ -161,8 +164,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               child: ListView(
                 children: [
                   ListTile(
-                    title: const Text(
-                      'Celsjusz',
+                    title: Text(
+                      AppLocalizations.of(context)!.cel,
                     ),
                     trailing: Radio(
                       value: 1,
@@ -175,8 +178,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                   //Divider(),
                   ListTile(
-                    title: const Text(
-                      'Fahrenheit',
+                    title: Text(
+                      AppLocalizations.of(context)!.fah,
                     ),
                     trailing: Radio(
                       value: 2,

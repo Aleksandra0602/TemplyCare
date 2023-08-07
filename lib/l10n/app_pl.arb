@@ -1,24 +1,49 @@
 {
-    "unknownDevice": "(nieznane urządzenie)",
+    "unknownDevice": "Nieznane urządzenie",
     "connectDevice": "Połącz",
     "alreadyConnected": "Już połączono",
-    "firstAppBar": "TempApp",
+    "firstAppBar": "TemplyCare",
     
-    "buttonText1": "Podgląd aktualnych danych",
+    "buttonText1": "Podgląd danych",
     "buttonText2": "Wykonaj pomiar",
     "buttonText3": "Stan baterii",
     "buttonText4": "Stan karty pamięci",
     "buttonText5": "Podgląd plików'",
     "buttonText6": "Czas na urządzeniu",
-    "buttonText7": "Ustawienia",
-    "buttonText8": "Mój profil",
+  
+    "bleTitle": "Bluetooth jest wyłączony!",
+    "bleMessage": "Aby korzystać z aplikacji włącz Bluetooth na swoim urządzeniu",
+    "bleClose": "Zamknij aplikację",
+    "bleOn": "Włącz Bluetooth",
+    "deviceConnect": "Połącz się z urządzeniem",
+
+    "logIn": "Zaloguj się",
+    "signIn": "Zarejestruj się",
+    "registration": "Rejestracja",
+    "log": "Logowanie",
+    "password": "Hasło",
+    "repeatPassword": "Powtórz hasło",
+    "accountMessage": "Masz już konto?",
+    "logMessage": "Nie masz jeszcze konta?",
+
+
+    "bottomBar1": "Główna",
+    "bottomBar2": "Aktualności",
+    "bottomBar3": "Pomiar",
+    "bottomBar4": "Ustawienia",
+    "bottomBar5": "Profil",
+
 
     "secondAppBar": "Aktualne pomiary",
     "tempValue1": "Temperatura 1.",
     "tempValue2": "Temperatura 2.",
     "humValue": "Wilgotność",
+    "tempChart": "Wykres temperatur",
+    "last15": "Ostatnie 15 pomiarów",
+    "humChart": "Wykres wilgotności",
+    
 
-    "thirdAppBar": "Wybierz parametry",
+    "thirdAppBar": "Ustaw parametry",
     "measurementTime": "Czas pomiaru [min]",
     "sleepTime": "Czas uśpienia [s]",
     "tag": "Tag",
@@ -31,15 +56,46 @@
     "errorMessage": "Brak danych do pomiaru",
 
 
-    "batteryStatus": "Stan baterii wynosi ... ",
-    "timeBattery": "Baterii w urządzeniu wystarczy na ... czasu",
+    "timeBattery": "Baterii w urządzeniu wystarczy na:",
+    "batteryMessage": "Dane o wykorzystaniu baterii są przybliżone i mogą się zmienić w zależności od sposobu używania urządzenia",
 
     "sixthAppBar": "Wyświetl dostępne pliki",
 
-    "dateButton": "Pobierz datę",
-    "sendButton": "Prześlij",
-    "downloadButton": "Pobierz datę z urządzęnia",
+    "timeDevice": "Czas na urządzeniu pomiarowym",
+    "timeError": "Brak informacji o dacie",
+    "checkDate": "Sprawdź datę i czas na urządzeniu",
+    "askTime": "Czas zapytania",
+    "deviceTime": "Czas na urządzeniu",
+    "sendTime": "Wyślij aktualny czas do urządzenia",
 
-    "logoutButton": "Wyloguj"
+    "memorySize": "Pamięć całkowita:",
+    "usedMemory": "Pamięć zajęta:",
+    "freeMemory": "Wolna pamięć:",
+
+    "appBarProfile": "Mój profil",
+    "addPic": "Dodaj zdjęcie profilowe",
+    "changePic": "Zmień zdjęcie profilowe",
+    "manage": "Zarządzaj",
+    "newPassword": "Nowe hasło",
+    "repeatNewPassword": "Powtórz nowe hasło",
+    "changePassowrd": "Zmień hasło",
+    "logoutButton": "Wyloguj się",
+
+    "language": "Język",
+    "polish": "Polski",
+    "english": "English",
+    "darkMode": "Tryb ciemny",
+    "darkTurnOn": "Włączony",
+    "darkTurnOff": "Wyłączony",
+    "units": "Jednostki",
+    "cel": "Celsjusz",
+    "fah": "Fahrenheit"
+
+
+
+
+
+
+
 
 }

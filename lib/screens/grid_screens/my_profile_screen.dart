@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
@@ -42,7 +42,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
       backgroundColor: MyColor.primary6,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Mój profil'),
+        title: Text(AppLocalizations.of(context)!.appBarProfile),
         backgroundColor: MyColor.primary6,
       ),
       body: SingleChildScrollView(
@@ -80,15 +80,16 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   storedImage == null
-                                      ? const Text(
-                                          'Dodaj zdjęcie profilowe',
-                                          style: TextStyle(
+                                      ? Text(
+                                          AppLocalizations.of(context)!.addPic,
+                                          style: const TextStyle(
                                               fontSize: 16,
                                               color: MyColor.appBarColor1),
                                         )
-                                      : const Text(
-                                          'Zmień zdjęcie profilowe',
-                                          style: TextStyle(
+                                      : Text(
+                                          AppLocalizations.of(context)!
+                                              .changePic,
+                                          style: const TextStyle(
                                               fontSize: 16,
                                               color: MyColor.appBarColor1),
                                         ),
@@ -110,7 +111,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                       color: Colors.grey.shade200,
                                       size: 150,
                                     )
-                                  : Container(
+                                  : SizedBox(
                                       height: 180,
                                       width: 180,
                                       child: Stack(
@@ -126,7 +127,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                               ],
                                             ),
                                           ),
-                                          Container(
+                                          SizedBox(
                                             height: 180,
                                             width: 180,
                                             child: ClipOval(
@@ -198,9 +199,10 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                         const SizedBox(
                                           width: 8,
                                         ),
-                                        const Text(
-                                          'Hasło: ',
-                                          style: TextStyle(
+                                        Text(
+                                          AppLocalizations.of(context)!
+                                              .password,
+                                          style: const TextStyle(
                                               fontSize: 16,
                                               color: MyColor.appBarColor1),
                                         ),
@@ -251,8 +253,10 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                           context: context,
                                           builder: (BuildContext context) {
                                             return AlertDialog(
-                                              title: const Text('Zarządzaj'),
-                                              content: Container(
+                                              title: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .manage),
+                                              content: SizedBox(
                                                 height: MediaQuery.of(context)
                                                         .size
                                                         .height /
@@ -263,11 +267,15 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     PasswordField(
-                                                        'Nowe hasło',
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .newPassword,
                                                         Icons.password,
                                                         _passwordController),
                                                     PasswordField(
-                                                        'Powtórz nowe hasło',
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .repeatNewPassword,
                                                         Icons.password,
                                                         _passwordCheckController),
                                                   ],
@@ -278,14 +286,18 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                                     onPressed: () =>
                                                         Navigator.of(context)
                                                             .pop(),
-                                                    child: Text('OK'))
+                                                    child: Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .alertButton))
                                               ],
                                             );
                                           });
                                     },
-                                    child: const Text(
-                                      'Zmień hasło',
-                                      style: TextStyle(
+                                    child: Text(
+                                      AppLocalizations.of(context)!
+                                          .changePassowrd,
+                                      style: const TextStyle(
                                           color: MyColor.appBarColor3,
                                           fontStyle: FontStyle.italic),
                                     )),
@@ -312,12 +324,12 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => RippleAnimateScreen()),
+                            builder: (context) => const RippleAnimateScreen()),
                       );
                     },
                     child: MyButton(
                       color: MyColor.additionalColor,
-                      textButton: 'Wyloguj się',
+                      textButton: AppLocalizations.of(context)!.logoutButton,
                       borderColor: MyColor.additionalColor,
                       textColor: MyColor.backgroundColor,
                     ),

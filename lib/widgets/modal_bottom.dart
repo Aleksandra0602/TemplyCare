@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../screens/log_sign_screen.dart';
 
@@ -66,7 +67,7 @@ class _ModalBottomBodyState extends State<ModalBottomBody> {
               children: [
                 Expanded(
                   child: Text(
-                    'Połącz się z urządzeniem',
+                    AppLocalizations.of(context)!.deviceConnect,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: MyColor.backgroundColor,
@@ -112,7 +113,8 @@ class _ModalBottomBodyState extends State<ModalBottomBody> {
                               children: [
                                 Text(
                                   element.name == ''
-                                      ? 'Nieznane urządzenie'
+                                      ? AppLocalizations.of(context)!
+                                          .unknownDevice
                                       : element.name,
                                   style: const TextStyle(fontSize: 18),
                                 ),
@@ -131,7 +133,9 @@ class _ModalBottomBodyState extends State<ModalBottomBody> {
                               try {
                                 await element.connect();
                               } catch (e) {
-                                if (e.hashCode != 'already_connected') {
+                                if (e.hashCode !=
+                                    AppLocalizations.of(context)!
+                                        .alreadyConnected) {
                                   throw e;
                                 }
                               } finally {
@@ -159,10 +163,10 @@ class _ModalBottomBodyState extends State<ModalBottomBody> {
                                 borderRadius: BorderRadius.circular(5),
                                 color: MyColor.primary1,
                               ),
-                              child: const Center(
+                              child: Center(
                                 child: Text(
-                                  'Połącz',
-                                  style: TextStyle(
+                                  AppLocalizations.of(context)!.connectDevice,
+                                  style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w500,
                                   ),

@@ -1,8 +1,8 @@
 {
-    "unknownDevice": "(unknown device)",
+    "unknownDevice": "Unknown device",
     "connectDevice": "Connect",
     "alreadyConnected": "already connected",
-    "firstAppBar": "TempApp",
+    "firstAppBar": "TemplyCare",
     
     "buttonText1": "Display current data",
     "buttonText2": "Take the measurement",
@@ -10,15 +10,40 @@
     "buttonText4": "Memory Card status",
     "buttonText5": "View files",
     "buttonText6": "Time on device",
-    "buttonText7": "Settings",
-    "buttonText8": "My profile",
+    
+    "bleTitle": "Bluetooth is turned off!",
+    "bleMessage": "To use the application, turn on Bluetooth on your device",
+    "bleClose": "Close the app",
+    "bleOn": "Turn on Bluetooth",
+    "deviceConnect": "Connect to the device",
 
-    "secondAppBar": "Current measyurements",
+    "logIn": "Log in",
+    "signIn": "Sign up",
+    "registration": "Registration",
+    "log": "Login",
+    "password": "Password",
+    "repeatPassword": "Repeat password",
+    "accountMessage": "Already have an account?",
+    "logMessage": "Don't have an account yet?",
+
+
+    "bottomBar1": "Main",
+    "bottomBar2": "Current data",
+    "bottomBar3": "Measurement",
+    "bottomBar4": "Settings",
+    "bottomBar5": "Profile",
+
+
+    "secondAppBar": "Current measurements",
     "tempValue1": "Temperature 1.",
     "tempValue2": "Temperature 2.",
     "humValue": "Humidity",
+    "tempChart": "Temperature graph",
+    "last15": "Last 15 measurements",
+    "humChart": "Humidity graph",
 
-    "thirdAppBar": "Enter parameters",
+    
+    "thirdAppBar": "Set parameters",
     "measurementTime": "Measurement time [min]",
     "sleepTime": "Sleep time [s]",
     "tag": "Tag",
@@ -30,17 +55,41 @@
     "errorDialog": "Error",
     "errorMessage": "No data to measure",
   
-    "batteryStatus": "Battery status is ... ",
-    "timeBattery": "The battery in the device will last for ...",
+
+    "timeBattery": "The battery in the device will last for:",
+    "batteryMessage": "Battery usage data isapproximate and can change based on usage",
 
     "sixthAppBar": "View available files",
 
-    "dateButton": "Download date",
-    "sendButton": "Submit",
-    "downloadButton": "Download date from the device",
+    "timeDevice": "Time on a measuring device",
+    "timeError": "No date information",
+    "checkDate": "Check the date and time on the device",
+    "askTime": "Inquiry time",
+    "deviceTime": "Time on the device",
+    "sendTime": "Send the current time to the device",
 
-    "logoutButton": "Log out"
+    "memorySize": "Total memory",
+    "usedMemory": "Memory usage",
+    "freeMemory": "Free memory",
+ 
+    "appBarProfile": "My profile",
+    "addPic": "Add a profile picture",
+    "changePic": "Change your profile photo",
+    "manage": "Manage",
+    "newPassword": "New password",
+    "repeatNewPassword": "Repeat new password",
+    "changePassowrd": "Change password",
+    "logoutButton": "Log out",
 
+    "language": "Language",
+    "polish": "Polski",
+    "english": "English",
+    "darkMode": "Dark mode",
+    "darkTurnOn": "Enabled",
+    "darkTurnOff": "Disabled",
+    "units": "Units",
+    "cel": "Celsius",
+    "fah": "Fahrenheit"
 
 
 }

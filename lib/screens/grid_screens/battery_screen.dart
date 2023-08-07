@@ -1,8 +1,7 @@
-import 'dart:convert';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:sleek_circular_slider/sleek_circular_slider.dart';
+
 import 'package:temp_app_v1/utils/constans/dimensions.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 
@@ -51,10 +50,8 @@ class _BatteryScreenState extends State<BatteryScreen> {
               //   }
               // });
             }
-            print(characteristic.uuid);
           });
         }
-        print(service.uuid);
       });
     });
 
@@ -67,7 +64,7 @@ class _BatteryScreenState extends State<BatteryScreen> {
       backgroundColor: MyColor.backgroundColor,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Stan Baterii'),
+        title: Text(AppLocalizations.of(context)!.buttonText3),
         backgroundColor: MyColor.primary3,
       ),
       body: SingleChildScrollView(
@@ -94,7 +91,7 @@ class _BatteryScreenState extends State<BatteryScreen> {
               ),
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Stack(
@@ -105,7 +102,7 @@ class _BatteryScreenState extends State<BatteryScreen> {
                           inactiveTrackColor: Colors.grey.shade400,
                           disabledActiveTrackColor:
                               getBatteryColor(currentBatteryValue),
-                          trackShape: RectangularSliderTrackShape(),
+                          trackShape: const RectangularSliderTrackShape(),
                           trackHeight: 100,
                           thumbShape: SliderComponentShape.noThumb,
                           overlayShape: const RoundSliderOverlayShape(
@@ -113,7 +110,7 @@ class _BatteryScreenState extends State<BatteryScreen> {
                           ),
                         ),
                         child: Center(
-                          child: Container(
+                          child: SizedBox(
                             height: 250,
                             child: RotatedBox(
                               quarterTurns: 3,
@@ -163,15 +160,15 @@ class _BatteryScreenState extends State<BatteryScreen> {
               //alignment: Alignment.center,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: const [
+                children: [
                   Text(
-                    'Baterii wystarczy na:',
-                    style: TextStyle(
+                    AppLocalizations.of(context)!.timeBattery,
+                    style: const TextStyle(
                       fontSize: 22,
                       color: MyColor.appBarColor1,
                     ),
                   ),
-                  Text(
+                  const Text(
                     '8 h 32 min',
                     style: TextStyle(fontSize: 22, color: MyColor.appBarColor1),
                   ),
@@ -181,11 +178,11 @@ class _BatteryScreenState extends State<BatteryScreen> {
             const SizedBox(
               height: 120,
             ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Text(
-                'Dane o wykorzystaniu baterii są przybliżone i mogą się zmienić w zależności od sposobu używania urządzenia',
-                style: TextStyle(fontSize: 14),
+                AppLocalizations.of(context)!.batteryMessage,
+                style: const TextStyle(fontSize: 14),
               ),
             ),
           ],

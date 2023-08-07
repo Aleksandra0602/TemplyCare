@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:temp_app_v1/utils/constans/dimensions.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
@@ -28,7 +29,7 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
       backgroundColor: MyColor.backgroundColor,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Ustaw parametry'),
+        title: Text(AppLocalizations.of(context)!.thirdAppBar),
         backgroundColor: MyColor.primary2,
       ),
       body: SingleChildScrollView(
@@ -67,22 +68,23 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
                               DataMeasurementField(
                                 textEditingController:
                                     _measrementTimeController,
-                                text: 'Czas pomiaru [min]',
+                                text: AppLocalizations.of(context)!
+                                    .measurementTime,
                                 textType: TextInputType.number,
                               ),
                               DataMeasurementField(
                                 textEditingController: _sleepTimeController,
-                                text: 'Czas uśpienia [s]',
+                                text: AppLocalizations.of(context)!.sleepTime,
                                 textType: TextInputType.number,
                               ),
                               DataMeasurementField(
                                 textEditingController: _tagController,
-                                text: 'Tag',
+                                text: AppLocalizations.of(context)!.tag,
                                 textType: TextInputType.text,
                               ),
                               DataMeasurementField(
                                 textEditingController: _fileNameController,
-                                text: 'Nazwa pliku',
+                                text: AppLocalizations.of(context)!.fileName,
                                 textType: TextInputType.text,
                               ),
                             ],
@@ -163,15 +165,15 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Powiadomienie'),
+            title: Text(AppLocalizations.of(context)!.alertDialog),
             content: Text(
                 'Pomiar rozpoczyna się: \nCzas pomiaru: $var1 min\nCzas uśpienia: $var2 s\nTag:  xxx\nNazwa pliku: xxx.txt'),
             actions: <Widget>[
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: const Text(
-                  'OK',
-                  style: TextStyle(
+                child: Text(
+                  AppLocalizations.of(context)!.alertButton,
+                  style: const TextStyle(
                     color: Color.fromRGBO(0, 50, 30, 1),
                     fontSize: 18,
                   ),
@@ -187,12 +189,12 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Błąd'),
-            content: const Text('Brak danych do pomiaru'),
+            title: Text(AppLocalizations.of(context)!.errorDialog),
+            content: Text(AppLocalizations.of(context)!.errorMessage),
             actions: <Widget>[
               TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('OK'))
+                  child: Text(AppLocalizations.of(context)!.alertButton))
             ],
           );
         });

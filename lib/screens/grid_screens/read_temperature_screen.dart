@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
@@ -32,12 +33,51 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
   List<FlSpot> humPoints = [];
   FlSpot mostLeftSpot = FlSpot(0, 0);
   double xValue = 0;
+  double xValueH = 0;
 
   StreamSubscription<List<int>>? _dataSubscription;
 
   List<double> trace = [];
   late Stream<List<int>> stream;
   final Map<Guid, List<int>> readValues = Map<Guid, List<int>>();
+
+  Widget bottomTitleWidgets(double value, TitleMeta meta) {
+    var style = TextStyle(
+      fontSize: 10,
+      color: MyColor.backgroundColor,
+    );
+    Widget text;
+    if (value.toInt() <= 15) {
+      text = Text(
+        value.toInt().toString(),
+        style: style,
+      );
+    } else {
+      text = Text('', style: style);
+    }
+
+    return SideTitleWidget(
+      axisSide: meta.axisSide,
+      fitInside: const SideTitleFitInsideData(
+          distanceFromEdge: 0,
+          parentAxisSize: 4,
+          axisPosition: 0,
+          enabled: true),
+      child: text,
+    );
+  }
+
+  Widget leftTempWidget(double value, TitleMeta meta) {
+    return SideTitleWidget(
+      axisSide: meta.axisSide,
+      fitInside: const SideTitleFitInsideData(
+          distanceFromEdge: 0,
+          parentAxisSize: 2,
+          axisPosition: 0.5,
+          enabled: true),
+      child: Text(value.toInt().toString()),
+    );
+  }
 
   @override
   void initState() {
@@ -61,10 +101,9 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                   //temp2 = list[1]
 
                   hum = list[1];
+                  addHumPoint(hum);
                 });
               });
-              //TODO: przerobic na metode, ktora bedzie zwracac obiekt characteristic
-              //ktory bedziemy wykorzystywac w StreamBuilderze jako strumien
             }
           });
         }
@@ -82,7 +121,6 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
   void addDataPoint(double data) {
     dataPoints.add(FlSpot(dataPoints.length.toDouble(), data));
     if (dataPoints.length > 15) {
-      print(dataPoints);
       dataPoints.removeAt(0);
       for (int i = 0; i < dataPoints.length; i++) {
         dataPoints[i] = FlSpot(dataPoints[i].x - 1, dataPoints[i].y);
@@ -92,29 +130,16 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
     xValue += 1;
   }
 
-  Widget leftTitleWidget(double value, TitleMeta meta) {
-    String text;
-    switch (value.toInt()) {
-      case 20:
-        text = '20';
-        break;
-      case 22:
-        text = '22';
-        break;
-      case 24:
-        text = '24';
-        break;
-      case 26:
-        text = '26';
-        break;
-      case 28:
-        text = '28';
-        break;
-      default:
-        return Container();
+  void addHumPoint(double data) {
+    humPoints.add(FlSpot(humPoints.length.toDouble(), data));
+    if (humPoints.length > 15) {
+      humPoints.removeAt(0);
+      for (int i = 0; i < humPoints.length; i++) {
+        humPoints[i] = FlSpot(humPoints[i].x - 1, humPoints[i].y);
+      }
     }
 
-    return Text(text, textAlign: TextAlign.center);
+    xValueH += 1;
   }
 
   @override
@@ -123,7 +148,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
       backgroundColor: MyColor.backgroundColor,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Aktualne pomiary'),
+        title: Text(AppLocalizations.of(context)!.secondAppBar),
         backgroundColor: MyColor.primary1,
       ),
       body: SingleChildScrollView(
@@ -147,7 +172,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                     shadowWidth: 40,
                   ),
                   infoProperties: InfoProperties(
-                      bottomLabelText: 'Temperatura 1',
+                      bottomLabelText: AppLocalizations.of(context)!.tempValue1,
                       bottomLabelStyle: const TextStyle(
                         color: MyColor.primary2,
                         fontSize: 20,
@@ -182,7 +207,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
               //       shadowWidth: 30,
               //     ),
               //     infoProperties: InfoProperties(
-              //         bottomLabelText: 'Temperatura 2',
+              //         bottomLabelText: AppLocalizations.of(context)!.tempValue2,
               //         bottomLabelStyle: TextStyle(
               //           color: Color.fromRGBO(1, 90, 70, 0.8),
               //           fontSize: 20,
@@ -216,7 +241,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                     shadowWidth: 40,
                   ),
                   infoProperties: InfoProperties(
-                      bottomLabelText: 'Poziom wilgotności',
+                      bottomLabelText: AppLocalizations.of(context)!.humValue,
                       bottomLabelStyle: const TextStyle(
                         color: MyColor.primary2,
                         fontSize: 18,
@@ -266,14 +291,14 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Wykres temperatury',
+                          AppLocalizations.of(context)!.tempChart,
                           style: TextStyle(
                               color: MyColor.backgroundColor,
                               fontSize: 16,
                               fontWeight: FontWeight.w500),
                         ),
                         Text(
-                          'Ostatnie 15 pomiarów',
+                          AppLocalizations.of(context)!.last15,
                           style: TextStyle(
                             color: MyColor.backgroundColor,
                             fontSize: 14,
@@ -288,7 +313,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                           height: 190,
                           decoration: BoxDecoration(
                             color: MyColor.backgroundColor,
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(10),
                             boxShadow: const [
                               BoxShadow(
                                 color: MyColor.shadow,
@@ -302,7 +327,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                             child: Padding(
                               padding: const EdgeInsets.all(4),
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15),
+                                borderRadius: BorderRadius.circular(10),
                                 child: LineChart(
                                   LineChartData(
                                     gridData: FlGridData(
@@ -324,8 +349,10 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                                       ),
                                       bottomTitles: AxisTitles(
                                         sideTitles: SideTitles(
-                                          showTitles: false,
-                                          reservedSize: 28,
+                                          showTitles: true,
+                                          reservedSize: 12,
+                                          interval: 2,
+                                          getTitlesWidget: bottomTitleWidgets,
                                         ),
                                       ),
                                       leftTitles: AxisTitles(
@@ -333,7 +360,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                                           showTitles: true,
                                           interval: 2,
                                           reservedSize: 32,
-                                          getTitlesWidget: leftTitleWidget,
+                                          getTitlesWidget: leftTempWidget,
                                         ),
                                       ),
                                     ),
@@ -371,14 +398,14 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                           height: 16,
                         ),
                         Text(
-                          'Wykres wilgotności',
+                          AppLocalizations.of(context)!.humChart,
                           style: TextStyle(
                               color: MyColor.backgroundColor,
                               fontSize: 16,
                               fontWeight: FontWeight.w500),
                         ),
                         Text(
-                          'Ostatnie 15 pomiarów',
+                          AppLocalizations.of(context)!.last15,
                           style: TextStyle(
                             color: MyColor.backgroundColor,
                             fontSize: 14,
@@ -390,10 +417,10 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                           margin: const EdgeInsets.symmetric(
                             vertical: 4,
                           ),
-                          height: 190,
+                          height: 200,
                           decoration: BoxDecoration(
                             color: MyColor.backgroundColor,
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(10),
                             boxShadow: const [
                               BoxShadow(
                                 color: MyColor.shadow,
@@ -407,7 +434,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                             child: Padding(
                               padding: const EdgeInsets.all(4),
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15),
+                                borderRadius: BorderRadius.circular(10),
                                 child: LineChart(
                                   LineChartData(
                                     gridData: FlGridData(
@@ -429,8 +456,9 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                                       ),
                                       bottomTitles: AxisTitles(
                                         sideTitles: SideTitles(
-                                          showTitles: false,
-                                          reservedSize: 28,
+                                          showTitles: true,
+                                          reservedSize: 12,
+                                          getTitlesWidget: bottomTitleWidgets,
                                         ),
                                       ),
                                       leftTitles: AxisTitles(
@@ -438,6 +466,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                                           showTitles: true,
                                           interval: 25,
                                           reservedSize: 32,
+                                          getTitlesWidget: leftTempWidget,
                                         ),
                                       ),
                                     ),
@@ -448,12 +477,12 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                                           left: BorderSide()),
                                     ),
                                     minX: 0,
-                                    maxX: dataPoints.length + 2,
+                                    maxX: humPoints.length + 2,
                                     minY: 0,
                                     maxY: 100,
                                     lineBarsData: [
                                       LineChartBarData(
-                                        spots: dataPoints,
+                                        spots: humPoints,
                                         isCurved: true,
                                         color: MyColor.additionalColor,
                                         dotData: FlDotData(show: false),

@@ -20,9 +20,9 @@ class MyButtonNavBar extends StatelessWidget {
       onTap: onTapped,
       selectedItemColor: MyColor.additionalColor,
       selectedFontSize: 14,
-      selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
+      selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
       unselectedItemColor: MyColor.primary8,
-      unselectedIconTheme: IconThemeData(color: MyColor.primary7),
+      unselectedIconTheme: const IconThemeData(color: MyColor.primary7),
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.data_exploration),

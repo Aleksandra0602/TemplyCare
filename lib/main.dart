@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_local.dart';
+
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 
 import 'package:temp_app_v1/screens/grid_screens/categories_screen.dart';
 import 'package:temp_app_v1/screens/log_sign_screen.dart';
@@ -21,6 +23,8 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       debugShowCheckedModeBanner: false,
       home: AnimatedSplashScreen(
         backgroundColor: MyColor.backgroundColor,
@@ -39,8 +43,8 @@ class _MyAppState extends State<MyApp> {
         ),
         splashTransition: SplashTransition.slideTransition,
         //nextScreen: RippleAnimateScreen(),
-        //nextScreen: LogSignScreen(),
-        nextScreen: CategoriesScreen(),
+        nextScreen: LogSignScreen(),
+        //nextScreen: CategoriesScreen(),
       ),
     );
   }

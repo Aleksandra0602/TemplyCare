@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:temp_app_v1/screens/log_in_screen.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
@@ -45,7 +46,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       backgroundColor: MyColor.backgroundColor,
       appBar: AppBar(
-        title: const Text('Rejestracja'),
+        title: Text(AppLocalizations.of(context)!.registration),
         backgroundColor: MyColor.appBarColor2,
         centerTitle: true,
       ),
@@ -71,9 +72,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
               _emailController,
               validationMail(_emailController.text),
             ),
-            PasswordField('Hasło', Icons.password, _password1Controller),
-            PasswordField(
-                'Powtórz hasło', Icons.password, _password2Controller),
+            PasswordField(AppLocalizations.of(context)!.password,
+                Icons.password, _password1Controller),
+            PasswordField(AppLocalizations.of(context)!.repeatPassword,
+                Icons.password, _password2Controller),
             const SizedBox(
               height: 30,
             ),
@@ -87,7 +89,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               }),
               child: MyButton(
                 color: MyColor.additionalColor,
-                textButton: 'Zarejestruj się',
+                textButton: AppLocalizations.of(context)!.signIn,
                 borderColor: MyColor.additionalColor,
                 textColor: MyColor.backgroundColor,
               ),
@@ -95,9 +97,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
             const SizedBox(
               height: 30,
             ),
-            const Text(
-              'Masz już konto?',
-              style: TextStyle(fontSize: 16),
+            Text(
+              AppLocalizations.of(context)!.accountMessage,
+              style: const TextStyle(fontSize: 16),
             ),
             TextButton(
               onPressed: () {
@@ -106,9 +108,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     MaterialPageRoute(
                         builder: (context) => const LogInScreen()));
               },
-              child: const Text(
-                'Zaloguj się!',
-                style: TextStyle(
+              child: Text(
+                AppLocalizations.of(context)!.logIn,
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                   color: MyColor.appBarColor2,

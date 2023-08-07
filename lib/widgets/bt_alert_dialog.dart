@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../utils/constans/my_color.dart';
 
@@ -12,17 +13,16 @@ class BluetoothAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Bluetooth jest wyłączony!'),
-      content: const Text(
-          'Aby korzystać z aplikacji włącz Bluetooth na swoim urządzeniu'),
+      title: Text(AppLocalizations.of(context)!.bleTitle),
+      content: Text(AppLocalizations.of(context)!.bleMessage),
       actions: [
         TextButton(
           onPressed: () {
             SystemNavigator.pop();
           },
-          child: const Text(
-            'Zamknij aplikację',
-            style: TextStyle(color: MyColor.additionalColor),
+          child: Text(
+            AppLocalizations.of(context)!.bleClose,
+            style: const TextStyle(color: MyColor.additionalColor),
           ),
         ),
         TextButton(
@@ -32,9 +32,9 @@ class BluetoothAlertDialog extends StatelessWidget {
             turnOnBluetooth();
             //Navigator.pop(context);
           },
-          child: const Text(
-            'Włącz Bluetooth',
-            style: TextStyle(color: MyColor.primary2),
+          child: Text(
+            AppLocalizations.of(context)!.bleOn,
+            style: const TextStyle(color: MyColor.primary2),
           ),
         ),
       ],

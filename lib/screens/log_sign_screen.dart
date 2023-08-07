@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:temp_app_v1/screens/log_in_screen.dart';
 import 'package:temp_app_v1/screens/sign_up_screen.dart';
@@ -50,7 +51,7 @@ class _LogSignScreenState extends State<LogSignScreen> {
               },
               child: MyButton(
                 color: MyColor.primary2,
-                textButton: 'Zaloguj się',
+                textButton: AppLocalizations.of(context)!.logIn,
                 borderColor: MyColor.primary2,
                 textColor: MyColor.backgroundColor,
               ),
@@ -65,7 +66,7 @@ class _LogSignScreenState extends State<LogSignScreen> {
               },
               child: MyButton(
                 color: MyColor.backgroundColor,
-                textButton: 'Zarejestruj się',
+                textButton: AppLocalizations.of(context)!.signIn,
                 borderColor: MyColor.primary2,
                 textColor: MyColor.primary2,
               ),

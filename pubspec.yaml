@@ -48,7 +48,8 @@ dependencies:
   location: ^4.4.0
   app_settings: ^4.2.0
   geolocator: ^9.0.2
-  intl: ^0.18.1
+  intl: ^0.17.0
+  flutter_localization: ^0.1.13
   
 
 dev_dependencies:
