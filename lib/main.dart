@@ -5,13 +5,12 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_localization/flutter_localization.dart';
 
-import 'package:temp_app_v1/screens/grid_screens/categories_screen.dart';
 import 'package:temp_app_v1/screens/log_sign_screen.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:temp_app_v1/screens/ripple_animate_screen.dart';
-import 'package:temp_app_v1/utils/constans/theme.dart';
+
+import 'package:temp_app_v1/utils/local_strings.dart';
 
 void main() => runApp(const MyApp());
 
@@ -26,6 +25,8 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      translations: LocalStrings(),
+      locale: Locale('pl', 'PL'),
       darkTheme: ThemeData.dark(),
       theme:
           ThemeData.light().copyWith(backgroundColor: MyColor.backgroundColor),

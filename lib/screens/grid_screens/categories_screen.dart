@@ -39,7 +39,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         services: widget.services,
       ),
       MeasurementScreen(services: widget.services),
-      SettingsScreen(),
+      const SettingsScreen(),
       MyProfileScreen(),
     ];
   }

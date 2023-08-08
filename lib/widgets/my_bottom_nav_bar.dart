@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:temp_app_v1/screens/grid_screens/read_temperature_screen.dart';
+
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 
 class MyButtonNavBar extends StatelessWidget {
