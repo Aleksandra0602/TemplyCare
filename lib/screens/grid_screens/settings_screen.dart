@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:temp_app_v1/utils/constans/theme.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -15,7 +15,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool _enabled = Get.isDarkMode ? true : false;
   bool _isExpanded = false;
   bool _isExpanded2 = false;
-  int selectedRadio = 1;
+  int selectedRadio = Get.locale?.languageCode == 'pl' ? 1 : 2;
   int secondRadio = 1;
   bool currState = true;
 
@@ -91,6 +91,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       groupValue: selectedRadio,
                       onChanged: (val) {
                         setSelectedRadio(val as int);
+                        var locale = const Locale('pl', 'PL');
+                        Get.updateLocale(locale);
                       },
                       activeColor: MyColor.additionalColor,
                     ),
@@ -106,6 +108,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       groupValue: selectedRadio,
                       onChanged: (val) {
                         setSelectedRadio(val as int);
+                        var locale = const Locale('en', 'US');
+                        Get.updateLocale(locale);
                       },
                       activeColor: MyColor.additionalColor,
                     ),

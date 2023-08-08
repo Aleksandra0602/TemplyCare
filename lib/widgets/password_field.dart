@@ -7,8 +7,7 @@ class PasswordField extends StatefulWidget {
   IconData icon;
   final TextEditingController textEditingController;
 
-  PasswordField(
-      @required this.text, this.icon, @required this.textEditingController);
+  PasswordField(this.text, this.icon, this.textEditingController);
 
   @override
   State<PasswordField> createState() => PasswordFieldState();
