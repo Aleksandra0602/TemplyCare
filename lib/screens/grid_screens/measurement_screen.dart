@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/get.dart';
 
 import 'package:temp_app_v1/utils/constans/dimensions.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
@@ -37,8 +38,10 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
           children: <Widget>[
             Container(
               height: 160,
-              color: MyColor.backgroundColor,
-              child: Image.asset('assets/logo.png'),
+              color: Theme.of(context).backgroundColor,
+              child: Get.isDarkMode
+                  ? Image.asset('assets/logo_ciemne.png')
+                  : Image.asset('assets/logo.png'),
             ),
             Stack(
               alignment: Alignment.bottomCenter,
@@ -52,16 +55,19 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
                         Container(
                           padding: const EdgeInsets.only(
                               bottom: 48, top: 16, right: 8, left: 8),
-                          decoration: const BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: MyColor.shadow,
-                                spreadRadius: 2,
-                                blurRadius: 8,
-                              ),
-                            ],
+                          decoration: BoxDecoration(
+                            boxShadow: Get.isDarkMode
+                                ? []
+                                : [
+                                    const BoxShadow(
+                                      color: MyColor.shadow,
+                                      spreadRadius: 2,
+                                      blurRadius: 8,
+                                    ),
+                                  ],
                             color: MyColor.primary2,
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(20)),
                           ),
                           child: Column(
                             children: [
@@ -129,14 +135,16 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
                       height: 72,
                       padding: const EdgeInsets.symmetric(horizontal: 96),
                       decoration: BoxDecoration(
-                        boxShadow: const [
-                          BoxShadow(
-                            color: MyColor.shadow,
-                            spreadRadius: 1,
-                            blurRadius: 4,
-                            offset: Offset(0, 4),
-                          ),
-                        ],
+                        boxShadow: Get.isDarkMode
+                            ? []
+                            : [
+                                const BoxShadow(
+                                  color: MyColor.shadow,
+                                  spreadRadius: 1,
+                                  blurRadius: 4,
+                                  offset: Offset(0, 4),
+                                ),
+                              ],
                         color: MyColor.additionalColor,
                         borderRadius: BorderRadius.circular(15),
                       ),

@@ -4,6 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:get/get.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import 'package:temp_app_v1/utils/constans/dimensions.dart';
@@ -44,7 +45,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
     var style = TextStyle(
       fontSize: 10,
-      color: MyColor.backgroundColor,
+      color: Theme.of(context).backgroundColor,
     );
     Widget text;
     if (value.toInt() <= 15) {
@@ -163,7 +164,8 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                   customColors: CustomSliderColors(
                     trackColor: MyColor.primary1,
                     progressBarColor: MyColor.primary1.withOpacity(0.5),
-                    shadowColor: MyColor.primary2,
+                    shadowColor:
+                        Get.isDarkMode ? MyColor.primary4 : MyColor.primary2,
                     shadowStep: 8,
                   ),
                   customWidths: CustomSliderWidths(
@@ -172,9 +174,18 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                     shadowWidth: 40,
                   ),
                   infoProperties: InfoProperties(
+                      mainLabelStyle: TextStyle(
+                        fontSize: 48,
+                        fontWeight: FontWeight.w200,
+                        color: Get.isDarkMode
+                            ? MyColor.backgroundColor
+                            : MyColor.primary1,
+                      ),
                       bottomLabelText: AppLocalizations.of(context)!.tempValue1,
-                      bottomLabelStyle: const TextStyle(
-                        color: MyColor.primary2,
+                      bottomLabelStyle: TextStyle(
+                        color: Get.isDarkMode
+                            ? MyColor.primary4
+                            : MyColor.primary2,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -232,7 +243,8 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                   customColors: CustomSliderColors(
                     trackColor: MyColor.primary1,
                     progressBarColor: MyColor.primary1.withOpacity(0.5),
-                    shadowColor: MyColor.primary2,
+                    shadowColor:
+                        Get.isDarkMode ? MyColor.primary4 : MyColor.primary2,
                     shadowStep: 8,
                   ),
                   customWidths: CustomSliderWidths(
@@ -241,9 +253,18 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                     shadowWidth: 40,
                   ),
                   infoProperties: InfoProperties(
+                      mainLabelStyle: TextStyle(
+                        fontSize: 48,
+                        fontWeight: FontWeight.w200,
+                        color: Get.isDarkMode
+                            ? MyColor.backgroundColor
+                            : MyColor.primary1,
+                      ),
                       bottomLabelText: AppLocalizations.of(context)!.humValue,
-                      bottomLabelStyle: const TextStyle(
-                        color: MyColor.primary2,
+                      bottomLabelStyle: TextStyle(
+                        color: Get.isDarkMode
+                            ? MyColor.primary4
+                            : MyColor.primary2,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
@@ -265,19 +286,21 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     alignment: Alignment.centerLeft,
-                    decoration: const BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: MyColor.shadow,
-                          spreadRadius: 2,
-                          blurRadius: 6,
-                        ),
-                      ],
-                      borderRadius: BorderRadius.only(
+                    decoration: BoxDecoration(
+                      boxShadow: Get.isDarkMode
+                          ? []
+                          : [
+                              const BoxShadow(
+                                color: MyColor.shadow,
+                                spreadRadius: 2,
+                                blurRadius: 6,
+                              ),
+                            ],
+                      borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(15),
                         topRight: Radius.circular(15),
                       ),
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
@@ -312,15 +335,17 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                           ),
                           height: 190,
                           decoration: BoxDecoration(
-                            color: MyColor.backgroundColor,
+                            color: Theme.of(context).backgroundColor,
                             borderRadius: BorderRadius.circular(10),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: MyColor.shadow,
-                                spreadRadius: 1,
-                                blurRadius: 2,
-                              ),
-                            ],
+                            boxShadow: Get.isDarkMode
+                                ? []
+                                : [
+                                    const BoxShadow(
+                                      color: MyColor.shadow,
+                                      spreadRadius: 1,
+                                      blurRadius: 2,
+                                    ),
+                                  ],
                           ),
                           child: AspectRatio(
                             aspectRatio: 2,
@@ -419,15 +444,17 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                           ),
                           height: 200,
                           decoration: BoxDecoration(
-                            color: MyColor.backgroundColor,
+                            color: Theme.of(context).backgroundColor,
                             borderRadius: BorderRadius.circular(10),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: MyColor.shadow,
-                                spreadRadius: 1,
-                                blurRadius: 2,
-                              ),
-                            ],
+                            boxShadow: Get.isDarkMode
+                                ? []
+                                : [
+                                    const BoxShadow(
+                                      color: MyColor.shadow,
+                                      spreadRadius: 1,
+                                      blurRadius: 2,
+                                    ),
+                                  ],
                           ),
                           child: AspectRatio(
                             aspectRatio: 2,

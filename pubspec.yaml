@@ -81,6 +81,7 @@ flutter:
     - assets/logo.png
     - assets/GB20.png
     - assets/pl20.png
+    - assets/logo_ciemne.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

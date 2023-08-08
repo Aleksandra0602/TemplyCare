@@ -1,5 +1,6 @@
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 
@@ -11,7 +12,9 @@ class MemoryCardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColor.primary4,
+      backgroundColor: Get.isDarkMode
+          ? MyColor.darkBackgroundColor.withRed(60).withBlue(60).withGreen(60)
+          : MyColor.primary4,
       appBar: AppBar(
         centerTitle: true,
         title: Text(AppLocalizations.of(context)!.buttonText4),
@@ -74,14 +77,16 @@ class MemoryCardScreen extends StatelessWidget {
               height: 160,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                color: MyColor.backgroundColor,
-                boxShadow: const [
-                  BoxShadow(
-                    color: MyColor.shadow,
-                    blurRadius: 4,
-                    spreadRadius: 1,
-                  ),
-                ],
+                color: Theme.of(context).backgroundColor,
+                boxShadow: Get.isDarkMode
+                    ? []
+                    : [
+                        const BoxShadow(
+                          color: MyColor.shadow,
+                          blurRadius: 4,
+                          spreadRadius: 1,
+                        ),
+                      ],
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -91,16 +96,20 @@ class MemoryCardScreen extends StatelessWidget {
                     children: [
                       Text(
                         AppLocalizations.of(context)!.memorySize,
-                        style: const TextStyle(
-                          color: MyColor.appBarColor1,
+                        style: TextStyle(
+                          color: Get.isDarkMode
+                              ? MyColor.backgroundColor
+                              : MyColor.appBarColor1,
                           fontWeight: FontWeight.w500,
                           fontSize: 16,
                         ),
                       ),
-                      const Text(
+                      Text(
                         '16 GB',
                         style: TextStyle(
-                          color: MyColor.appBarColor1,
+                          color: Get.isDarkMode
+                              ? MyColor.backgroundColor
+                              : MyColor.appBarColor1,
                           fontWeight: FontWeight.w300,
                           fontSize: 16,
                         ),
@@ -113,16 +122,20 @@ class MemoryCardScreen extends StatelessWidget {
                     children: [
                       Text(
                         AppLocalizations.of(context)!.usedMemory,
-                        style: const TextStyle(
-                          color: MyColor.appBarColor1,
+                        style: TextStyle(
+                          color: Get.isDarkMode
+                              ? MyColor.backgroundColor
+                              : MyColor.appBarColor1,
                           fontWeight: FontWeight.w500,
                           fontSize: 16,
                         ),
                       ),
-                      const Text(
+                      Text(
                         '1 GB (10%)',
                         style: TextStyle(
-                          color: MyColor.appBarColor1,
+                          color: Get.isDarkMode
+                              ? MyColor.backgroundColor
+                              : MyColor.appBarColor1,
                           fontWeight: FontWeight.w300,
                           fontSize: 16,
                         ),
@@ -135,16 +148,20 @@ class MemoryCardScreen extends StatelessWidget {
                     children: [
                       Text(
                         AppLocalizations.of(context)!.freeMemory,
-                        style: const TextStyle(
-                          color: MyColor.appBarColor1,
+                        style: TextStyle(
+                          color: Get.isDarkMode
+                              ? MyColor.backgroundColor
+                              : MyColor.appBarColor1,
                           fontWeight: FontWeight.w500,
                           fontSize: 16,
                         ),
                       ),
-                      const Text(
+                      Text(
                         '15 GB (90%)',
                         style: TextStyle(
-                          color: MyColor.appBarColor1,
+                          color: Get.isDarkMode
+                              ? MyColor.backgroundColor
+                              : MyColor.appBarColor1,
                           fontWeight: FontWeight.w300,
                           fontSize: 16,
                         ),

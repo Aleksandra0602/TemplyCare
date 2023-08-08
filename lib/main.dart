@@ -26,14 +26,15 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      darkTheme: darkTheme,
-      theme: lightTheme,
-      themeMode: ThemeMode.system,
+      darkTheme: ThemeData.dark(),
+      theme:
+          ThemeData.light().copyWith(backgroundColor: MyColor.backgroundColor),
+      //themeMode: ThemeMode.light,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       debugShowCheckedModeBanner: false,
       home: AnimatedSplashScreen(
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: MyColor.backgroundColor,
         splash: GradientText(
           "TemplyCare",
           style: const TextStyle(

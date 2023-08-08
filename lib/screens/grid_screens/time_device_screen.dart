@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -68,7 +69,9 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
     initializeDateFormatting('pl', null);
 
     return Scaffold(
-      backgroundColor: MyColor.primary6,
+      backgroundColor: Get.isDarkMode
+          ? MyColor.darkBackgroundColor.withRed(60).withBlue(60).withGreen(60)
+          : MyColor.primary6,
       appBar: AppBar(
         centerTitle: true,
         title: Text(
@@ -90,14 +93,16 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
                       bottomLeft: Radius.circular(20),
                       bottomRight: Radius.circular(20),
                     ),
-                    color: MyColor.backgroundColor,
-                    boxShadow: const [
-                      BoxShadow(
-                        blurRadius: 8,
-                        spreadRadius: 4,
-                        color: Colors.grey,
-                      ),
-                    ],
+                    color: Theme.of(context).backgroundColor,
+                    boxShadow: Get.isDarkMode
+                        ? []
+                        : [
+                            const BoxShadow(
+                              blurRadius: 8,
+                              spreadRadius: 4,
+                              color: Colors.grey,
+                            ),
+                          ],
                   ),
                 ),
                 SizedBox(
@@ -115,11 +120,17 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
                                 fontSize: 80,
                                 fontWeight: FontWeight.bold,
                               ),
-                              colors: const [
-                                MyColor.appBarColor1,
-                                MyColor.appBarColor2,
-                                MyColor.appBarColor3,
-                              ],
+                              colors: Get.isDarkMode
+                                  ? [
+                                      MyColor.primary5,
+                                      MyColor.primary6,
+                                      MyColor.primary7,
+                                    ]
+                                  : [
+                                      MyColor.appBarColor1,
+                                      MyColor.appBarColor2,
+                                      MyColor.appBarColor3,
+                                    ],
                             ),
                             const SizedBox(
                               height: 30,
@@ -128,8 +139,10 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
                               DateFormat.EEEE('pl').format(
                                 DateTime.now(),
                               ),
-                              style: const TextStyle(
-                                color: MyColor.appBarColor2,
+                              style: TextStyle(
+                                color: Get.isDarkMode
+                                    ? MyColor.primary6
+                                    : MyColor.appBarColor2,
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -138,8 +151,10 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
                               DateFormat('dd-MM-yyyy').format(
                                 DateTime.now(),
                               ),
-                              style: const TextStyle(
-                                color: MyColor.appBarColor3,
+                              style: TextStyle(
+                                color: Get.isDarkMode
+                                    ? MyColor.primary6
+                                    : MyColor.appBarColor3,
                                 fontSize: 24,
                                 fontStyle: FontStyle.italic,
                               ),
@@ -165,22 +180,26 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: MyColor.backgroundColor,
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.grey,
-                    blurRadius: 4,
-                    spreadRadius: 2,
-                  ),
-                ],
+                color: Theme.of(context).backgroundColor,
+                boxShadow: Get.isDarkMode
+                    ? []
+                    : [
+                        const BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 4,
+                          spreadRadius: 2,
+                        ),
+                      ],
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     AppLocalizations.of(context)!.checkDate,
-                    style: const TextStyle(
-                      color: MyColor.appBarColor1,
+                    style: TextStyle(
+                      color: Get.isDarkMode
+                          ? MyColor.backgroundColor
+                          : MyColor.appBarColor1,
                       fontSize: 16,
                     ),
                   ),
@@ -220,7 +239,7 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
                       ),
                       child: Icon(
                         Icons.download,
-                        color: MyColor.backgroundColor,
+                        color: Theme.of(context).backgroundColor,
                         size: 36,
                       ),
                     ),
@@ -238,16 +257,18 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: MyColor.backgroundColor,
-                  boxShadow: [
-                    _isExpanded
-                        ? const BoxShadow(
-                            blurRadius: 4,
-                            spreadRadius: 2,
-                            color: Colors.grey,
-                          )
-                        : const BoxShadow(blurRadius: 0, spreadRadius: 0),
-                  ],
+                  color: Theme.of(context).backgroundColor,
+                  boxShadow: Get.isDarkMode
+                      ? []
+                      : [
+                          _isExpanded
+                              ? const BoxShadow(
+                                  blurRadius: 4,
+                                  spreadRadius: 2,
+                                  color: Colors.grey,
+                                )
+                              : const BoxShadow(blurRadius: 0, spreadRadius: 0),
+                        ],
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -258,8 +279,10 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
                         children: [
                           Text(
                             AppLocalizations.of(context)!.askTime,
-                            style: const TextStyle(
-                              color: MyColor.appBarColor1,
+                            style: TextStyle(
+                              color: Get.isDarkMode
+                                  ? MyColor.backgroundColor
+                                  : MyColor.appBarColor1,
                             ),
                           ),
                           Text('aaaaaaaaa'),
@@ -272,8 +295,10 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
                         children: [
                           Text(
                             AppLocalizations.of(context)!.deviceTime,
-                            style: const TextStyle(
-                              color: MyColor.appBarColor1,
+                            style: TextStyle(
+                              color: Get.isDarkMode
+                                  ? MyColor.backgroundColor
+                                  : MyColor.appBarColor1,
                             ),
                           ),
                           Text('aaaaaaaaaa'),
@@ -293,22 +318,26 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: MyColor.backgroundColor,
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.grey,
-                    blurRadius: 4,
-                    spreadRadius: 2,
-                  ),
-                ],
+                color: Theme.of(context).backgroundColor,
+                boxShadow: Get.isDarkMode
+                    ? []
+                    : [
+                        const BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 4,
+                          spreadRadius: 2,
+                        ),
+                      ],
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     AppLocalizations.of(context)!.sendTime,
-                    style: const TextStyle(
-                      color: MyColor.appBarColor1,
+                    style: TextStyle(
+                      color: Get.isDarkMode
+                          ? MyColor.backgroundColor
+                          : MyColor.appBarColor1,
                       fontSize: 16,
                     ),
                   ),
@@ -324,7 +353,7 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
                       ),
                       child: Icon(
                         Icons.send,
-                        color: MyColor.backgroundColor,
+                        color: Theme.of(context).backgroundColor,
                         size: 36,
                       ),
                     ),
