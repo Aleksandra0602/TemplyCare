@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:temp_app_v1/widgets/my_button.dart';
@@ -39,7 +40,9 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColor.primary6,
+      backgroundColor: Get.isDarkMode
+          ? MyColor.darkBackgroundColor.withRed(60).withBlue(60).withGreen(60)
+          : MyColor.primary6,
       appBar: AppBar(
         centerTitle: true,
         title: Text(AppLocalizations.of(context)!.appBarProfile),
@@ -61,15 +64,17 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                       // alignment: Alignment.center,
                       height: 540,
                       decoration: BoxDecoration(
-                        color: MyColor.backgroundColor,
+                        color: Theme.of(context).backgroundColor,
                         borderRadius: BorderRadius.circular(20),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.grey,
-                            spreadRadius: 2,
-                            blurRadius: 8,
-                          ),
-                        ],
+                        boxShadow: Get.isDarkMode
+                            ? []
+                            : const [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  spreadRadius: 2,
+                                  blurRadius: 8,
+                                ),
+                              ],
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -82,16 +87,22 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                   storedImage == null
                                       ? Text(
                                           AppLocalizations.of(context)!.addPic,
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                               fontSize: 16,
-                                              color: MyColor.appBarColor1),
+                                              color: Get.isDarkMode
+                                                  ? MyColor.backgroundColor
+                                                      .withOpacity(0.7)
+                                                  : MyColor.appBarColor1),
                                         )
                                       : Text(
                                           AppLocalizations.of(context)!
                                               .changePic,
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                               fontSize: 16,
-                                              color: MyColor.appBarColor1),
+                                              color: Get.isDarkMode
+                                                  ? MyColor.backgroundColor
+                                                      .withOpacity(0.7)
+                                                  : MyColor.appBarColor1),
                                         ),
                                   IconButton(
                                     icon: const Icon(
@@ -165,20 +176,26 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                     const SizedBox(
                                       width: 8,
                                     ),
-                                    const Text(
+                                    Text(
                                       'E-mail: ',
                                       style: TextStyle(
                                           fontSize: 16,
-                                          color: MyColor.appBarColor1),
+                                          color: Get.isDarkMode
+                                              ? MyColor.backgroundColor
+                                                  .withOpacity(0.7)
+                                              : MyColor.appBarColor1),
                                     ),
                                     const SizedBox(
                                       width: 8,
                                     ),
                                     Text(
                                       mail,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                           fontSize: 16,
-                                          color: MyColor.appBarColor1),
+                                          color: Get.isDarkMode
+                                              ? MyColor.backgroundColor
+                                                  .withOpacity(0.7)
+                                              : MyColor.appBarColor1),
                                     ),
                                   ],
                                 ),
@@ -202,9 +219,12 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                         Text(
                                           AppLocalizations.of(context)!
                                               .password,
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                               fontSize: 16,
-                                              color: MyColor.appBarColor1),
+                                              color: Get.isDarkMode
+                                                  ? MyColor.backgroundColor
+                                                      .withOpacity(0.7)
+                                                  : MyColor.appBarColor1),
                                         ),
                                         const SizedBox(
                                           width: 8,
@@ -221,10 +241,13 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                                 String.fromCharCodes(
                                                     List.filled(password.length,
                                                         0x2055)),
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                     fontSize: 16,
-                                                    color:
-                                                        MyColor.appBarColor1),
+                                                    color: Get.isDarkMode
+                                                        ? MyColor
+                                                            .backgroundColor
+                                                            .withOpacity(0.7)
+                                                        : MyColor.appBarColor1),
                                               ),
                                       ],
                                     ),
@@ -298,7 +321,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                       AppLocalizations.of(context)!
                                           .changePassowrd,
                                       style: const TextStyle(
-                                          color: MyColor.appBarColor3,
+                                          color: MyColor.primary6,
                                           fontStyle: FontStyle.italic),
                                     )),
                               ),

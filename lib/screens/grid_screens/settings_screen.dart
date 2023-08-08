@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:temp_app_v1/utils/constans/theme.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -10,10 +12,11 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool _enabled = false;
+  bool _enabled = Get.isDarkMode ? true : false;
   bool _isExpanded = false;
   bool _isExpanded2 = false;
-  late int selectedRadio = 1;
+  int selectedRadio = 1;
+  int secondRadio = 1;
   bool currState = true;
 
   void toggleExpanded() {
@@ -28,6 +31,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
     });
   }
 
+  setSecondRadio(int val) {
+    setState(() {
+      secondRadio = val;
+    });
+  }
+
   void tempUnitExpanded() {
     setState(() {
       _isExpanded2 = !_isExpanded2;
@@ -37,7 +46,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColor.backgroundColor,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         centerTitle: true,
         title: Text(AppLocalizations.of(context)!.bottomBar4),
@@ -132,6 +141,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onChanged: (bool? value) {
                   setState(() {
                     _enabled = value!;
+                    if (_enabled) {
+                      Get.changeTheme(ThemeData.dark().copyWith(
+                          backgroundColor: MyColor.darkBackgroundColor));
+                    } else {
+                      Get.changeTheme(ThemeData.light()
+                          .copyWith(backgroundColor: MyColor.backgroundColor));
+                    }
+                    // Get.changeTheme(Get.isDarkMode
+                    //     ? ThemeData.light()
+                    //         .copyWith(backgroundColor: MyColor.backgroundColor)
+                    //     : ThemeData.dark().copyWith(
+                    //         backgroundColor: MyColor.darkBackgroundColor));
                   });
                 },
               ),
@@ -169,9 +190,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     trailing: Radio(
                       value: 1,
-                      groupValue: selectedRadio,
+                      groupValue: secondRadio,
                       onChanged: (val) {
-                        setSelectedRadio(val as int);
+                        setSecondRadio(val as int);
                       },
                       activeColor: MyColor.additionalColor,
                     ),
@@ -183,9 +204,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     trailing: Radio(
                       value: 2,
-                      groupValue: selectedRadio,
+                      groupValue: secondRadio,
                       onChanged: (val) {
-                        setSelectedRadio(val as int);
+                        setSecondRadio(val as int);
                       },
                       activeColor: MyColor.additionalColor,
                     ),

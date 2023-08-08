@@ -43,11 +43,11 @@ class _DataMeasurementFieldState extends State<DataMeasurementField> {
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
               filled: true,
-              fillColor: MyColor.backgroundColor,
+              fillColor: Theme.of(context).backgroundColor,
               focusColor: MyColor.additionalColor,
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: MyColor.backgroundColor,
+                  color: MyColor.backgroundColor.withOpacity(0.5),
                 ),
                 borderRadius: const BorderRadius.only(
                   bottomRight: Radius.circular(15),

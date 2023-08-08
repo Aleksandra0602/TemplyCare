@@ -1,6 +1,7 @@
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:get/get.dart';
 
 import 'package:temp_app_v1/utils/constans/dimensions.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
@@ -61,7 +62,7 @@ class _BatteryScreenState extends State<BatteryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColor.backgroundColor,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         centerTitle: true,
         title: Text(AppLocalizations.of(context)!.buttonText3),
@@ -74,20 +75,22 @@ class _BatteryScreenState extends State<BatteryScreen> {
             Container(
               alignment: Alignment.center,
               height: 350,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: MyColor.primary3,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(20),
                   bottomRight: Radius.circular(20),
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: MyColor.shadow,
-                    spreadRadius: 5,
-                    blurRadius: 15,
-                    offset: Offset(0, 8),
-                  ),
-                ],
+                boxShadow: Get.isDarkMode
+                    ? []
+                    : [
+                        const BoxShadow(
+                          color: MyColor.shadow,
+                          spreadRadius: 5,
+                          blurRadius: 15,
+                          offset: Offset(0, 8),
+                        ),
+                      ],
               ),
               child: Column(
                 children: [
@@ -164,13 +167,14 @@ class _BatteryScreenState extends State<BatteryScreen> {
                   Text(
                     AppLocalizations.of(context)!.timeBattery,
                     style: const TextStyle(
-                      fontSize: 22,
-                      color: MyColor.appBarColor1,
+                      fontSize: 16,
                     ),
                   ),
                   const Text(
                     '8 h 32 min',
-                    style: TextStyle(fontSize: 22, color: MyColor.appBarColor1),
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
                   ),
                 ],
               ),

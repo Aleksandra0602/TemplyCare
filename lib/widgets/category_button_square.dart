@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:get/get.dart';
 import 'package:temp_app_v1/utils/constans/screens.dart';
 import 'package:temp_app_v1/utils/select_category_method.dart';
 
@@ -38,13 +39,15 @@ class CategoryButtonSquare extends StatelessWidget {
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(15),
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.grey,
-              spreadRadius: 2,
-              blurRadius: 8,
-            ),
-          ],
+          boxShadow: Get.isDarkMode
+              ? []
+              : const [
+                  BoxShadow(
+                    color: Colors.grey,
+                    spreadRadius: 2,
+                    blurRadius: 8,
+                  ),
+                ],
         ),
         child: Text(
           title,
