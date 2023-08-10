@@ -110,19 +110,26 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
                       if (_measrementTimeController.text != null) {
                         widget.services!.forEach((service) {
                           if (service.uuid.toString() ==
-                              Dimensions.service_uuid) {
+                              Dimensions.measurement_service_uuid) {
                             service.characteristics.forEach((characteristic) {
                               if (characteristic.uuid.toString() ==
-                                  Dimensions.characteristic_uuid) {
-                                String var1 =
+                                  Dimensions.data_to_measure_uuid) {
+                                String timeM =
                                     _measrementTimeController.value.text;
-                                String var2 = _sleepTimeController.value.text;
-                                String warunek = '13,$var1,$var2';
+                                String dtime = _sleepTimeController.value.text;
+                                String tag = _tagController.value.text;
+                                String fileName =
+                                    _fileNameController.value.text;
+                                String warunek =
+                                    '13,$timeM,$dtime,$tag,$fileName';
                                 characteristic.write(utf8.encode(warunek));
                                 _showAlert(
-                                    context,
-                                    _measrementTimeController.value.text,
-                                    _sleepTimeController.value.text);
+                                  context,
+                                  _measrementTimeController.value.text,
+                                  _sleepTimeController.value.text,
+                                  _tagController.value.text,
+                                  _fileNameController.value.text,
+                                );
                               }
                             });
                           }
@@ -168,17 +175,38 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
     );
   }
 
-  void _showAlert(BuildContext context, String var1, String var2) async {
+  void _showAlert(BuildContext context, String var1, String var2, String var3,
+      String var4) async {
     await showDialog<void>(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text(AppLocalizations.of(context)!.alertDialog),
-            content: Text(
-                'Pomiar rozpoczyna się: \nCzas pomiaru: $var1 min\nCzas uśpienia: $var2 s\nTag:  xxx\nNazwa pliku: xxx.txt'),
+            content: Text(AppLocalizations.of(context)!
+                .information
+                .replaceFirst('{var1}', '$var1')
+                .replaceFirst('{var2}', '$var2')
+                .replaceFirst('{var3}', '$var3')
+                .replaceFirst('{var4}', '$var4')),
             actions: <Widget>[
               TextButton(
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () {
+                  // if (_measrementTimeController.text != null) {
+                  //   widget.services!.forEach((service) {
+                  //     if (service.uuid.toString() ==
+                  //         Dimensions.measurement_service_uuid) {
+                  //       service.characteristics.forEach((characteristic) {
+                  //         if (characteristic.uuid.toString() ==
+                  //             Dimensions.data_to_measure_uuid) {
+                  //           characteristic.write(utf8.encode(""));
+                  //           Navigator.of(context).pop();
+                  //         }
+                  //       });
+                  //     }
+                  //   });
+                  // }
+                  Navigator.of(context).pop();
+                },
                 child: Text(
                   AppLocalizations.of(context)!.alertButton,
                   style: const TextStyle(

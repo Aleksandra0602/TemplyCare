@@ -22,14 +22,14 @@
     "signIn": "Zarejestruj się",
     "registration": "Rejestracja",
     "log": "Logowanie",
-    "password": "Hasło",
+    "password": "Hasło ",
     "repeatPassword": "Powtórz hasło",
     "accountMessage": "Masz już konto?",
     "logMessage": "Nie masz jeszcze konta?",
 
 
     "bottomBar1": "Główna",
-    "bottomBar2": "Aktualności",
+    "bottomBar2": "Bieżące",
     "bottomBar3": "Pomiar",
     "bottomBar4": "Ustawienia",
     "bottomBar5": "Profil",
@@ -55,6 +55,7 @@
     "alertButton": "OK",
     "errorDialog": "Błąd",
     "errorMessage": "Brak danych do pomiaru",
+    "information" : "Pomiar rozpoczyna się: \nCzas pomiaru: {var1} min\nCzas uśpienia: {var2} s\nTag:  {var3}\nNazwa pliku: {var4}.txt",
 
 
     "timeBattery": "Baterii w urządzeniu wystarczy na:",

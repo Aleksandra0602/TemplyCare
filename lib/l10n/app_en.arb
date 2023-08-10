@@ -55,6 +55,7 @@
     "alertButton": "OK",
     "errorDialog": "Error",
     "errorMessage": "No data to measure",
+    "information" : "Measurement starts:\nMeasurement time: {var1} min\nSleep time: {var2} s\nTag: {var3}\nFile name: {var4}.txt",
   
 
     "timeBattery": "The battery in the device will last for:",
