@@ -1,13 +1,61 @@
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 
-class MemoryCardScreen extends StatelessWidget {
-  const MemoryCardScreen({Key? key}) : super(key: key);
+import '../../utils/constans/dimensions.dart';
+import '../../utils/data_parser_method.dart';
 
-  final double sdSize = 32;
+class MemoryCardScreen extends StatefulWidget {
+  MemoryCardScreen({Key? key, this.services}) : super(key: key);
+  final List<BluetoothService>? services;
+  final Map<Guid, List<int>> readValues = Map<Guid, List<int>>();
+
+  @override
+  State<MemoryCardScreen> createState() => _MemoryCardScreenState();
+}
+
+class _MemoryCardScreenState extends State<MemoryCardScreen> {
+  double sdSize = 32;
+  String sizeSD = '';
+  double usedSD = 0;
+  double freeSD = 0;
+  double usedSDProcent = 0;
+  double roundedValue = 0;
+
+  @override
+  void initState() {
+    Future.delayed(Duration.zero, () async {
+      widget.services!.forEach((service) {
+        if (service.uuid.toString() == Dimensions.memory_UUID) {
+          service.characteristics.forEach((characteristic) {
+            if (characteristic.uuid.toString() ==
+                Dimensions.SEND_DATA_MEMORY_UUID) {
+              characteristic.value.listen((value) {
+                List<double> listSD =
+                    dataParser(value).split(',').map<double>((e) {
+                  return double.parse(e);
+                }).toList();
+
+                setState(() {
+                  sdSize = listSD[0];
+                  usedSD = listSD[1];
+                });
+                freeSD = sdSize - usedSD;
+                usedSDProcent = (usedSD / sdSize) * 100;
+                roundedValue = double.parse(usedSDProcent.toStringAsFixed(2));
+              });
+              characteristic.read();
+            }
+          });
+        }
+      });
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +104,8 @@ class MemoryCardScreen extends StatelessWidget {
                         ),
                       ]),
                   modifier: (double value) {
-                    return '$sdSize%';
+                    String roundedString = roundedValue.toStringAsFixed(2);
+                    return '$roundedString%';
                   },
                 ),
                 angleRange: 360,
@@ -65,7 +114,7 @@ class MemoryCardScreen extends StatelessWidget {
               ),
               min: 0,
               max: 100,
-              initialValue: sdSize,
+              initialValue: usedSDProcent,
             ),
             const SizedBox(
               height: 60,
@@ -105,7 +154,7 @@ class MemoryCardScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '16 GB',
+                        '${sdSize} GB', //zmienic
                         style: TextStyle(
                           color: Get.isDarkMode
                               ? MyColor.backgroundColor
@@ -131,7 +180,7 @@ class MemoryCardScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '1 GB (10%)',
+                        '${usedSD} GB', //zmienic
                         style: TextStyle(
                           color: Get.isDarkMode
                               ? MyColor.backgroundColor
@@ -157,7 +206,7 @@ class MemoryCardScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '15 GB (90%)',
+                        '${freeSD} GB', //zmienic
                         style: TextStyle(
                           color: Get.isDarkMode
                               ? MyColor.backgroundColor

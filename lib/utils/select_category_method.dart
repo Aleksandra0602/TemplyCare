@@ -40,7 +40,9 @@ void selectCategory(
       break;
     case ScreensEnum.memoryCardScreen:
       Navigator.of(ctx).push(MaterialPageRoute(builder: (ctx) {
-        return MemoryCardScreen();
+        return MemoryCardScreen(
+          services: services,
+        );
       }));
       break;
     case ScreensEnum.displayFilesScreen:

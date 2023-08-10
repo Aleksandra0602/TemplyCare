@@ -64,6 +64,12 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
     super.dispose();
   }
 
+  String loadData() {
+    DateTime currentData = DateTime.now();
+    String format = DateFormat('HH:mm:ss,  dd-MM-yyyy').format(currentData);
+    return format;
+  }
+
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting('pl', null);
@@ -285,7 +291,7 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
                                   : MyColor.appBarColor1,
                             ),
                           ),
-                          Text('aaaaaaaaa'),
+                          Text(loadData()),
                         ],
                       ),
                     ),
@@ -301,7 +307,7 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
                                   : MyColor.appBarColor1,
                             ),
                           ),
-                          Text('aaaaaaaaaa'),
+                          Text(getDataFromArduino()),
                         ],
                       ),
                     ),
@@ -377,5 +383,32 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
         });
       }
     });
+  }
+
+  String getDataFromArduino() {
+    if (widget.services == null) {
+      return AppLocalizations.of(context)!.unknownDevice;
+    }
+
+    widget.services!.forEach((service) {
+      if (service.uuid.toString() == Dimensions.time_service_uuid) {
+        service.characteristics.forEach((characteristic) {
+          if (characteristic.uuid.toString() == Dimensions.timeDevice_uuid) {
+            characteristic.value.listen((value) {
+              setState(() {
+                widget.readValues[characteristic.uuid] = value;
+              });
+              timeOnDevice = dataParser(value);
+            });
+            characteristic.read();
+          }
+        });
+      }
+    });
+    DateTime dateDevice =
+        DateTime.fromMicrosecondsSinceEpoch(int.parse(timeOnDevice) * 1000);
+    String formattedDateDevice =
+        DateFormat('HH:mm:ss,  dd-MM-yyyy').format(dateDevice);
+    return formattedDateDevice;
   }
 }

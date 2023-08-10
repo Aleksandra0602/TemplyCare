@@ -143,6 +143,26 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
     xValueH += 1;
   }
 
+  double _calculateMinY(List<FlSpot> points, double x) {
+    double minValue = double.infinity;
+    for (var point in points) {
+      if (point.y < minValue) {
+        minValue = point.y;
+      }
+    }
+    return minValue - x; // Dodatkowy margines
+  }
+
+  double _calculateMaxY(List<FlSpot> points, double x) {
+    double maxValue = double.negativeInfinity;
+    for (var point in points) {
+      if (point.y > maxValue) {
+        maxValue = point.y;
+      }
+    }
+    return maxValue + x; // Dodatkowy margines
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -381,6 +401,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                                         ),
                                       ),
                                       leftTitles: AxisTitles(
+                                        axisNameWidget: Text('T [˚C]'),
                                         sideTitles: SideTitles(
                                           showTitles: true,
                                           interval: 2,
@@ -397,8 +418,8 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                                     ),
                                     minX: 0,
                                     maxX: dataPoints.length + 2,
-                                    minY: 20,
-                                    maxY: 28,
+                                    minY: _calculateMinY(dataPoints, 1),
+                                    maxY: _calculateMaxY(dataPoints, 1),
                                     lineBarsData: [
                                       LineChartBarData(
                                         spots: dataPoints,
@@ -489,6 +510,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                                         ),
                                       ),
                                       leftTitles: AxisTitles(
+                                        axisNameWidget: Text('W [%]'),
                                         sideTitles: SideTitles(
                                           showTitles: true,
                                           interval: 25,
@@ -505,8 +527,8 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                                     ),
                                     minX: 0,
                                     maxX: humPoints.length + 2,
-                                    minY: 0,
-                                    maxY: 100,
+                                    minY: _calculateMinY(humPoints, 10),
+                                    maxY: _calculateMaxY(humPoints, 10),
                                     lineBarsData: [
                                       LineChartBarData(
                                         spots: humPoints,
