@@ -36,6 +36,9 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
 
   String timeOnDevice = "";
   String timeFromPhone = "";
+  var timeV = 0.0;
+  String format = "";
+  String dataI = "";
 
   final StreamController _streamController = StreamController();
 
@@ -58,16 +61,9 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
     });
   }
 
-  @override
-  void dispose() {
-    _streamController.close();
-    super.dispose();
-  }
-
-  String loadData() {
+  void loadData() {
     DateTime currentData = DateTime.now();
-    String format = DateFormat('HH:mm:ss,  dd-MM-yyyy').format(currentData);
-    return format;
+    format = DateFormat('HH:mm:ss,  dd-MM-yyyy').format(currentData);
   }
 
   @override
@@ -210,32 +206,15 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
                     ),
                   ),
                   InkWell(
-                    // onTap: () {
-                    //   widget.services!.forEach((service) {
-                    //     if (service.uuid.toString() ==
-                    //         Dimensions.time_service_uuid) {
-                    //       service.characteristics.forEach((characteristic) {
-                    //         if (characteristic.uuid.toString() ==
-                    //             Dimensions.timeDevice_uuid) {
-                    //           characteristic.value.listen((value) {
-                    //             setState(() {
-                    //               _isExpanded = !_isExpanded;
-
-                    //               widget.readValues[characteristic.uuid] =
-                    //                   value;
-                    //             });
-                    //             timeOnDevice = dataParser(value);
-                    //           });
-                    //           characteristic.read();
-                    //         }
-                    //       });
-                    //     }
-                    //   });
-                    // },
                     onTap: () {
                       setState(() {
                         _isExpanded = !_isExpanded;
                       });
+
+                      if (_isExpanded) {
+                        getDataFromArduino();
+                        loadData();
+                      }
                     },
                     child: Container(
                       padding: const EdgeInsets.all(8),
@@ -291,7 +270,7 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
                                   : MyColor.appBarColor1,
                             ),
                           ),
-                          Text(loadData()),
+                          Text(format),
                         ],
                       ),
                     ),
@@ -307,7 +286,7 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
                                   : MyColor.appBarColor1,
                             ),
                           ),
-                          Text(getDataFromArduino()),
+                          Text(formattedDateDevice),
                         ],
                       ),
                     ),
@@ -385,11 +364,11 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
     });
   }
 
-  String getDataFromArduino() {
-    if (widget.services == null) {
-      return AppLocalizations.of(context)!.unknownDevice;
-    }
+  int unixData = 0;
+  late DateTime dateDevice;
+  String formattedDateDevice = '';
 
+  void getDataFromArduino() {
     widget.services!.forEach((service) {
       if (service.uuid.toString() == Dimensions.time_service_uuid) {
         service.characteristics.forEach((characteristic) {
@@ -398,17 +377,26 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
               setState(() {
                 widget.readValues[characteristic.uuid] = value;
               });
+
               timeOnDevice = dataParser(value);
+              timeV = double.tryParse(timeOnDevice)!;
+              dataI = timeV.toStringAsFixed(0);
+              unixData = int.parse(dataI);
+
+              dateDevice = DateTime.fromMicrosecondsSinceEpoch(unixData * 1000);
+              formattedDateDevice =
+                  DateFormat('HH:mm:ss,  dd-MM-yyyy').format(dateDevice);
             });
             characteristic.read();
           }
         });
       }
     });
-    DateTime dateDevice =
-        DateTime.fromMicrosecondsSinceEpoch(int.parse(timeOnDevice) * 1000);
-    String formattedDateDevice =
-        DateFormat('HH:mm:ss,  dd-MM-yyyy').format(dateDevice);
-    return formattedDateDevice;
+  }
+
+  @override
+  void dispose() {
+    _streamController.close();
+    super.dispose();
   }
 }

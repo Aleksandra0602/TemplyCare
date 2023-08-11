@@ -4,6 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../utils/scale_controller.dart';
+
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
 
@@ -18,6 +20,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   int selectedRadio = Get.locale?.languageCode == 'pl' ? 1 : 2;
   int secondRadio = 1;
   bool currState = true;
+  final ScaleController scaleController = Get.find();
 
   void toggleExpanded() {
     setState(() {
@@ -194,8 +197,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     trailing: Radio(
                       value: 1,
-                      groupValue: secondRadio,
+                      groupValue: scaleController.selectedScale.value,
                       onChanged: (val) {
+                        scaleController.toggleScale(val as int);
                         setSecondRadio(val as int);
                       },
                       activeColor: MyColor.additionalColor,
@@ -208,8 +212,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     trailing: Radio(
                       value: 2,
-                      groupValue: secondRadio,
+                      groupValue: scaleController.selectedScale.value,
                       onChanged: (val) {
+                        scaleController.toggleScale(val as int);
                         setSecondRadio(val as int);
                       },
                       activeColor: MyColor.additionalColor,

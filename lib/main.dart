@@ -11,8 +11,12 @@ import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:temp_app_v1/screens/ripple_animate_screen.dart';
 
 import 'package:temp_app_v1/utils/local_strings.dart';
+import 'package:temp_app_v1/utils/scale_controller.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  Get.put(ScaleController());
+  runApp(const MyApp());
+}
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -50,8 +54,8 @@ class _MyAppState extends State<MyApp> {
           ],
         ),
         splashTransition: SplashTransition.slideTransition,
-        //nextScreen: RippleAnimateScreen(),
-        nextScreen: LogSignScreen(),
+        nextScreen: RippleAnimateScreen(),
+        //nextScreen: LogSignScreen(),
         //nextScreen: CategoriesScreen(),
       ),
     );

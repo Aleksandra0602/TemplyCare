@@ -9,6 +9,7 @@ import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import 'package:temp_app_v1/utils/constans/dimensions.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
+import 'package:temp_app_v1/utils/scale_controller.dart';
 
 import '../../utils/data_parser_method.dart';
 
@@ -24,7 +25,8 @@ class ReadTemperatureScreen extends StatefulWidget {
 }
 
 class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
-  String warunek = '1,0,0';
+  final ScaleController scaleController = Get.find();
+
   double temp = 0;
   double temp2 = 0;
   double hum = 0;
@@ -120,7 +122,8 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
   }
 
   void addDataPoint(double data) {
-    dataPoints.add(FlSpot(dataPoints.length.toDouble(), data));
+    dataPoints
+        .add(FlSpot(dataPoints.length.toDouble(), convertCelsiusToFah(data)));
     if (dataPoints.length > 15) {
       dataPoints.removeAt(0);
       for (int i = 0; i < dataPoints.length; i++) {
@@ -143,8 +146,8 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
     xValueH += 1;
   }
 
-  double _calculateMinY(List<FlSpot> points, double x) {
-    double minValue = double.infinity;
+  double _calculateMinY(List<FlSpot> points, double x, double y) {
+    double minValue = y;
     for (var point in points) {
       if (point.y < minValue) {
         minValue = point.y;
@@ -153,8 +156,8 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
     return minValue - x; // Dodatkowy margines
   }
 
-  double _calculateMaxY(List<FlSpot> points, double x) {
-    double maxValue = double.negativeInfinity;
+  double _calculateMaxY(List<FlSpot> points, double x, double y) {
+    double maxValue = y;
     for (var point in points) {
       if (point.y > maxValue) {
         maxValue = point.y;
@@ -163,8 +166,14 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
     return maxValue + x; // Dodatkowy margines
   }
 
+  double convertCelsiusToFah(double temperature) {
+    return scaleController.isCelsius ? temperature : (temperature * 9 / 5) + 32;
+  }
+
   @override
   Widget build(BuildContext context) {
+    double displayedTemp = convertCelsiusToFah(temp);
+
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
@@ -210,16 +219,16 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                       modifier: (double value) {
-                        return '${temp} ˚C';
+                        return '$displayedTemp ${scaleController.isCelsius ? '˚C' : '˚F'}';
                       }),
                   startAngle: 180,
                   angleRange: 180,
                   size: 250,
                   animationEnabled: true,
                 ),
-                min: 0,
-                max: 45,
-                initialValue: temp,
+                min: convertCelsiusToFah(0),
+                max: convertCelsiusToFah(45),
+                initialValue: displayedTemp,
               ),
               const SizedBox(
                 height: 12,
@@ -396,16 +405,21 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                                         sideTitles: SideTitles(
                                           showTitles: true,
                                           reservedSize: 12,
-                                          interval: 2,
+                                          interval: 4,
                                           getTitlesWidget: bottomTitleWidgets,
                                         ),
                                       ),
                                       leftTitles: AxisTitles(
-                                        axisNameWidget: Text('T [˚C]'),
+                                        axisNameWidget: Text(
+                                            scaleController.isCelsius
+                                                ? 'T [˚C]'
+                                                : 'T [˚F]'),
                                         sideTitles: SideTitles(
                                           showTitles: true,
-                                          interval: 2,
-                                          reservedSize: 32,
+                                          interval: scaleController.isCelsius
+                                              ? 6
+                                              : 10,
+                                          reservedSize: 26,
                                           getTitlesWidget: leftTempWidget,
                                         ),
                                       ),
@@ -418,8 +432,12 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                                     ),
                                     minX: 0,
                                     maxX: dataPoints.length + 2,
-                                    minY: _calculateMinY(dataPoints, 1),
-                                    maxY: _calculateMaxY(dataPoints, 1),
+                                    minY: scaleController.isCelsius
+                                        ? _calculateMinY(dataPoints, 1, 40)
+                                        : _calculateMinY(dataPoints, 4, 95),
+                                    maxY: scaleController.isCelsius
+                                        ? _calculateMaxY(dataPoints, 1, 20)
+                                        : _calculateMaxY(dataPoints, 4, 50),
                                     lineBarsData: [
                                       LineChartBarData(
                                         spots: dataPoints,
@@ -431,6 +449,17 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                                         ),
                                         barWidth: 2,
                                       ),
+                                      // LineChartBarData(
+                                      //   spots: humPoints,
+                                      //   isCurved: true,
+                                      //   color: MyColor.additionalColor
+                                      //       .withGreen(90),
+                                      //   dotData: FlDotData(show: false),
+                                      //   belowBarData: BarAreaData(
+                                      //     show: true,
+                                      //   ),
+                                      //   barWidth: 2,
+                                      // ),
                                     ],
                                   ),
                                   swapAnimationDuration:
@@ -487,7 +516,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                                   LineChartData(
                                     gridData: FlGridData(
                                       show: true,
-                                      horizontalInterval: 25,
+                                      horizontalInterval: 5,
                                       verticalInterval: 1,
                                     ),
                                     titlesData: FlTitlesData(
@@ -514,7 +543,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                                         sideTitles: SideTitles(
                                           showTitles: true,
                                           interval: 25,
-                                          reservedSize: 32,
+                                          reservedSize: 26,
                                           getTitlesWidget: leftTempWidget,
                                         ),
                                       ),
@@ -527,8 +556,8 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                                     ),
                                     minX: 0,
                                     maxX: humPoints.length + 2,
-                                    minY: _calculateMinY(humPoints, 10),
-                                    maxY: _calculateMaxY(humPoints, 10),
+                                    minY: _calculateMinY(humPoints, 5, 60),
+                                    maxY: _calculateMaxY(humPoints, 5, 40),
                                     lineBarsData: [
                                       LineChartBarData(
                                         spots: humPoints,
