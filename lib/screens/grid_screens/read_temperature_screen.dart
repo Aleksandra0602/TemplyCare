@@ -34,6 +34,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
 
   List<FlSpot> dataPoints = [];
   List<FlSpot> humPoints = [];
+  List<FlSpot> dataPoints2 = [];
   FlSpot mostLeftSpot = FlSpot(0, 0);
   double xValue = 0;
   double xValueH = 0;
@@ -101,9 +102,10 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                   temp = list[0];
                   addDataPoint(temp);
 
-                  //temp2 = list[1]
+                  temp2 = list[1];
+                  addDataPoint2(temp2);
 
-                  hum = list[1];
+                  hum = list[2];
                   addHumPoint(hum);
                 });
               });
@@ -128,6 +130,19 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
       dataPoints.removeAt(0);
       for (int i = 0; i < dataPoints.length; i++) {
         dataPoints[i] = FlSpot(dataPoints[i].x - 1, dataPoints[i].y);
+      }
+    }
+
+    xValue += 1;
+  }
+
+  void addDataPoint2(double data) {
+    dataPoints2
+        .add(FlSpot(dataPoints.length.toDouble(), convertCelsiusToFah(data)));
+    if (dataPoints2.length > 15) {
+      dataPoints2.removeAt(0);
+      for (int i = 0; i < dataPoints2.length; i++) {
+        dataPoints2[i] = FlSpot(dataPoints2[i].x - 1, dataPoints2[i].y);
       }
     }
 
@@ -166,6 +181,51 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
     return maxValue + x; // Dodatkowy margines
   }
 
+  double _calculateMinYT(
+      List<FlSpot> points, List<FlSpot> points2, double x, double y) {
+    double minDataPoints1 =
+        points.map((spot) => spot.y).reduce((a, b) => a < b ? a : b);
+    double minDataPoints2 =
+        points2.map((spot) => spot.y).reduce((a, b) => a < b ? a : b);
+    double minValue =
+        minDataPoints1 < minDataPoints2 ? minDataPoints1 : minDataPoints2;
+
+    for (var point in points) {
+      if (point.y < minValue) {
+        minValue = point.y;
+      }
+    }
+    for (var point in points2) {
+      if (point.y < minValue) {
+        minValue = point.y;
+      }
+    }
+    return minValue - x - y; // Dodatkowy margines
+  }
+
+  double _calculateMaxYT(
+      List<FlSpot> points, List<FlSpot> points2, double x, double y) {
+    double maxDataPoints1 =
+        points.map((spot) => spot.y).reduce((a, b) => a > b ? a : b);
+    double maxDataPoints2 =
+        points2.map((spot) => spot.y).reduce((a, b) => a > b ? a : b);
+
+    double maxValue =
+        maxDataPoints1 > maxDataPoints2 ? maxDataPoints1 : maxDataPoints2;
+
+    for (var point in points) {
+      if (point.y > maxValue) {
+        maxValue = point.y;
+      }
+    }
+    for (var point in points2) {
+      if (point.y > maxValue) {
+        maxValue = point.y;
+      }
+    }
+    return maxValue + x + y; // Dodatkowy margines
+  }
+
   double convertCelsiusToFah(double temperature) {
     return scaleController.isCelsius ? temperature : (temperature * 9 / 5) + 32;
   }
@@ -173,6 +233,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
   @override
   Widget build(BuildContext context) {
     double displayedTemp = convertCelsiusToFah(temp);
+    double displayedTemp2 = convertCelsiusToFah(temp2);
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
@@ -186,7 +247,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
           child: Column(
             children: <Widget>[
               const SizedBox(
-                height: 80,
+                height: 40,
               ),
               SleekCircularSlider(
                 appearance: CircularSliderAppearance(
@@ -199,7 +260,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                   ),
                   customWidths: CustomSliderWidths(
                     trackWidth: 4,
-                    progressBarWidth: 10,
+                    progressBarWidth: 12,
                     shadowWidth: 40,
                   ),
                   infoProperties: InfoProperties(
@@ -231,41 +292,52 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                 initialValue: displayedTemp,
               ),
               const SizedBox(
-                height: 12,
+                height: 6,
               ),
-              // SleekCircularSlider(
-              //   appearance: CircularSliderAppearance(
-              //     customColors: CustomSliderColors(
-              //       trackColor: Color.fromRGBO(0, 70, 70, 1),
-              //       progressBarColor: Color.fromRGBO(0, 75, 70, 0.5),
-              //       shadowColor: Color.fromRGBO(0, 75, 70, 0.5),
-              //       shadowStep: 10,
-              //     ),
-              //     customWidths: CustomSliderWidths(
-              //       trackWidth: 3,
-              //       progressBarWidth: 15,
-              //       shadowWidth: 30,
-              //     ),
-              //     infoProperties: InfoProperties(
-              //         bottomLabelText: AppLocalizations.of(context)!.tempValue2,
-              //         bottomLabelStyle: TextStyle(
-              //           color: Color.fromRGBO(1, 90, 70, 0.8),
-              //           fontSize: 20,
-              //         ),
-              //         modifier: (double value) {
-              //           return '${temp2} ˚C';
-              //         }),
-              //     startAngle: 180,
-              //     angleRange: 180,
-              //     size: 200,
-              //     animationEnabled: true,
-              //   ),
-              //   min: 20,
-              //   max: 45,
-              //   initialValue: temp2,
-              // ),
+              SleekCircularSlider(
+                appearance: CircularSliderAppearance(
+                  customColors: CustomSliderColors(
+                    trackColor: MyColor.primary1,
+                    progressBarColor: MyColor.primary1.withOpacity(0.5),
+                    shadowColor:
+                        Get.isDarkMode ? MyColor.primary4 : MyColor.primary2,
+                    shadowStep: 8,
+                  ),
+                  customWidths: CustomSliderWidths(
+                    trackWidth: 4,
+                    progressBarWidth: 12,
+                    shadowWidth: 40,
+                  ),
+                  infoProperties: InfoProperties(
+                      mainLabelStyle: TextStyle(
+                        fontSize: 48,
+                        fontWeight: FontWeight.w200,
+                        color: Get.isDarkMode
+                            ? MyColor.backgroundColor
+                            : MyColor.primary1,
+                      ),
+                      bottomLabelText: AppLocalizations.of(context)!.tempValue2,
+                      bottomLabelStyle: TextStyle(
+                        color: Get.isDarkMode
+                            ? MyColor.primary4
+                            : MyColor.primary2,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      modifier: (double value) {
+                        return '$displayedTemp2 ${scaleController.isCelsius ? '˚C' : '˚F'}';
+                      }),
+                  startAngle: 180,
+                  angleRange: 180,
+                  size: 250,
+                  animationEnabled: true,
+                ),
+                min: convertCelsiusToFah(0),
+                max: convertCelsiusToFah(45),
+                initialValue: displayedTemp2,
+              ),
               const SizedBox(
-                height: 12,
+                height: 6,
               ),
               SleekCircularSlider(
                 appearance: CircularSliderAppearance(
@@ -433,10 +505,10 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                                     minX: 0,
                                     maxX: dataPoints.length + 2,
                                     minY: scaleController.isCelsius
-                                        ? _calculateMinY(dataPoints, 1, 40)
+                                        ? _calculateMinY(dataPoints, 0.5, 40)
                                         : _calculateMinY(dataPoints, 4, 95),
                                     maxY: scaleController.isCelsius
-                                        ? _calculateMaxY(dataPoints, 1, 20)
+                                        ? _calculateMaxY(dataPoints, 0.5, 20)
                                         : _calculateMaxY(dataPoints, 4, 50),
                                     lineBarsData: [
                                       LineChartBarData(
@@ -449,17 +521,17 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                                         ),
                                         barWidth: 2,
                                       ),
-                                      // LineChartBarData(
-                                      //   spots: humPoints,
-                                      //   isCurved: true,
-                                      //   color: MyColor.additionalColor
-                                      //       .withGreen(90),
-                                      //   dotData: FlDotData(show: false),
-                                      //   belowBarData: BarAreaData(
-                                      //     show: true,
-                                      //   ),
-                                      //   barWidth: 2,
-                                      // ),
+                                      LineChartBarData(
+                                        spots: dataPoints2,
+                                        isCurved: true,
+                                        color: MyColor.additionalColor
+                                            .withGreen(90),
+                                        dotData: FlDotData(show: false),
+                                        belowBarData: BarAreaData(
+                                          show: true,
+                                        ),
+                                        barWidth: 2,
+                                      ),
                                     ],
                                   ),
                                   swapAnimationDuration:

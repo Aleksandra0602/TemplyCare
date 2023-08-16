@@ -366,6 +366,7 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
 
   int unixData = 0;
   late DateTime dateDevice;
+  late DateTime adjustedTime;
   String formattedDateDevice = '';
 
   void getDataFromArduino() {
@@ -377,15 +378,23 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
               setState(() {
                 widget.readValues[characteristic.uuid] = value;
               });
+              print(value.toString());
 
               timeOnDevice = dataParser(value);
+
               timeV = double.tryParse(timeOnDevice)!;
+
               dataI = timeV.toStringAsFixed(0);
+
               unixData = int.parse(dataI);
 
-              dateDevice = DateTime.fromMicrosecondsSinceEpoch(unixData * 1000);
+              dateDevice =
+                  DateTime.fromMicrosecondsSinceEpoch(unixData * 1000000);
+
+              adjustedTime = dateDevice.subtract(Duration(hours: 2));
+
               formattedDateDevice =
-                  DateFormat('HH:mm:ss,  dd-MM-yyyy').format(dateDevice);
+                  DateFormat('HH:mm:ss,  dd-MM-yyyy').format(adjustedTime);
             });
             characteristic.read();
           }

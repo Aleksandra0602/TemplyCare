@@ -22,6 +22,7 @@ class _MemoryCardScreenState extends State<MemoryCardScreen> {
   String sizeSD = '';
   double usedSD = 0;
   double freeSD = 0;
+
   double usedSDProcent = 0;
   double roundedValue = 0;
 
@@ -45,7 +46,7 @@ class _MemoryCardScreenState extends State<MemoryCardScreen> {
                 });
                 freeSD = sdSize - usedSD;
                 usedSDProcent = (usedSD / sdSize) * 100;
-                roundedValue = double.parse(usedSDProcent.toStringAsFixed(2));
+                roundedValue = double.parse(usedSDProcent.toStringAsFixed(5));
               });
               characteristic.read();
             }
@@ -104,8 +105,8 @@ class _MemoryCardScreenState extends State<MemoryCardScreen> {
                         ),
                       ]),
                   modifier: (double value) {
-                    String roundedString = roundedValue.toStringAsFixed(2);
-                    return '$roundedString%';
+                    String roundedString = roundedValue.toStringAsFixed(5);
+                    return usedSDProcent <= 0.01 ? '>0.01%' : '$roundedString%';
                   },
                 ),
                 angleRange: 360,
@@ -154,7 +155,7 @@ class _MemoryCardScreenState extends State<MemoryCardScreen> {
                         ),
                       ),
                       Text(
-                        '${sdSize} GB', //zmienic
+                        '${sdSize.toInt()} MB', //zmienic
                         style: TextStyle(
                           color: Get.isDarkMode
                               ? MyColor.backgroundColor
@@ -180,7 +181,7 @@ class _MemoryCardScreenState extends State<MemoryCardScreen> {
                         ),
                       ),
                       Text(
-                        '${usedSD} GB', //zmienic
+                        '${usedSD.toInt()} MB', //zmienic
                         style: TextStyle(
                           color: Get.isDarkMode
                               ? MyColor.backgroundColor
@@ -206,7 +207,7 @@ class _MemoryCardScreenState extends State<MemoryCardScreen> {
                         ),
                       ),
                       Text(
-                        '${freeSD} GB', //zmienic
+                        '${freeSD.toInt()} MB', //zmienic
                         style: TextStyle(
                           color: Get.isDarkMode
                               ? MyColor.backgroundColor
