@@ -38,6 +38,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
   FlSpot mostLeftSpot = FlSpot(0, 0);
   double xValue = 0;
   double xValueH = 0;
+  bool show_me = false;
 
   StreamSubscription<List<int>>? _dataSubscription;
 
@@ -79,7 +80,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
           parentAxisSize: 2,
           axisPosition: 0.5,
           enabled: true),
-      child: Text(value.toInt().toString()),
+      child: Text(value.toStringAsFixed(0)),
     );
   }
 
@@ -107,6 +108,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
 
                   hum = list[2];
                   addHumPoint(hum);
+                  show_me = true;
                 });
               });
             }
@@ -183,12 +185,8 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
 
   double _calculateMinYT(
       List<FlSpot> points, List<FlSpot> points2, double x, double y) {
-    double minDataPoints1 =
-        points.map((spot) => spot.y).reduce((a, b) => a < b ? a : b);
-    double minDataPoints2 =
-        points2.map((spot) => spot.y).reduce((a, b) => a < b ? a : b);
-    double minValue =
-        minDataPoints1 < minDataPoints2 ? minDataPoints1 : minDataPoints2;
+    double minValue = y;
+    double minValue2 = y;
 
     for (var point in points) {
       if (point.y < minValue) {
@@ -197,21 +195,18 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
     }
     for (var point in points2) {
       if (point.y < minValue) {
-        minValue = point.y;
+        minValue2 = point.y;
       }
     }
-    return minValue - x - y; // Dodatkowy margines
+    return minValue < minValue2
+        ? minValue - x
+        : minValue2 - x; // Dodatkowy margines
   }
 
   double _calculateMaxYT(
       List<FlSpot> points, List<FlSpot> points2, double x, double y) {
-    double maxDataPoints1 =
-        points.map((spot) => spot.y).reduce((a, b) => a > b ? a : b);
-    double maxDataPoints2 =
-        points2.map((spot) => spot.y).reduce((a, b) => a > b ? a : b);
-
-    double maxValue =
-        maxDataPoints1 > maxDataPoints2 ? maxDataPoints1 : maxDataPoints2;
+    double maxValue = y;
+    double maxValue2 = y;
 
     for (var point in points) {
       if (point.y > maxValue) {
@@ -220,10 +215,12 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
     }
     for (var point in points2) {
       if (point.y > maxValue) {
-        maxValue = point.y;
+        maxValue2 = point.y;
       }
     }
-    return maxValue + x + y; // Dodatkowy margines
+    return maxValue > maxValue2
+        ? maxValue + x
+        : maxValue2 + x; // Dodatkowy margines
   }
 
   double convertCelsiusToFah(double temperature) {
@@ -247,7 +244,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
           child: Column(
             children: <Widget>[
               const SizedBox(
-                height: 40,
+                height: 30,
               ),
               SleekCircularSlider(
                 appearance: CircularSliderAppearance(
@@ -291,9 +288,6 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                 max: convertCelsiusToFah(45),
                 initialValue: displayedTemp,
               ),
-              const SizedBox(
-                height: 6,
-              ),
               SleekCircularSlider(
                 appearance: CircularSliderAppearance(
                   customColors: CustomSliderColors(
@@ -335,9 +329,6 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                 min: convertCelsiusToFah(0),
                 max: convertCelsiusToFah(45),
                 initialValue: displayedTemp2,
-              ),
-              const SizedBox(
-                height: 6,
               ),
               SleekCircularSlider(
                 appearance: CircularSliderAppearance(
@@ -434,7 +425,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                           margin: const EdgeInsets.symmetric(
                             vertical: 4,
                           ),
-                          height: 190,
+                          height: 200,
                           decoration: BoxDecoration(
                             color: Theme.of(context).backgroundColor,
                             borderRadius: BorderRadius.circular(10),
@@ -448,96 +439,137 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                                     ),
                                   ],
                           ),
-                          child: AspectRatio(
-                            aspectRatio: 2,
-                            child: Padding(
-                              padding: const EdgeInsets.all(4),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: LineChart(
-                                  LineChartData(
-                                    gridData: FlGridData(
-                                      show: true,
-                                      horizontalInterval: 1,
-                                      verticalInterval: 1,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                AspectRatio(
+                                  aspectRatio: 2,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: LineChart(
+                                        LineChartData(
+                                          gridData: FlGridData(
+                                            show: true,
+                                            horizontalInterval: 1,
+                                            verticalInterval: 1,
+                                          ),
+                                          titlesData: FlTitlesData(
+                                            show: true,
+                                            rightTitles: AxisTitles(
+                                              sideTitles: SideTitles(
+                                                showTitles: false,
+                                              ),
+                                            ),
+                                            topTitles: AxisTitles(
+                                              sideTitles: SideTitles(
+                                                showTitles: false,
+                                              ),
+                                            ),
+                                            bottomTitles: AxisTitles(
+                                              sideTitles: SideTitles(
+                                                showTitles: true,
+                                                reservedSize: 12,
+                                                interval: 4,
+                                                getTitlesWidget:
+                                                    bottomTitleWidgets,
+                                              ),
+                                            ),
+                                            leftTitles: AxisTitles(
+                                              axisNameWidget: Text(
+                                                  scaleController.isCelsius
+                                                      ? 'T [˚C]'
+                                                      : 'T [˚F]'),
+                                              sideTitles: SideTitles(
+                                                showTitles: true,
+                                                interval:
+                                                    scaleController.isCelsius
+                                                        ? 6
+                                                        : 10,
+                                                reservedSize: 26,
+                                                getTitlesWidget: leftTempWidget,
+                                              ),
+                                            ),
+                                          ),
+                                          borderData: FlBorderData(
+                                            show: true,
+                                            border: const Border(
+                                                bottom: BorderSide(),
+                                                left: BorderSide()),
+                                          ),
+                                          minX: 0,
+                                          maxX: dataPoints.length + 2,
+                                          minY: scaleController.isCelsius
+                                              ? _calculateMinYT(dataPoints,
+                                                  dataPoints2, 0.5, 40)
+                                              : _calculateMinYT(dataPoints,
+                                                  dataPoints2, 4, 95),
+                                          maxY: scaleController.isCelsius
+                                              ? _calculateMaxYT(dataPoints,
+                                                  dataPoints2, 0.5, 20)
+                                              : _calculateMaxYT(dataPoints,
+                                                  dataPoints2, 4, 50),
+                                          lineBarsData: [
+                                            LineChartBarData(
+                                              spots: dataPoints,
+                                              show: show_me,
+                                              isCurved: true,
+                                              color: MyColor.additionalColor,
+                                              dotData: FlDotData(show: false),
+                                              belowBarData: BarAreaData(
+                                                show: true,
+                                              ),
+                                              barWidth: 2,
+                                            ),
+                                            LineChartBarData(
+                                              spots: dataPoints2,
+                                              isCurved: true,
+                                              show: show_me,
+                                              color: MyColor.additionalColor
+                                                  .withGreen(90),
+                                              dotData: FlDotData(show: false),
+                                              belowBarData: BarAreaData(
+                                                show: true,
+                                              ),
+                                              barWidth: 2,
+                                            ),
+                                          ],
+                                        ),
+                                        swapAnimationDuration:
+                                            const Duration(seconds: 2),
+                                      ),
                                     ),
-                                    titlesData: FlTitlesData(
-                                      show: true,
-                                      rightTitles: AxisTitles(
-                                        sideTitles: SideTitles(
-                                          showTitles: false,
-                                        ),
-                                      ),
-                                      topTitles: AxisTitles(
-                                        sideTitles: SideTitles(
-                                          showTitles: false,
-                                        ),
-                                      ),
-                                      bottomTitles: AxisTitles(
-                                        sideTitles: SideTitles(
-                                          showTitles: true,
-                                          reservedSize: 12,
-                                          interval: 4,
-                                          getTitlesWidget: bottomTitleWidgets,
-                                        ),
-                                      ),
-                                      leftTitles: AxisTitles(
-                                        axisNameWidget: Text(
-                                            scaleController.isCelsius
-                                                ? 'T [˚C]'
-                                                : 'T [˚F]'),
-                                        sideTitles: SideTitles(
-                                          showTitles: true,
-                                          interval: scaleController.isCelsius
-                                              ? 6
-                                              : 10,
-                                          reservedSize: 26,
-                                          getTitlesWidget: leftTempWidget,
-                                        ),
-                                      ),
-                                    ),
-                                    borderData: FlBorderData(
-                                      show: true,
-                                      border: const Border(
-                                          bottom: BorderSide(),
-                                          left: BorderSide()),
-                                    ),
-                                    minX: 0,
-                                    maxX: dataPoints.length + 2,
-                                    minY: scaleController.isCelsius
-                                        ? _calculateMinY(dataPoints, 0.5, 40)
-                                        : _calculateMinY(dataPoints, 4, 95),
-                                    maxY: scaleController.isCelsius
-                                        ? _calculateMaxY(dataPoints, 0.5, 20)
-                                        : _calculateMaxY(dataPoints, 4, 50),
-                                    lineBarsData: [
-                                      LineChartBarData(
-                                        spots: dataPoints,
-                                        isCurved: true,
-                                        color: MyColor.additionalColor,
-                                        dotData: FlDotData(show: false),
-                                        belowBarData: BarAreaData(
-                                          show: true,
-                                        ),
-                                        barWidth: 2,
-                                      ),
-                                      LineChartBarData(
-                                        spots: dataPoints2,
-                                        isCurved: true,
-                                        color: MyColor.additionalColor
-                                            .withGreen(90),
-                                        dotData: FlDotData(show: false),
-                                        belowBarData: BarAreaData(
-                                          show: true,
-                                        ),
-                                        barWidth: 2,
-                                      ),
-                                    ],
                                   ),
-                                  swapAnimationDuration:
-                                      const Duration(seconds: 2),
                                 ),
-                              ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      "—",
+                                      style: TextStyle(
+                                        color: MyColor.additionalColor,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(AppLocalizations.of(context)!
+                                        .tempValue1),
+                                    const SizedBox(
+                                      width: 16,
+                                    ),
+                                    Text(
+                                      "—",
+                                      style: TextStyle(
+                                        color: MyColor.additionalColor
+                                            .withGreen(100),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(AppLocalizations.of(context)!
+                                        .tempValue2),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -578,75 +610,97 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
                                     ),
                                   ],
                           ),
-                          child: AspectRatio(
-                            aspectRatio: 2,
-                            child: Padding(
-                              padding: const EdgeInsets.all(4),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: LineChart(
-                                  LineChartData(
-                                    gridData: FlGridData(
-                                      show: true,
-                                      horizontalInterval: 5,
-                                      verticalInterval: 1,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                AspectRatio(
+                                  aspectRatio: 2,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: LineChart(
+                                        LineChartData(
+                                          gridData: FlGridData(
+                                            show: true,
+                                            horizontalInterval: 5,
+                                            verticalInterval: 1,
+                                          ),
+                                          titlesData: FlTitlesData(
+                                            show: true,
+                                            rightTitles: AxisTitles(
+                                              sideTitles: SideTitles(
+                                                showTitles: false,
+                                              ),
+                                            ),
+                                            topTitles: AxisTitles(
+                                              sideTitles: SideTitles(
+                                                showTitles: false,
+                                              ),
+                                            ),
+                                            bottomTitles: AxisTitles(
+                                              sideTitles: SideTitles(
+                                                showTitles: true,
+                                                reservedSize: 12,
+                                                getTitlesWidget:
+                                                    bottomTitleWidgets,
+                                              ),
+                                            ),
+                                            leftTitles: AxisTitles(
+                                              axisNameWidget: Text('W [%]'),
+                                              sideTitles: SideTitles(
+                                                showTitles: true,
+                                                interval: 25,
+                                                reservedSize: 26,
+                                                getTitlesWidget: leftTempWidget,
+                                              ),
+                                            ),
+                                          ),
+                                          borderData: FlBorderData(
+                                            show: true,
+                                            border: const Border(
+                                                bottom: BorderSide(),
+                                                left: BorderSide()),
+                                          ),
+                                          minX: 0,
+                                          maxX: humPoints.length + 2,
+                                          minY:
+                                              _calculateMinY(humPoints, 5, 60),
+                                          maxY:
+                                              _calculateMaxY(humPoints, 5, 40),
+                                          lineBarsData: [
+                                            LineChartBarData(
+                                              spots: humPoints,
+                                              isCurved: true,
+                                              show: show_me,
+                                              color: MyColor.additionalColor,
+                                              dotData: FlDotData(show: false),
+                                              belowBarData: BarAreaData(
+                                                show: true,
+                                              ),
+                                              barWidth: 2,
+                                            ),
+                                          ],
+                                        ),
+                                        swapAnimationDuration:
+                                            const Duration(seconds: 2),
+                                      ),
                                     ),
-                                    titlesData: FlTitlesData(
-                                      show: true,
-                                      rightTitles: AxisTitles(
-                                        sideTitles: SideTitles(
-                                          showTitles: false,
-                                        ),
-                                      ),
-                                      topTitles: AxisTitles(
-                                        sideTitles: SideTitles(
-                                          showTitles: false,
-                                        ),
-                                      ),
-                                      bottomTitles: AxisTitles(
-                                        sideTitles: SideTitles(
-                                          showTitles: true,
-                                          reservedSize: 12,
-                                          getTitlesWidget: bottomTitleWidgets,
-                                        ),
-                                      ),
-                                      leftTitles: AxisTitles(
-                                        axisNameWidget: Text('W [%]'),
-                                        sideTitles: SideTitles(
-                                          showTitles: true,
-                                          interval: 25,
-                                          reservedSize: 26,
-                                          getTitlesWidget: leftTempWidget,
-                                        ),
-                                      ),
-                                    ),
-                                    borderData: FlBorderData(
-                                      show: true,
-                                      border: const Border(
-                                          bottom: BorderSide(),
-                                          left: BorderSide()),
-                                    ),
-                                    minX: 0,
-                                    maxX: humPoints.length + 2,
-                                    minY: _calculateMinY(humPoints, 5, 60),
-                                    maxY: _calculateMaxY(humPoints, 5, 40),
-                                    lineBarsData: [
-                                      LineChartBarData(
-                                        spots: humPoints,
-                                        isCurved: true,
-                                        color: MyColor.additionalColor,
-                                        dotData: FlDotData(show: false),
-                                        belowBarData: BarAreaData(
-                                          show: true,
-                                        ),
-                                        barWidth: 2,
-                                      ),
-                                    ],
                                   ),
-                                  swapAnimationDuration:
-                                      const Duration(seconds: 2),
                                 ),
-                              ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      "—",
+                                      style: TextStyle(
+                                          color: MyColor.additionalColor,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(AppLocalizations.of(context)!.humValue)
+                                  ],
+                                )
+                              ],
                             ),
                           ),
                         ),

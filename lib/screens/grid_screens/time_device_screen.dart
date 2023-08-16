@@ -28,7 +28,8 @@ class TimeDeviceScreen extends StatefulWidget {
 class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
   bool _isExpanded = false;
 
-  var newDateUnix = DateTime.now().toUtc().millisecondsSinceEpoch;
+  var newDateUnix =
+      DateTime.now().toUtc().millisecondsSinceEpoch + (2 * 60 * 60 * 1000);
 
   final newDate = DateTime.fromMillisecondsSinceEpoch(
       DateTime.now().toUtc().millisecondsSinceEpoch,
@@ -357,7 +358,10 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
       if (service.uuid.toString() == Dimensions.time_service_uuid) {
         service.characteristics.forEach((characteristic) {
           if (characteristic.uuid.toString() == Dimensions.timePhone_uuid) {
-            characteristic.write(utf8.encode(newDateUnix.toString()));
+            characteristic.write(utf8.encode(
+                (DateTime.now().toUtc().millisecondsSinceEpoch +
+                        (2 * 60 * 60 * 1000))
+                    .toString()));
           }
         });
       }
@@ -378,7 +382,6 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
               setState(() {
                 widget.readValues[characteristic.uuid] = value;
               });
-              print(value.toString());
 
               timeOnDevice = dataParser(value);
 
