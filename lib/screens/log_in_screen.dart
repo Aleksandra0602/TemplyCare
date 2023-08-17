@@ -1,13 +1,21 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:temp_app_v1/models/login_response_model.dart';
 
 import 'package:temp_app_v1/screens/grid_screens/categories_screen.dart';
 import 'package:temp_app_v1/screens/sign_up_screen.dart';
+import 'package:temp_app_v1/utils/api_utils.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:temp_app_v1/widgets/log_sign_field.dart';
 import 'package:temp_app_v1/widgets/my_button.dart';
 import 'package:temp_app_v1/widgets/password_field.dart';
+
+import '../models/user_controller.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key, this.services});
@@ -18,13 +26,62 @@ class LogInScreen extends StatefulWidget {
 }
 
 class _LogInScreenState extends State<LogInScreen> {
-  final _loginCheckController = TextEditingController();
+  final _emailCheckController = TextEditingController();
   final _passwordCheckController = TextEditingController();
 
   String? validaton(String? value) {
     if (value == null || value.isEmpty) {
       return 'Musisz wypełnić to pole!';
     }
+  }
+
+  void login() async {
+    String email = _emailCheckController.text;
+    String password = _passwordCheckController.text;
+
+    // await loginUser(email, password).then((value) {
+    //   _onLoginSuccess(value, userController);
+    //   Navigator.pushReplacement(
+    //     context,
+    //     MaterialPageRoute(
+    //       builder: ((context) => CategoriesScreen(services: widget.services)),
+    //     ),
+    //   );
+    // });
+
+    http.Response response = await loginUser(email, password);
+    if (response.statusCode == 200) {
+      var decodedResponse =
+          jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
+      final dataUser = LoginResponseModel.fromJson(decodedResponse);
+
+      _onLoginSuccess(dataUser);
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: ((context) =>
+                  CategoriesScreen(services: widget.services))));
+    } else {
+      print("Wystąpił błąd podczas logowania.");
+      print("Kod statusu: ${response.statusCode}");
+      print("Treść odpowiedzi: ${response.body}");
+    }
+  }
+
+  void _onLoginSuccess(
+    LoginResponseModel responseData,
+  ) {
+    final userController = Get.put(UserController());
+    userController.setUser(
+      responseData.id,
+      responseData.login,
+      responseData.email,
+      responseData.image,
+    );
+
+    Get.off(CategoriesScreen(
+      services: widget.services,
+    ));
   }
 
   @override
@@ -49,8 +106,8 @@ class _LogInScreenState extends State<LogInScreen> {
             const SizedBox(
               height: 10,
             ),
-            LogSignField('Login', Icons.person, _loginCheckController,
-                validaton(_loginCheckController.text)),
+            LogSignField('E-mail', Icons.mail, _emailCheckController,
+                validaton(_emailCheckController.text)),
             PasswordField(AppLocalizations.of(context)!.password,
                 Icons.password, _passwordCheckController),
             const SizedBox(
@@ -58,11 +115,7 @@ class _LogInScreenState extends State<LogInScreen> {
             ),
             InkWell(
               onTap: (() {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: ((context) =>
-                            CategoriesScreen(services: widget.services))));
+                login();
               }),
               child: MyButton(
                 color: MyColor.additionalColor,

@@ -1,18 +1,28 @@
 class LoginResponseModel {
-  String? login;
-  String? mail;
+  int id = -1;
+  String login = '';
+  String email = '';
+  String image = '';
 
-  LoginResponseModel({required this.login, required this.mail});
+  LoginResponseModel({
+    required this.id,
+    required this.login,
+    required this.email,
+    required this.image,
+  });
 
   LoginResponseModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     login = json['login'];
-    mail = json['mail'];
+    email = json['email'];
+    image = json['imageUrl'];
   }
-
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['login'] = this.login;
-    data['mail'] = this.mail;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['login'] = login;
+    data['email'] = email;
+    data['imageUrl'] = image;
     return data;
   }
 }
