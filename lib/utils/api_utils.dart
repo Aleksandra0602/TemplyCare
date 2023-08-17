@@ -1,34 +1,59 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:temp_app_v1/models/login_response_model.dart';
 
 Future<http.Response> registerUser(
-    String login, String mail, String password1, String password2) {
+    String login, String email, String password, File? image) {
+  final Map<String, dynamic> requestBody = {
+    'login': login,
+    'email': email,
+    'password': password,
+  };
+
+  if (image != null) {
+    final bytes = File(image.path).readAsBytesSync();
+    requestBody['image'] = base64Encode(bytes);
+  } else {
+    requestBody['image'] = null;
+  }
+
   return http.post(
-    //dodac
-    Uri.parse(''),
+    Uri.parse('https://temply.mathomelab.stream/user'),
     headers: <String, String>{
-      'Content-Type': 'aplication/json; charset=UTF-8',
+      'Content-Type': 'application/json; charset=UTF-8',
     },
-    body: jsonEncode(<String, String>{
-      'login': login,
-      'mail': mail,
-      'password1': password1,
-      'password2': password2,
-    }),
+    body: jsonEncode(requestBody),
   );
 }
 
-Future<http.Response> loginUser(String login, String password) {
-  return http.post(
-    //dodac
-    Uri.parse('uri'),
+Future<http.Response> loginUser(String email, String password) async {
+  final response = await http.post(
+    Uri.parse('https://temply.mathomelab.stream/user/login'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(<String, String>{
-      'login': login,
+      'email': email,
       'password': password,
     }),
   );
+
+  return response;
+
+  // print(decodedResponse);
+
+  // return LoginResponseModel.fromJson(decodedResponse);
 }
+
+// Future<http.Response> loadData(int id){
+//   return http.get(
+//     Uri.parse('https://temply.mathomelab.stream/user/$id'),
+//     headers: <String, String>{
+//       'Content-Type': 'application/json; charset=UTF-8',
+//     },
+//     body: 
+//   );
+
+// }

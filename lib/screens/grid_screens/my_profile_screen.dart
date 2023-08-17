@@ -3,6 +3,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:temp_app_v1/models/login_response_model.dart';
+import 'package:temp_app_v1/models/user_controller.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:temp_app_v1/widgets/my_button.dart';
 import 'package:temp_app_v1/screens/ripple_animate_screen.dart';
@@ -22,6 +24,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   String password = 'Password123.';
   String mail = 'Student1998@gmail.com';
   String login = 'Student1998';
+
   final _passwordCheckController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -37,8 +40,17 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     });
   }
 
+  late String loginUser;
+  late String mailUSer;
+  late String imageUSer;
+
   @override
   Widget build(BuildContext context) {
+    final UserController userController = Get.put(UserController());
+    loginUser = userController.login.value;
+    mailUSer = userController.email.value;
+    imageUSer = userController.imageUrl.value;
+
     return Scaffold(
       backgroundColor: Get.isDarkMode
           ? MyColor.darkBackgroundColor.withRed(60).withBlue(60).withGreen(60)
@@ -62,7 +74,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 16),
                       // alignment: Alignment.center,
-                      height: 540,
+                      height: 500,
                       decoration: BoxDecoration(
                         color: Theme.of(context).backgroundColor,
                         borderRadius: BorderRadius.circular(20),
@@ -117,10 +129,12 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                 height: 30,
                               ),
                               storedImage == null
-                                  ? Icon(
-                                      Icons.person,
-                                      color: Colors.grey.shade200,
-                                      size: 150,
+                                  ? SizedBox(
+                                      height: 180,
+                                      width: 180,
+                                      child: Image.network(
+                                        imageUSer,
+                                      ),
                                     )
                                   : SizedBox(
                                       height: 180,
@@ -155,7 +169,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                 height: 16,
                               ),
                               Text(
-                                login,
+                                loginUser,
                                 style: const TextStyle(
                                   color: Colors.grey,
                                   fontSize: 22,
@@ -189,7 +203,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                       width: 8,
                                     ),
                                     Text(
-                                      mail,
+                                      mailUSer,
                                       style: TextStyle(
                                           fontSize: 16,
                                           color: Get.isDarkMode
@@ -201,73 +215,6 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                 ),
                               ),
                               const Divider(),
-                              Container(
-                                padding: const EdgeInsets.only(left: 8),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.password,
-                                          color: MyColor.primary7,
-                                        ),
-                                        const SizedBox(
-                                          width: 8,
-                                        ),
-                                        Text(
-                                          AppLocalizations.of(context)!
-                                              .password,
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              color: Get.isDarkMode
-                                                  ? MyColor.backgroundColor
-                                                      .withOpacity(0.7)
-                                                  : MyColor.appBarColor1),
-                                        ),
-                                        const SizedBox(
-                                          width: 8,
-                                        ),
-                                        isPasswordVisible
-                                            ? Text(
-                                                password,
-                                                style: const TextStyle(
-                                                    fontSize: 16,
-                                                    color:
-                                                        MyColor.appBarColor1),
-                                              )
-                                            : Text(
-                                                String.fromCharCodes(
-                                                    List.filled(password.length,
-                                                        0x2055)),
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    color: Get.isDarkMode
-                                                        ? MyColor
-                                                            .backgroundColor
-                                                            .withOpacity(0.7)
-                                                        : MyColor.appBarColor1),
-                                              ),
-                                      ],
-                                    ),
-                                    Checkbox(
-                                      side: const BorderSide(
-                                          color: MyColor.additionalColor,
-                                          width: 2),
-                                      focusColor: MyColor.appBarColor1,
-                                      checkColor: MyColor.backgroundColor,
-                                      activeColor: MyColor.additionalColor,
-                                      value: isPasswordVisible,
-                                      onChanged: (bool? value) {
-                                        setState(() {
-                                          isPasswordVisible = value!;
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ),
                               Container(
                                 alignment: Alignment.centerLeft,
                                 child: TextButton(
@@ -334,12 +281,12 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                       ),
                     ),
                     const SizedBox(
-                      height: 80,
+                      height: 60,
                     ),
                   ],
                 ),
                 Positioned(
-                  top: 520,
+                  top: 480,
                   height: 64,
                   width: 340,
                   child: InkWell(
