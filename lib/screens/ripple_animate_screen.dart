@@ -6,8 +6,8 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 
-import '../widgets/bluetooth_turned_on_body.dart';
-import '../widgets/bt_alert_dialog.dart';
+import '../widgets/bluetooth/bluetooth_turned_on_body.dart';
+import '../widgets/bluetooth/bt_alert_dialog.dart';
 
 class RippleAnimateScreen extends StatefulWidget {
   const RippleAnimateScreen({Key? key}) : super(key: key);

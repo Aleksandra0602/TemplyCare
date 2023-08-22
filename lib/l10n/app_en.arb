@@ -18,6 +18,11 @@
     "bleOn": "Turn on Bluetooth",
     "deviceConnect": "Connect to the device",
 
+    "wifiSSID" : "Wi-Fi SSID (Wi-Fi name)",
+    "wifiPassword" : "Wi-Fi password",
+    "writeWifiData" : "Save and send",
+    "wifiText": "To configure the connection with your Wi-Fi network, please enter the SSID (network name) and password above. This information will be sent to the Arduino device to enable data transmission from the device to the InfluxDB database in the future.",
+
     "logIn": "Log in",
     "signIn": "Sign up",
     "registration": "Registration",
@@ -55,7 +60,7 @@
     "alertButton": "OK",
     "errorDialog": "Error",
     "errorMessage": "No data to measure",
-    "information" : "Measurement starts:\nMeasurement time: {var1} min\nSleep time: {var2} s\nTag: {var3}\nFile name: {var4}.txt",
+    "information" : "Measurement starts:\nMeasurement time: {var1} min\nSleep time: {var2} s\nTag: {var3}\nFile name: {var4}.csv",
   
 
     "timeBattery": "The battery in the device will last for:",

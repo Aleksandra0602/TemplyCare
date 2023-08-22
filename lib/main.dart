@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:temp_app_v1/screens/main_screens/categories_screen.dart';
 
-import 'package:temp_app_v1/screens/log_sign_screen.dart';
+import 'package:temp_app_v1/screens/log_sign_screens/log_sign_screen.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:temp_app_v1/screens/ripple_animate_screen.dart';
 
-import 'package:temp_app_v1/utils/local_strings.dart';
-import 'package:temp_app_v1/utils/scale_controller.dart';
+import 'package:temp_app_v1/utils/translations/local_strings.dart';
+import 'package:temp_app_v1/utils/scale_utils/scale_controller.dart';
 
 void main() {
   Get.put(ScaleController());
@@ -34,7 +34,6 @@ class _MyAppState extends State<MyApp> {
       darkTheme: ThemeData.dark(),
       theme:
           ThemeData.light().copyWith(backgroundColor: MyColor.backgroundColor),
-      //themeMode: ThemeMode.light,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       debugShowCheckedModeBanner: false,
@@ -54,8 +53,8 @@ class _MyAppState extends State<MyApp> {
           ],
         ),
         splashTransition: SplashTransition.slideTransition,
-        //nextScreen: RippleAnimateScreen(),
-        nextScreen: LogSignScreen(),
+        nextScreen: RippleAnimateScreen(),
+        //nextScreen: LogSignScreen(),
         //nextScreen: CategoriesScreen(),
       ),
     );

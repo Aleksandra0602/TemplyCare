@@ -52,6 +52,7 @@ dependencies:
   flutter_localization: ^0.1.13
   get: ^4.6.5
   intl_translation: ^0.18.0
+  shared_preferences: ^2.1.1
   
 
 dev_dependencies:
@@ -82,7 +83,7 @@ flutter:
     - assets/logo.png
     - assets/GB20.png
     - assets/pl20.png
-    - assets/logo_ciemne.png
+    - assets/szare_logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

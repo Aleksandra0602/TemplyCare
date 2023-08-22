@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
-import '../screens/grid_screens/battery_screen.dart';
-import '../screens/grid_screens/display_files_screen.dart';
-import '../screens/grid_screens/measurement_screen.dart';
-import '../screens/grid_screens/memory_card_screen.dart';
-import '../screens/grid_screens/my_profile_screen.dart';
-import '../screens/grid_screens/read_temperature_screen.dart';
-import '../screens/grid_screens/settings_screen.dart';
-import '../screens/grid_screens/time_device_screen.dart';
+import '../screens/main_screens/battery_screen.dart';
+import '../screens/main_screens/display_files_screen.dart';
+import '../screens/main_screens/measurement_screen.dart';
+import '../screens/main_screens/memory_card_screen.dart';
+import '../screens/bottom_screens/my_profile_screen.dart';
+import '../screens/main_screens/read_temperature_screen.dart';
+import '../screens/bottom_screens/settings_screen.dart';
+import '../screens/main_screens/time_device_screen.dart';
 import 'constans/screens.dart';
 
 void selectCategory(
@@ -47,7 +47,9 @@ void selectCategory(
       break;
     case ScreensEnum.displayFilesScreen:
       Navigator.of(ctx).push(MaterialPageRoute(builder: (ctx) {
-        return DisplayFilesScreen();
+        return DisplayFilesScreen(
+          services: services,
+        );
       }));
       break;
     case ScreensEnum.timeDeviceScreen:
