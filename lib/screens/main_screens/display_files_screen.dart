@@ -73,7 +73,7 @@ class _DisplayFilesScreenState extends State<DisplayFilesScreen> {
                       title: Text(fileNames[index]),
                     );
                   } else {
-                    return ListTile(
+                    return const ListTile(
                       title: Text("No file names available"),
                     );
                   }
