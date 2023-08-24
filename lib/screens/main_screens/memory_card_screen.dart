@@ -30,7 +30,7 @@ class _MemoryCardScreenState extends State<MemoryCardScreen> {
   void initState() {
     Future.delayed(Duration.zero, () async {
       widget.services!.forEach((service) {
-        if (service.uuid.toString() == Dimensions.memory_UUID) {
+        if (service.uuid.toString() == Dimensions.const_var_UUID) {
           service.characteristics.forEach((characteristic) {
             if (characteristic.uuid.toString() ==
                 Dimensions.SEND_DATA_MEMORY_UUID) {

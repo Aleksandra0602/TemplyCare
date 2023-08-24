@@ -25,7 +25,7 @@ class LocalStrings extends Translations {
           "wifiPassword": "Wi-Fi password",
           "writeWifiData": "Save and send",
           "wifiText":
-              "To configure the connection with your Wi-Fi network, please enter the SSID (network name) and password above. This information will be sent to the Arduino device to enable data transmission from the device to the InfluxDB database in the future.",
+              "To configure the connection with your Wi-Fi network, please enter the SSID (network name) and password above. This information will be sent to the Arduino device to enable data transmission from the device to the InfluxDB database.",
           "logIn": "Log in",
           "signIn": "Sign up",
           "registration": "Registration",
@@ -58,6 +58,8 @@ class LocalStrings extends Translations {
           "errorDialog": "Error",
           "errorMessage": "No data to measure",
           "timeBattery": "The battery in the device will last for:",
+          "maxTimeBattery":
+              "The maximum operating time of the device\nwhen the battery is fully charged:",
           "batteryMessage":
               "Battery usage data isapproximate and can change based on usage",
           "sixthAppBar": "View available files",
@@ -109,7 +111,7 @@ class LocalStrings extends Translations {
           "wifiPassword": "Hasło do Wi-Fi",
           "writeWifiData": "Zapisz i wyślij",
           "wifiText":
-              "Aby skonfigurować połączenie z Twoją siecią Wi-Fi, wprowadź powyżej nazwę SSID (nazwę sieci) oraz hasło. Te informacje zostaną wysłane do urządzenia Arduino, aby umożliwić przesyłanie danych z urządzenia do bazy danych InfluxDB w przyszłości.",
+              "Aby skonfigurować połączenie z Twoją siecią Wi-Fi, wprowadź powyżej nazwę SSID (nazwę sieci) oraz hasło. Te informacje zostaną wysłane do urządzenia Arduino, aby umożliwić przesyłanie danych z urządzenia do bazy danych InfluxDB.",
           "logIn": "Zaloguj się",
           "signIn": "Zarejestruj się",
           "registration": "Rejestracja",
@@ -142,6 +144,8 @@ class LocalStrings extends Translations {
           "errorDialog": "Błąd",
           "errorMessage": "Brak danych do pomiaru",
           "timeBattery": "Baterii w urządzeniu wystarczy na:",
+          "maxTimeBattery":
+              "Maksymalny czas pracy urządzenia\nprzy pełnym naładowaniu baterii:",
           "batteryMessage":
               "Dane o wykorzystaniu baterii są przybliżone i mogą się zmienić w zależności od sposobu używania urządzenia",
           "sixthAppBar": "Wyświetl dostępne pliki",

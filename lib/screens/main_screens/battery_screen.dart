@@ -21,12 +21,13 @@ class BatteryScreen extends StatefulWidget {
 class _BatteryScreenState extends State<BatteryScreen> {
   double? currentBatteryValue = 0;
   String batteryValue = "";
+  String formatedTime = "";
 
   @override
   void initState() {
     Future.delayed(Duration.zero, () async {
       widget.services!.forEach((service) {
-        if (service.uuid.toString() == Dimensions.battery_serv_uuid) {
+        if (service.uuid.toString() == Dimensions.const_var_UUID) {
           service.characteristics.forEach((characteristic) {
             if (characteristic.uuid.toString() ==
                 Dimensions.battery_level_uuid) {
@@ -37,6 +38,10 @@ class _BatteryScreenState extends State<BatteryScreen> {
                 batteryValue = dataParser(value);
 
                 currentBatteryValue = double.parse(batteryValue);
+                double batteryTime = currentBatteryValue! * (560 / 80) / 100;
+                int hour = batteryTime.toInt();
+                int min = ((batteryTime - hour) * 60).toInt();
+                formatedTime = "$hour h $min min";
               });
               characteristic.read();
 
@@ -161,26 +166,50 @@ class _BatteryScreenState extends State<BatteryScreen> {
             Container(
               padding: const EdgeInsets.all(4),
               //alignment: Alignment.center,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+              child: Column(
                 children: [
-                  Text(
-                    AppLocalizations.of(context)!.timeBattery,
-                    style: const TextStyle(
-                      fontSize: 16,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.timeBattery,
+                          style: const TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                        Text(
+                          formatedTime,
+                          style: const TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  const Text(
-                    '8 h 32 min',
-                    style: TextStyle(
-                      fontSize: 16,
+                  const Divider(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.maxTimeBattery,
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        const Text(
+                          "ok. 7 h",
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
             ),
             const SizedBox(
-              height: 120,
+              height: 100,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),

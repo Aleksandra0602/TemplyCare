@@ -21,7 +21,7 @@
     "wifiSSID" : "Wi-Fi SSID (Wi-Fi name)",
     "wifiPassword" : "Wi-Fi password",
     "writeWifiData" : "Save and send",
-    "wifiText": "To configure the connection with your Wi-Fi network, please enter the SSID (network name) and password above. This information will be sent to the Arduino device to enable data transmission from the device to the InfluxDB database in the future.",
+    "wifiText": "To configure the connection with your Wi-Fi network, please enter the SSID (network name) and password above. This information will be sent to the Arduino device to enable data transmission from the device to the InfluxDB database.",
 
     "logIn": "Log in",
     "signIn": "Sign up",
@@ -64,6 +64,7 @@
   
 
     "timeBattery": "The battery in the device will last for:",
+    "maxTimeBattery" : "The maximum operating time of the device\nwhen the battery is fully charged:",
     "batteryMessage": "Battery usage data isapproximate and can change based on usage",
 
     "sixthAppBar": "View available files",

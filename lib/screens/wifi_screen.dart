@@ -116,7 +116,7 @@ class _WifiScreenState extends State<WifiScreen> {
   void sendWifiData(TextEditingController _wifiSSIDController,
       TextEditingController _wifiPasswordController) {
     widget.services!.forEach((service) {
-      if (service.uuid.toString() == Dimensions.memory_UUID) {
+      if (service.uuid.toString() == Dimensions.const_var_UUID) {
         service.characteristics.forEach((characteristic) {
           if (characteristic.uuid.toString() == Dimensions.wifi_char_uuid) {
             String ssidWifi = _wifiSSIDController.value.text;
