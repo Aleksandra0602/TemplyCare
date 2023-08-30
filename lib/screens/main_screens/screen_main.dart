@@ -37,6 +37,7 @@ class _ScreenMainState extends State<ScreenMain> {
                 CategoryButtonSquare(
                   title: AppLocalizations.of(context)!.buttonText1,
                   color: MyColor.primary1,
+                  color2: MyColor.primary2,
                   screens: ScreensEnum.realTemperatureScreen,
                   services: widget.services,
                   width: widthSquare,
@@ -45,6 +46,7 @@ class _ScreenMainState extends State<ScreenMain> {
                 CategoryButtonSquare(
                   title: AppLocalizations.of(context)!.buttonText2,
                   color: MyColor.primary2,
+                  color2: MyColor.primary3,
                   screens: ScreensEnum.measurementScreen,
                   services: widget.services,
                   width: widthSquare,
@@ -54,7 +56,8 @@ class _ScreenMainState extends State<ScreenMain> {
             ),
             CategoryButtonSquare(
               title: AppLocalizations.of(context)!.buttonText4,
-              color: MyColor.primary3,
+              color: MyColor.primary2,
+              color2: MyColor.primary4,
               screens: ScreensEnum.memoryCardScreen,
               services: widget.services,
               width: widthRectangle,
@@ -65,7 +68,8 @@ class _ScreenMainState extends State<ScreenMain> {
               children: [
                 CategoryButtonSquare(
                   title: AppLocalizations.of(context)!.buttonText3,
-                  color: MyColor.primary4,
+                  color: MyColor.primary3,
+                  color2: MyColor.primary4,
                   screens: ScreensEnum.batteryScreen,
                   services: widget.services,
                   width: widthSquare,
@@ -73,7 +77,8 @@ class _ScreenMainState extends State<ScreenMain> {
                 ),
                 CategoryButtonSquare(
                   title: AppLocalizations.of(context)!.buttonText5,
-                  color: MyColor.primary5,
+                  color: MyColor.primary4,
+                  color2: MyColor.primary5,
                   screens: ScreensEnum.displayFilesScreen,
                   services: widget.services,
                   width: widthSquare,
@@ -83,7 +88,8 @@ class _ScreenMainState extends State<ScreenMain> {
             ),
             CategoryButtonSquare(
               title: AppLocalizations.of(context)!.buttonText6,
-              color: MyColor.primary6,
+              color: MyColor.primary4,
+              color2: MyColor.primary6,
               screens: ScreensEnum.timeDeviceScreen,
               services: widget.services,
               width: widthRectangle,

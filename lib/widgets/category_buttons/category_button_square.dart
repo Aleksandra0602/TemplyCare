@@ -10,6 +10,7 @@ import '../../utils/constans/my_color.dart';
 class CategoryButtonSquare extends StatelessWidget {
   final String title;
   final Color color;
+  final Color color2;
   final List<BluetoothService>? services;
   final ScreensEnum screens;
   final double width;
@@ -18,6 +19,7 @@ class CategoryButtonSquare extends StatelessWidget {
   const CategoryButtonSquare({
     required this.title,
     required this.color,
+    required this.color2,
     required this.services,
     required this.screens,
     required this.width,
@@ -37,6 +39,14 @@ class CategoryButtonSquare extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         margin: const EdgeInsets.all(6),
         decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              color,
+              color2,
+            ],
+          ),
           color: color,
           borderRadius: BorderRadius.circular(15),
           boxShadow: Get.isDarkMode
