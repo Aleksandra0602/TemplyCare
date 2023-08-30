@@ -57,7 +57,7 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
   @override
   void initState() {
     super.initState();
-    Timer.periodic(const Duration(seconds: 1), (timer) {
+    Timer.periodic(const Duration(milliseconds: 1), (timer) {
       realTimeClock();
     });
   }
@@ -139,7 +139,8 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
                               height: 30,
                             ),
                             Text(
-                              DateFormat.EEEE('pl').format(
+                              DateFormat.EEEE(Get.locale?.languageCode ?? 'pl')
+                                  .format(
                                 DateTime.now(),
                               ),
                               style: TextStyle(

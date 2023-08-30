@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:get/get.dart';
-import 'package:temp_app_v1/screens/wifi_screen.dart';
+import 'package:temp_app_v1/utils/constans/loading_widget.dart';
+
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -58,6 +58,28 @@ class _ModalBottomBodyState extends State<ModalBottomBody> {
     super.dispose();
   }
 
+  void connectDeviceMethod(
+      BluetoothDevice element, BuildContext context) async {
+    flutterBlue.stopScan();
+    showLoadingWidget(context);
+
+    await element.connect();
+    _services = await element.discoverServices();
+
+    setState(() {
+      _connectedDevice = element;
+      _services = _services;
+    });
+    if (!mounted) return;
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: ((context) => LogSignScreen(services: _services)),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -71,7 +93,7 @@ class _ModalBottomBodyState extends State<ModalBottomBody> {
                   child: Text(
                     AppLocalizations.of(context)!.deviceConnect,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: MyColor.backgroundColor,
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
@@ -79,7 +101,7 @@ class _ModalBottomBodyState extends State<ModalBottomBody> {
                 ),
                 IconButton(
                   iconSize: 32,
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.clear,
                     color: MyColor.backgroundColor,
                   ),
@@ -131,32 +153,33 @@ class _ModalBottomBodyState extends State<ModalBottomBody> {
                             ),
                           ),
                           InkWell(
-                            onTap: () async {
-                              flutterBlue.stopScan();
-                              try {
-                                await element.connect();
-                              } catch (e) {
-                                if (e.hashCode !=
-                                    AppLocalizations.of(context)!
-                                        .alreadyConnected) {
-                                  throw e;
-                                }
-                              } finally {
-                                _services = await element.discoverServices();
-                              }
-                              setState(() {
-                                _connectedDevice = element;
-                                _services = _services;
-                              });
+                            onTap: () => connectDeviceMethod(element, context),
+                            // onTap: () async {
+                            //   flutterBlue.stopScan();
+                            //   try {
+                            //     await element.connect();
+                            //   } catch (e) {
+                            //     if (e.hashCode.toString() !=
+                            //         AppLocalizations.of(context)!
+                            //             .alreadyConnected) {
+                            //       throw e;
+                            //     }
+                            //   } finally {
+                            //     _services = await element.discoverServices();
+                            //   }
+                            //   setState(() {
+                            //     _connectedDevice = element;
+                            //     _services = _services;
+                            //   });
 
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: ((context) =>
-                                      LogSignScreen(services: _services)),
-                                ),
-                              );
-                            },
+                            //   Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //       builder: ((context) =>
+                            //           LogSignScreen(services: _services)),
+                            //     ),
+                            //   );
+                            // },
                             child: Container(
                               height: 45,
                               width: 80,

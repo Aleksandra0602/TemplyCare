@@ -8,7 +8,9 @@ import 'package:http/http.dart' as http;
 import 'package:temp_app_v1/models/login_response_model.dart';
 import 'package:temp_app_v1/screens/log_sign_screens/log_in_screen.dart';
 import 'package:temp_app_v1/utils/api/api_utils.dart';
+import 'package:temp_app_v1/utils/constans/loading_widget.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
+import 'package:temp_app_v1/widgets/bars_and_buttons/my_snack_bar.dart';
 import 'package:temp_app_v1/widgets/login_registration/registration.dart';
 import 'package:temp_app_v1/widgets/textformfields/log_sign_field.dart';
 import 'package:temp_app_v1/widgets/bars_and_buttons/my_button.dart';
@@ -49,22 +51,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
   }
 
-  void register() async {
+  void register(BuildContext context) async {
     String login = _loginController.text;
     String email = _emailController.text;
     String password = _password1Controller.text;
     String password2 = _password2Controller.text;
 
-    http.Response response;
-
     if (password.compareTo(password2) == 0) {
-      response = await registerUser(login, email, password, null);
+      showLoadingWidget(context);
+      http.Response response = await registerUser(login, email, password, null);
+
       if (response.statusCode == 200 || response.statusCode == 201) {
         var decodedResponse =
             jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
         final dataUser = LoginResponseModel.fromJson(decodedResponse);
 
         _onLoginSuccess(dataUser);
+
+        hideLoadingWidget(context);
+
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -72,12 +77,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
         );
       } else {
-        print("Wystąpił błąd podczas rejestracji.");
-        print("Kod statusu: ${response.statusCode}");
-        print("Treść odpowiedzi: ${response.body}");
+        hideLoadingWidget(context);
+        showBar(context, "Wystąpił błąd podczas rejestracji.");
       }
     } else {
-      print("Hasła są różne");
+      showBar(context, "Hasła są różne");
     }
   }
 
@@ -92,9 +96,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
       responseData.image,
     );
 
-    Get.off(CategoriesScreen(
-      services: widget.services,
-    ));
+    Get.off(() => CategoriesScreen(
+          services: widget.services,
+        ));
+  }
+
+  void showBar(BuildContext context, String text) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(MySnackBar(textSnackBar: text, context: context));
   }
 
   @override
@@ -143,7 +152,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             InkWell(
               onTap: (() {
-                register();
+                register(context);
               }),
               child: MyButton(
                 color: Get.isDarkMode

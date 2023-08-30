@@ -10,6 +10,7 @@ import 'package:temp_app_v1/models/login_response_model.dart';
 import 'package:temp_app_v1/screens/log_sign_screens/sign_up_screen.dart';
 import 'package:temp_app_v1/screens/main_screens/categories_screen.dart';
 import 'package:temp_app_v1/utils/api/api_utils.dart';
+import 'package:temp_app_v1/utils/constans/loading_widget.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:temp_app_v1/widgets/bars_and_buttons/my_button.dart';
 import 'package:temp_app_v1/widgets/bars_and_buttons/my_snack_bar.dart';
@@ -37,9 +38,11 @@ class _LogInScreenState extends State<LogInScreen> {
     }
   }
 
-  void login() async {
+  void login(BuildContext context) async {
     String email = _emailCheckController.text;
     String password = _passwordCheckController.text;
+
+    showLoadingWidget(context);
 
     http.Response response = await loginUser(email, password);
     if (response.statusCode == 200) {
@@ -48,15 +51,16 @@ class _LogInScreenState extends State<LogInScreen> {
       final dataUser = LoginResponseModel.fromJson(decodedResponse);
 
       _onLoginSuccess(dataUser);
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: ((context) =>
-                  CategoriesScreen(services: widget.services))));
+      if (!mounted) return;
+      hideLoadingWidget(context);
+      NavigatorState navigator = Navigator.of(context);
+
+      navigator.pushReplacement(MaterialPageRoute(
+          builder: ((context) => CategoriesScreen(services: widget.services))));
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(MySnackBar(
-          textSnackBar: "Błąd logowania - nieprawidłowe dane",
-          context: context));
+      if (!mounted) return;
+      hideLoadingWidget(context);
+      showBar(context, "Błąd logowania - nieprawidłowe dane");
     }
   }
 
@@ -71,9 +75,14 @@ class _LogInScreenState extends State<LogInScreen> {
       responseData.image,
     );
 
-    Get.off(CategoriesScreen(
-      services: widget.services,
-    ));
+    Get.off(() => CategoriesScreen(
+          services: widget.services,
+        ));
+  }
+
+  void showBar(BuildContext context, String text) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(MySnackBar(textSnackBar: text, context: context));
   }
 
   @override
@@ -117,15 +126,15 @@ class _LogInScreenState extends State<LogInScreen> {
             ),
             InkWell(
               onTap: (() {
-                login();
+                login(context);
               }),
               child: MyButton(
                 color: Get.isDarkMode
-                    ? Color.fromRGBO(160, 80, 20, 1)
+                    ? MyColor.darkAdditionalColor
                     : MyColor.additionalColor,
                 textButton: AppLocalizations.of(context)!.logIn,
                 borderColor: Get.isDarkMode
-                    ? Color.fromRGBO(160, 80, 20, 1)
+                    ? MyColor.darkAdditionalColor
                     : MyColor.additionalColor,
                 textColor: MyColor.backgroundColor,
               ),

@@ -101,7 +101,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       activeColor: MyColor.additionalColor,
                     ),
                   ),
-                  //Divider(),
                   ListTile(
                     leading: Image.asset('assets/GB20.png'),
                     title: Text(
@@ -200,7 +199,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       activeColor: MyColor.additionalColor,
                     ),
                   ),
-                  //Divider(),
                   ListTile(
                     title: Text(
                       AppLocalizations.of(context)!.fah,

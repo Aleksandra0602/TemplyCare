@@ -69,7 +69,7 @@ class BluetoothTurnedOnBody extends StatelessWidget {
                   },
                 );
               },
-              child: Icon(
+              child: const Icon(
                 Icons.bluetooth,
                 size: 60,
                 color: MyColor.backgroundColor,

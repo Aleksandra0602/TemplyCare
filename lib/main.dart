@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:temp_app_v1/screens/main_screens/categories_screen.dart';
 
 import 'package:temp_app_v1/screens/log_sign_screens/log_sign_screen.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
@@ -30,10 +29,11 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       translations: LocalStrings(),
-      locale: Locale('pl', 'PL'),
+      locale: const Locale('pl', 'PL'),
       darkTheme: ThemeData.dark(),
       theme:
           ThemeData.light().copyWith(backgroundColor: MyColor.backgroundColor),
+      themeMode: ThemeMode.light,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       debugShowCheckedModeBanner: false,
@@ -53,8 +53,8 @@ class _MyAppState extends State<MyApp> {
           ],
         ),
         splashTransition: SplashTransition.slideTransition,
-        nextScreen: RippleAnimateScreen(),
-        //nextScreen: LogSignScreen(),
+        //nextScreen: RippleAnimateScreen(),
+        nextScreen: LogSignScreen(),
         //nextScreen: CategoriesScreen(),
       ),
     );

@@ -263,8 +263,10 @@ class _RippleAnimateState extends State<RippleAnimateScreen>
               thirdRippleWidthAnimation: thirdRippleWidthAnimation,
               centerCircleRadiusAnimation: centerCircleRadiusAnimation,
             );
-          } else {
+          } else if (state == BluetoothState.off) {
             return const BluetoothAlertDialog();
+          } else {
+            return const SizedBox.shrink();
           }
         },
       ),
