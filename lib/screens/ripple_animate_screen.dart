@@ -13,10 +13,10 @@ class RippleAnimateScreen extends StatefulWidget {
   const RippleAnimateScreen({Key? key}) : super(key: key);
 
   @override
-  _RippleAnimateState createState() => _RippleAnimateState();
+  RippleAnimateState createState() => RippleAnimateState();
 }
 
-class _RippleAnimateState extends State<RippleAnimateScreen>
+class RippleAnimateState extends State<RippleAnimateScreen>
     with TickerProviderStateMixin {
   late AnimationController firstRippleController;
   late AnimationController secondRippleController;
@@ -42,7 +42,7 @@ class _RippleAnimateState extends State<RippleAnimateScreen>
       ),
     );
 
-    firstRippleRadiusAnimation = Tween<double>(begin: 0, end: 180).animate(
+    firstRippleRadiusAnimation = Tween<double>(begin: 65, end: 180).animate(
       CurvedAnimation(
         parent: firstRippleController,
         curve: Curves.ease,

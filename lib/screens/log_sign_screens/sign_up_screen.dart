@@ -11,7 +11,7 @@ import 'package:temp_app_v1/utils/api/api_utils.dart';
 import 'package:temp_app_v1/utils/constans/loading_widget.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:temp_app_v1/widgets/bars_and_buttons/my_snack_bar.dart';
-import 'package:temp_app_v1/widgets/login_registration/registration.dart';
+
 import 'package:temp_app_v1/widgets/textformfields/log_sign_field.dart';
 import 'package:temp_app_v1/widgets/bars_and_buttons/my_button.dart';
 import 'package:temp_app_v1/widgets/textformfields/password_field.dart';
@@ -36,6 +36,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String? validationLogin(String? value) {
     if (value == null || value.isEmpty) {
       return 'Musisz wypełnić to pole!';
+    } else {
+      return "";
     }
   }
 
@@ -48,6 +50,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
     if (value.endsWith('.') || value.endsWith(',')) {
       return 'Adres e-mail nie może kończyć się tym znakiem!';
+    } else {
+      return "";
     }
   }
 
@@ -68,6 +72,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
         _onLoginSuccess(dataUser);
 
+        if (!mounted) return;
+
         hideLoadingWidget(context);
 
         Navigator.pushReplacement(
@@ -77,6 +83,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
         );
       } else {
+        if (!mounted) return;
         hideLoadingWidget(context);
         showBar(context, "Wystąpił błąd podczas rejestracji.");
       }
@@ -122,7 +129,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             const SizedBox(
               height: 10,
             ),
-            Container(
+            SizedBox(
               height: 120,
               child: Get.isDarkMode
                   ? Image.asset(

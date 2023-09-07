@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 
 class LocalStrings extends Translations {
   @override
-  // TODO: implement keys
   Map<String, Map<String, String>> get keys => {
         'en_US': {
           "unknownDevice": "Unknown device",
@@ -21,6 +20,7 @@ class LocalStrings extends Translations {
           "bleClose": "Close the app",
           "bleOn": "Turn on Bluetooth",
           "deviceConnect": "Connect to the device",
+          "wifiTitle": "Wi-Fi data",
           "wifiSSID": "Wi-Fi SSID (Wi-Fi name)",
           "wifiPassword": "Wi-Fi password",
           "writeWifiData": "Save and send",
@@ -107,6 +107,7 @@ class LocalStrings extends Translations {
           "bleClose": "Zamknij aplikację",
           "bleOn": "Włącz Bluetooth",
           "deviceConnect": "Połącz się z urządzeniem",
+          "wifiTitle": "Dane Wi-Fi",
           "wifiSSID": "Wi-Fi SSID (nazwa Wi-Fi)",
           "wifiPassword": "Hasło do Wi-Fi",
           "writeWifiData": "Zapisz i wyślij",

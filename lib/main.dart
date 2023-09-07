@@ -53,8 +53,8 @@ class _MyAppState extends State<MyApp> {
           ],
         ),
         splashTransition: SplashTransition.slideTransition,
-        //nextScreen: RippleAnimateScreen(),
-        nextScreen: LogSignScreen(),
+        nextScreen: RippleAnimateScreen(),
+        //nextScreen: LogSignScreen(),
         //nextScreen: CategoriesScreen(),
       ),
     );

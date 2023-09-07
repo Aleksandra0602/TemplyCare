@@ -8,8 +8,10 @@ class LogSignField extends StatefulWidget {
   final TextEditingController textEditingController;
   final String? validation;
 
-  LogSignField(
-      this.text, this.icon, this.textEditingController, this.validation);
+  const LogSignField(
+      this.text, this.icon, this.textEditingController, this.validation,
+      {Key? key})
+      : super(key: key);
 
   @override
   State<LogSignField> createState() => LogSignFieldState();

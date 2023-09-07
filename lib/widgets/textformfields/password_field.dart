@@ -4,10 +4,12 @@ import '../../utils/constans/my_color.dart';
 
 class PasswordField extends StatefulWidget {
   final String text;
-  IconData icon;
+  final IconData icon;
   final TextEditingController textEditingController;
 
-  PasswordField(this.text, this.icon, this.textEditingController);
+  const PasswordField(this.text, this.icon, this.textEditingController,
+      {Key? key})
+      : super(key: key);
 
   @override
   State<PasswordField> createState() => PasswordFieldState();
@@ -40,12 +42,10 @@ class PasswordFieldState extends State<PasswordField> {
             obscureText: _obscureText,
             controller: widget.textEditingController,
             decoration: InputDecoration(
-              prefixIcon: widget.icon != null
-                  ? Icon(
-                      widget.icon,
-                      color: MyColor.primary1.withOpacity(0.5),
-                    )
-                  : null,
+              prefixIcon: Icon(
+                widget.icon,
+                color: MyColor.primary1.withOpacity(0.5),
+              ),
               suffixIcon: InkWell(
                 onTap: _passwordVisibility,
                 child: Icon(

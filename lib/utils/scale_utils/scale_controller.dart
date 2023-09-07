@@ -1,4 +1,3 @@
-import 'scale_model.dart';
 import 'package:get/get.dart';
 
 class ScaleController extends GetxController {

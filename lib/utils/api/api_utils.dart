@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:temp_app_v1/models/login_response_model.dart';
 
 Future<http.Response> registerUser(
     String login, String email, String password, File? image) {

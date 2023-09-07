@@ -60,14 +60,14 @@ class ChartContainer extends StatelessWidget {
             children: [
               Text(
                 AppLocalizations.of(context)!.tempChart,
-                style: TextStyle(
+                style: const TextStyle(
                     color: MyColor.backgroundColor,
                     fontSize: 16,
                     fontWeight: FontWeight.w500),
               ),
               Text(
                 AppLocalizations.of(context)!.last15,
-                style: TextStyle(
+                style: const TextStyle(
                   color: MyColor.backgroundColor,
                   fontSize: 14,
                   fontWeight: FontWeight.w200,
@@ -130,8 +130,8 @@ class ChartContainer extends StatelessWidget {
                         barWidth: 2,
                       ),
                     ],
-                    Value1: AppLocalizations.of(context)!.tempValue1,
-                    Value2: AppLocalizations.of(context)!.tempValue2,
+                    value1: AppLocalizations.of(context)!.tempValue1,
+                    value2: AppLocalizations.of(context)!.tempValue2,
                   ),
                 ),
               ),
@@ -140,14 +140,14 @@ class ChartContainer extends StatelessWidget {
               ),
               Text(
                 AppLocalizations.of(context)!.humChart,
-                style: TextStyle(
+                style: const TextStyle(
                     color: MyColor.backgroundColor,
                     fontSize: 16,
                     fontWeight: FontWeight.w500),
               ),
               Text(
                 AppLocalizations.of(context)!.last15,
-                style: TextStyle(
+                style: const TextStyle(
                   color: MyColor.backgroundColor,
                   fontSize: 14,
                   fontWeight: FontWeight.w200,
@@ -194,8 +194,8 @@ class ChartContainer extends StatelessWidget {
                         barWidth: 2,
                       ),
                     ],
-                    Value1: AppLocalizations.of(context)!.humValue,
-                    Value2: AppLocalizations.of(context)!.humValue,
+                    value1: AppLocalizations.of(context)!.humValue,
+                    value2: AppLocalizations.of(context)!.humValue,
                   ),
                 ),
               ),

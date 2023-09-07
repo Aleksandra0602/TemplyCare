@@ -149,9 +149,8 @@ class _BatteryScreenState extends State<BatteryScreen> {
                     child: Text(
                       currentBatteryValue == null
                           ? ''
-                          : currentBatteryValue!.toStringAsFixed(0) + '%',
-                      //'${batteryValue}%',
-                      style: TextStyle(
+                          : '${currentBatteryValue!.toStringAsFixed(0)}%',
+                      style: const TextStyle(
                         fontSize: 28,
                         color: MyColor.backgroundColor,
                       ),

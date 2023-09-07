@@ -3,14 +3,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:temp_app_v1/models/login_response_model.dart';
+
 import 'package:temp_app_v1/models/user_controller.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:temp_app_v1/widgets/bars_and_buttons/my_button.dart';
 import 'package:temp_app_v1/screens/ripple_animate_screen.dart';
 import 'package:temp_app_v1/widgets/textformfields/password_field.dart';
-
-import '../main_screens/categories_screen.dart';
 
 class MyProfileScreen extends StatefulWidget {
   const MyProfileScreen({Key? key}) : super(key: key);
@@ -21,9 +19,6 @@ class MyProfileScreen extends StatefulWidget {
 
 class _MyProfileScreenState extends State<MyProfileScreen> {
   bool isPasswordVisible = false;
-  String password = 'Password123.';
-  String mail = 'Student1998@gmail.com';
-  String login = 'Student1998';
 
   final _passwordCheckController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -73,7 +68,6 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                   children: [
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 16),
-                      // alignment: Alignment.center,
                       height: 500,
                       decoration: BoxDecoration(
                         color: Theme.of(context).backgroundColor,
@@ -120,7 +114,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                     icon: Icon(
                                       Icons.add_a_photo,
                                       color: Get.isDarkMode
-                                          ? Color.fromRGBO(160, 80, 20, 1)
+                                          ? MyColor.darkAdditionalColor
                                           : MyColor.additionalColor,
                                     ),
                                     onPressed: getPhoto,
@@ -235,7 +229,6 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                                         .size
                                                         .height /
                                                     4,
-                                                // padding: EdgeInsets.all(4),
                                                 child: Column(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
@@ -303,11 +296,11 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                     },
                     child: MyButton(
                       color: Get.isDarkMode
-                          ? Color.fromRGBO(150, 80, 20, 1)
+                          ? MyColor.darkAdditionalColor
                           : MyColor.additionalColor,
                       textButton: AppLocalizations.of(context)!.logoutButton,
                       borderColor: Get.isDarkMode
-                          ? Color.fromRGBO(150, 80, 20, 1)
+                          ? MyColor.darkAdditionalColor
                           : MyColor.additionalColor,
                       textColor: MyColor.backgroundColor,
                     ),

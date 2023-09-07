@@ -27,7 +27,7 @@ class _DataMeasurementFieldState extends State<DataMeasurementField> {
         children: [
           Text(
             widget.text,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 14,
               color: MyColor.backgroundColor,
               fontWeight: FontWeight.w300,

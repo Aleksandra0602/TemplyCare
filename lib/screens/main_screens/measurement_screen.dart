@@ -12,7 +12,7 @@ import 'package:temp_app_v1/widgets/textformfields/data_measurement_field.dart';
 class MeasurementScreen extends StatefulWidget {
   final List<BluetoothService>? services;
 
-  MeasurementScreen({Key? key, required this.services}) : super(key: key);
+  const MeasurementScreen({Key? key, required this.services}) : super(key: key);
 
   @override
   State<MeasurementScreen> createState() => _MeasurementScreenState();
@@ -107,36 +107,31 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
                   top: 380,
                   child: InkWell(
                     onTap: () {
-                      if (_measrementTimeController.text != null) {
-                        widget.services!.forEach((service) {
-                          if (service.uuid.toString() ==
-                              Dimensions.measurement_service_uuid) {
-                            service.characteristics.forEach((characteristic) {
-                              if (characteristic.uuid.toString() ==
-                                  Dimensions.data_to_measure_uuid) {
-                                String timeM =
-                                    _measrementTimeController.value.text;
-                                String dtime = _sleepTimeController.value.text;
-                                String tag = _tagController.value.text;
-                                String fileName =
-                                    _fileNameController.value.text;
-                                String warunek =
-                                    '13,$timeM,$dtime,$tag,$fileName';
-                                characteristic.write(utf8.encode(warunek));
-                                _showAlert(
-                                  context,
-                                  _measrementTimeController.value.text,
-                                  _sleepTimeController.value.text,
-                                  _tagController.value.text,
-                                  _fileNameController.value.text,
-                                );
-                              }
-                            });
-                          }
-                        });
-                      } else {
-                        _errorAlert(context);
-                      }
+                      widget.services!.forEach((service) {
+                        if (service.uuid.toString() ==
+                            Dimensions.measurement_service_uuid) {
+                          service.characteristics.forEach((characteristic) {
+                            if (characteristic.uuid.toString() ==
+                                Dimensions.data_to_measure_uuid) {
+                              String timeM =
+                                  _measrementTimeController.value.text;
+                              String dtime = _sleepTimeController.value.text;
+                              String tag = _tagController.value.text;
+                              String fileName = _fileNameController.value.text;
+                              String warunek =
+                                  '13,$timeM,$dtime,$tag,$fileName';
+                              characteristic.write(utf8.encode(warunek));
+                              _showAlert(
+                                context,
+                                _measrementTimeController.value.text,
+                                _sleepTimeController.value.text,
+                                _tagController.value.text,
+                                _fileNameController.value.text,
+                              );
+                            }
+                          });
+                        }
+                      });
                     },
                     child: Container(
                       height: 72,
@@ -153,11 +148,11 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
                                 ),
                               ],
                         color: Get.isDarkMode
-                            ? Color.fromRGBO(160, 80, 20, 1)
+                            ? MyColor.darkAdditionalColor
                             : MyColor.additionalColor,
                         borderRadius: BorderRadius.circular(15),
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Text(
                           'START',
                           style: TextStyle(
@@ -186,10 +181,10 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
             title: Text(AppLocalizations.of(context)!.alertDialog),
             content: Text(AppLocalizations.of(context)!
                 .information
-                .replaceFirst('{var1}', '$var1')
-                .replaceFirst('{var2}', '$var2')
-                .replaceFirst('{var3}', '$var3')
-                .replaceFirst('{var4}', '$var4')),
+                .replaceFirst('{var1}', var1)
+                .replaceFirst('{var2}', var2)
+                .replaceFirst('{var3}', var3)
+                .replaceFirst('{var4}', var4)),
             actions: <Widget>[
               TextButton(
                 onPressed: () {
@@ -217,22 +212,6 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
                   ),
                 ),
               )
-            ],
-          );
-        });
-  }
-
-  void _errorAlert(BuildContext context) async {
-    await showDialog<void>(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text(AppLocalizations.of(context)!.errorDialog),
-            content: Text(AppLocalizations.of(context)!.errorMessage),
-            actions: <Widget>[
-              TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: Text(AppLocalizations.of(context)!.alertButton))
             ],
           );
         });
