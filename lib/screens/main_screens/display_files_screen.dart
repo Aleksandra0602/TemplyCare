@@ -1,12 +1,10 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:temp_app_v1/screens/wifi_screen.dart';
 import 'package:temp_app_v1/utils/constans/dimensions.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:temp_app_v1/utils/methods/data_parser_method.dart';
+
 import 'package:temp_app_v1/widgets/bars_and_buttons/my_button.dart';
 import 'package:temp_app_v1/widgets/bars_and_buttons/my_snack_bar.dart';
 
@@ -23,7 +21,6 @@ class _DisplayFilesScreenState extends State<DisplayFilesScreen> {
   List<String> fileNames = [];
   String textSnackBar = '';
   bool uploadCompleted = false;
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -65,7 +62,7 @@ class _DisplayFilesScreenState extends State<DisplayFilesScreen> {
             child: Scrollbar(
               child: ListView.separated(
                 shrinkWrap: true,
-                separatorBuilder: (context, index) => Divider(),
+                separatorBuilder: (context, index) => const Divider(),
                 itemCount: fileNames.length,
                 itemBuilder: (context, index) {
                   if (fileNames.isNotEmpty) {
@@ -107,8 +104,8 @@ class _DisplayFilesScreenState extends State<DisplayFilesScreen> {
                                 });
                         getText();
                       },
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 12.0),
+                      child: const Padding(
+                        padding: EdgeInsets.only(top: 12.0),
                         child: MyButton(
                           color: MyColor.additionalColor,
                           textButton: "Wyślij pliki",

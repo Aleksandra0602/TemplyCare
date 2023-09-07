@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 
 class MyButtonNavBar extends StatelessWidget {
-  MyButtonNavBar({required this.currentIndex, required this.onTapped});
+  const MyButtonNavBar(
+      {Key? key, required this.currentIndex, required this.onTapped})
+      : super(key: key);
   //final List<BluetoothService>? services;
 
   final int currentIndex;

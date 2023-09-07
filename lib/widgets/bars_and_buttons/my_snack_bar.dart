@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class MySnackBar extends SnackBar {
   MySnackBar({Key? key, required this.textSnackBar, required this.context})
       : super(
+          key: key,
           content: Text(
             textSnackBar,
           ),

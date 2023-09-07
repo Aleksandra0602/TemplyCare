@@ -18,6 +18,7 @@
     "bleOn": "Włącz Bluetooth",
     "deviceConnect": "Połącz się z urządzeniem",
 
+    "wifiTitle" : "Dane Wi-Fi",
     "wifiSSID" : "Wi-Fi SSID (nazwa Wi-Fi)",
     "wifiPassword" : "Hasło do Wi-Fi",
     "writeWifiData" : "Zapisz i wyślij",

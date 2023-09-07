@@ -14,7 +14,7 @@ import 'package:temp_app_v1/utils/constans/loading_widget.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:temp_app_v1/widgets/bars_and_buttons/my_button.dart';
 import 'package:temp_app_v1/widgets/bars_and_buttons/my_snack_bar.dart';
-import 'package:temp_app_v1/widgets/login_registration/login.dart';
+
 import 'package:temp_app_v1/widgets/textformfields/log_sign_field.dart';
 import 'package:temp_app_v1/widgets/textformfields/password_field.dart';
 
@@ -35,6 +35,8 @@ class _LogInScreenState extends State<LogInScreen> {
   String? validaton(String? value) {
     if (value == null || value.isEmpty) {
       return 'Musisz wypełnić to pole!';
+    } else {
+      return "";
     }
   }
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
+
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -194,7 +194,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       groupValue: scaleController.selectedScale.value,
                       onChanged: (val) {
                         scaleController.toggleScale(val as int);
-                        setSecondRadio(val as int);
+                        setSecondRadio(val);
                       },
                       activeColor: MyColor.additionalColor,
                     ),
@@ -208,7 +208,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       groupValue: scaleController.selectedScale.value,
                       onChanged: (val) {
                         scaleController.toggleScale(val as int);
-                        setSecondRadio(val as int);
+                        setSecondRadio(val);
                       },
                       activeColor: MyColor.additionalColor,
                     ),

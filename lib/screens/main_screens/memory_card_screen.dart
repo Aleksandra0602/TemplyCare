@@ -93,11 +93,11 @@ class _MemoryCardScreenState extends State<MemoryCardScreen> {
                   shadowWidth: 52,
                 ),
                 infoProperties: InfoProperties(
-                  mainLabelStyle: TextStyle(
+                  mainLabelStyle: const TextStyle(
                       fontSize: 62,
                       fontWeight: FontWeight.w200,
                       color: MyColor.backgroundColor,
-                      shadows: const [
+                      shadows: [
                         Shadow(
                           color: MyColor.shadow,
                           blurRadius: 8,

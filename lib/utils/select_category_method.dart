@@ -66,7 +66,7 @@ void selectCategory(
       break;
     case ScreensEnum.myProfileScreen:
       Navigator.of(ctx).push(MaterialPageRoute(builder: (ctx) {
-        return MyProfileScreen();
+        return const MyProfileScreen();
       }));
       break;
   }

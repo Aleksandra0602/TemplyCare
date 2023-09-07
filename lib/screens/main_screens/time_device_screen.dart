@@ -8,17 +8,15 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
-import 'package:slide_digital_clock/slide_digital_clock.dart';
-import 'package:temp_app_v1/screens/main_screens/categories_screen.dart';
 
 import 'package:temp_app_v1/utils/constans/dimensions.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:temp_app_v1/utils/methods/data_parser_method.dart';
 
 class TimeDeviceScreen extends StatefulWidget {
-  List<BluetoothService>? services;
+  final List<BluetoothService>? services;
 
-  TimeDeviceScreen({required this.services});
+  TimeDeviceScreen({Key? key, required this.services}) : super(key: key);
   final Map<Guid, List<int>> readValues = Map<Guid, List<int>>();
 
   @override
@@ -222,7 +220,7 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                         color: Get.isDarkMode
-                            ? Color.fromRGBO(160, 80, 20, 1)
+                            ? MyColor.darkAdditionalColor
                             : MyColor.additionalColor,
                         shape: BoxShape.circle,
                       ),
@@ -338,7 +336,7 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                         color: Get.isDarkMode
-                            ? Color.fromRGBO(160, 80, 20, 1)
+                            ? MyColor.darkAdditionalColor
                             : MyColor.additionalColor,
                         shape: BoxShape.circle,
                       ),
@@ -399,7 +397,7 @@ class _TimeDeviceScreenState extends State<TimeDeviceScreen> {
               dateDevice =
                   DateTime.fromMicrosecondsSinceEpoch(unixData * 1000000);
 
-              adjustedTime = dateDevice.subtract(Duration(hours: 2));
+              adjustedTime = dateDevice.subtract(const Duration(hours: 2));
 
               formattedDateDevice =
                   DateFormat('HH:mm:ss,  dd-MM-yyyy').format(adjustedTime);

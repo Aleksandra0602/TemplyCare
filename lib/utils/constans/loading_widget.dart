@@ -24,7 +24,7 @@ void showLoadingWidget(BuildContext context) {
     context: context,
     barrierDismissible: false,
     builder: (BuildContext context) {
-      return LoadingWidget();
+      return const LoadingWidget();
     },
   );
 }

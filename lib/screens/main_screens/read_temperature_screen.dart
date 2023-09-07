@@ -12,7 +12,7 @@ import 'package:temp_app_v1/utils/methods/data_processing_utils.dart';
 import 'package:temp_app_v1/utils/scale_utils/scale_controller.dart';
 
 import 'package:temp_app_v1/widgets/display_data/chart_container.dart';
-import 'package:temp_app_v1/widgets/display_data/my_charts.dart';
+
 import 'package:temp_app_v1/widgets/display_data/my_circular_sliders.dart';
 
 import '../../utils/methods/data_parser_method.dart';

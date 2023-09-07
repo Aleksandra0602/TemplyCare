@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 
 class MyCharts extends StatelessWidget {
-  MyCharts({
+  const MyCharts({
     Key? key,
     required this.horizontalInterval,
     required this.context,
@@ -13,8 +13,8 @@ class MyCharts extends StatelessWidget {
     required this.minY,
     required this.maxY,
     required this.barDataList,
-    required this.Value1,
-    required this.Value2,
+    required this.value1,
+    required this.value2,
   }) : super(key: key);
   final double horizontalInterval;
   final BuildContext context;
@@ -26,8 +26,8 @@ class MyCharts extends StatelessWidget {
 
   final List<LineChartBarData> barDataList;
 
-  final String Value1;
-  final String Value2;
+  final String value1;
+  final String value2;
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +105,7 @@ class MyCharts extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(Value1),
+                  Text(value1),
                   const SizedBox(
                     width: 16,
                   ),
@@ -116,7 +116,7 @@ class MyCharts extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(Value2),
+                  Text(value2),
                 ],
               )
             : Row(
@@ -128,7 +128,7 @@ class MyCharts extends StatelessWidget {
                         color: MyColor.additionalColor,
                         fontWeight: FontWeight.bold),
                   ),
-                  Text(Value1)
+                  Text(value1)
                 ],
               ),
       ],

@@ -4,16 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:get/get.dart';
-import 'package:temp_app_v1/screens/log_sign_screens/log_sign_screen.dart';
+
 import 'package:temp_app_v1/utils/constans/dimensions.dart';
-import 'package:temp_app_v1/widgets/bars_and_buttons/my_button.dart';
 
 import '../utils/constans/my_color.dart';
 
 class WifiScreen extends StatefulWidget {
-  WifiScreen({Key? key, this.services}) : super(key: key);
   final List<BluetoothService>? services;
+  const WifiScreen({Key? key, this.services}) : super(key: key);
 
   @override
   State<WifiScreen> createState() => _WifiScreenState();
@@ -33,7 +31,7 @@ class _WifiScreenState extends State<WifiScreen> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text("Dane Wi-Fi"),
+      title: Text(AppLocalizations.of(context)!.wifiTitle),
       content: Container(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
@@ -94,7 +92,7 @@ class _WifiScreenState extends State<WifiScreen> {
               Text(
                 AppLocalizations.of(context)!.wifiText,
                 textAlign: TextAlign.justify,
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
               ),
             ],
           ),
@@ -106,7 +104,7 @@ class _WifiScreenState extends State<WifiScreen> {
               sendWifiData(_wifiSSIDController, _wifiPasswordController),
           child: Text(
             AppLocalizations.of(context)!.writeWifiData,
-            style: TextStyle(color: MyColor.additionalColor),
+            style: const TextStyle(color: MyColor.additionalColor),
           ),
         ),
       ],
