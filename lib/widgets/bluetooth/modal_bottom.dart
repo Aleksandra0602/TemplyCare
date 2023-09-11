@@ -28,9 +28,11 @@ class _ModalBottomBodyState extends State<ModalBottomBody> {
 
   _addDeviceTolist(final BluetoothDevice device) {
     if (!devicesList.contains(device)) {
-      setState(() {
-        devicesList.add(device);
-      });
+      if (mounted) {
+        setState(() {
+          devicesList.add(device);
+        });
+      }
     }
   }
 
@@ -75,7 +77,8 @@ class _ModalBottomBodyState extends State<ModalBottomBody> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: ((context) => LogSignScreen(services: _services)),
+        builder: ((context) =>
+            LogSignScreen(services: _services, device: _connectedDevice)),
       ),
     );
   }

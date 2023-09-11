@@ -5,7 +5,6 @@ import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'package:temp_app_v1/screens/log_sign_screens/log_sign_screen.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:temp_app_v1/screens/ripple_animate_screen.dart';
 
@@ -53,9 +52,7 @@ class _MyAppState extends State<MyApp> {
           ],
         ),
         splashTransition: SplashTransition.slideTransition,
-        nextScreen: RippleAnimateScreen(),
-        //nextScreen: LogSignScreen(),
-        //nextScreen: CategoriesScreen(),
+        nextScreen: const RippleAnimateScreen(),
       ),
     );
   }

@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:temp_app_v1/screens/wifi_screen.dart';
 import 'package:temp_app_v1/utils/constans/dimensions.dart';
+import 'package:temp_app_v1/utils/constans/loading_widget.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -21,6 +24,7 @@ class _DisplayFilesScreenState extends State<DisplayFilesScreen> {
   List<String> fileNames = [];
   String textSnackBar = '';
   bool uploadCompleted = false;
+  bool showData = false;
 
   @override
   void initState() {
@@ -33,8 +37,10 @@ class _DisplayFilesScreenState extends State<DisplayFilesScreen> {
               characteristic.value.listen((value) {
                 String valueStr = String.fromCharCodes(value);
                 List<String> files = valueStr.split('\n');
+
                 setState(() {
                   fileNames = files;
+                  showData = true;
                 });
               });
               characteristic.read();
@@ -43,6 +49,7 @@ class _DisplayFilesScreenState extends State<DisplayFilesScreen> {
         }
       });
     });
+
     super.initState();
   }
 
@@ -57,27 +64,32 @@ class _DisplayFilesScreenState extends State<DisplayFilesScreen> {
       ),
       body: Column(
         children: [
-          Flexible(
-            flex: 7,
-            child: Scrollbar(
-              child: ListView.separated(
-                shrinkWrap: true,
-                separatorBuilder: (context, index) => const Divider(),
-                itemCount: fileNames.length,
-                itemBuilder: (context, index) {
-                  if (fileNames.isNotEmpty) {
-                    return ListTile(
-                      title: Text(fileNames[index]),
-                    );
-                  } else {
-                    return const ListTile(
-                      title: Text("No file names available"),
-                    );
-                  }
-                },
-              ),
-            ),
-          ),
+          showData
+              ? Flexible(
+                  flex: 7,
+                  child: Scrollbar(
+                    child: ListView.separated(
+                      shrinkWrap: true,
+                      separatorBuilder: (context, index) => const Divider(),
+                      itemCount: fileNames.length,
+                      itemBuilder: (context, index) {
+                        if (fileNames.isNotEmpty) {
+                          return ListTile(
+                            title: Text(fileNames[index]),
+                          );
+                        } else {
+                          return const ListTile(
+                            title: Text("No file names available"),
+                          );
+                        }
+                      },
+                    ),
+                  ),
+                )
+              : const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: LoadingWidget(),
+                ),
           Flexible(
               fit: FlexFit.loose,
               flex: 1,
@@ -131,10 +143,12 @@ class _DisplayFilesScreenState extends State<DisplayFilesScreen> {
             characteristic.value.listen((value) {
               String textStr = String.fromCharCodes(value);
               if (textStr == "Wysłano") {
-                setState(() {
-                  uploadCompleted = true;
-                });
-                _showSnackBar();
+                if (mounted) {
+                  setState(() {
+                    uploadCompleted = true;
+                  });
+                  _showSnackBar();
+                }
               }
             });
           }
@@ -144,8 +158,10 @@ class _DisplayFilesScreenState extends State<DisplayFilesScreen> {
   }
 
   void _showSnackBar() {
-    ScaffoldMessenger.of(context).showSnackBar(
-        MySnackBar(textSnackBar: "Dane zostały wysłane", context: context));
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          MySnackBar(textSnackBar: "Dane zostały wysłane", context: context));
+    }
   }
 
   @override

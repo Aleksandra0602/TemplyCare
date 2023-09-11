@@ -201,7 +201,7 @@ class RippleAnimateState extends State<RippleAnimateScreen>
 
     firstRippleController.forward();
     Timer(
-      const Duration(milliseconds: 765),
+      const Duration(milliseconds: 625),
       () => secondRippleController.forward(),
     );
 

@@ -14,9 +14,11 @@ class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({
     super.key,
     this.services,
+    this.device,
   });
 
   final List<BluetoothService>? services;
+  final BluetoothDevice? device;
   @override
   State<CategoriesScreen> createState() => _CategoriesScreenState();
 }
@@ -39,7 +41,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       ),
       MeasurementScreen(services: widget.services),
       const SettingsScreen(),
-      MyProfileScreen(),
+      MyProfileScreen(device: widget.device),
     ];
   }
 
@@ -65,7 +67,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             currentIndex = index;
           }),
           selectedItemColor: Get.isDarkMode
-              ? Color.fromRGBO(150, 80, 20, 1)
+              ? MyColor.darkAdditionalColor
               : MyColor.additionalColor,
           selectedFontSize: 14,
           selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),

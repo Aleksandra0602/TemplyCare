@@ -167,7 +167,7 @@ class MyCharts extends StatelessWidget {
       fitInside: const SideTitleFitInsideData(
           distanceFromEdge: 0,
           parentAxisSize: 2,
-          axisPosition: 0.5,
+          axisPosition: 0,
           enabled: true),
       child: Text(value.toStringAsFixed(0)),
     );

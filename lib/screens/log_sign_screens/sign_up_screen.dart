@@ -20,8 +20,9 @@ import '../../models/user_controller.dart';
 import '../main_screens/categories_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key, this.services}) : super(key: key);
+  const SignUpScreen({Key? key, this.services, this.device}) : super(key: key);
   final List<BluetoothService>? services;
+  final BluetoothDevice? device;
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -182,9 +183,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
             TextButton(
               onPressed: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LogInScreen()));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LogInScreen(
+                      services: widget.services,
+                      device: widget.device,
+                    ),
+                  ),
+                );
               },
               child: Text(
                 AppLocalizations.of(context)!.logIn,

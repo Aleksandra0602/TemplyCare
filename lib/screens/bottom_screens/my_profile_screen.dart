@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import 'package:temp_app_v1/models/user_controller.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
@@ -11,7 +12,8 @@ import 'package:temp_app_v1/screens/ripple_animate_screen.dart';
 import 'package:temp_app_v1/widgets/textformfields/password_field.dart';
 
 class MyProfileScreen extends StatefulWidget {
-  const MyProfileScreen({Key? key}) : super(key: key);
+  const MyProfileScreen({Key? key, this.device}) : super(key: key);
+  final BluetoothDevice? device;
 
   @override
   State<MyProfileScreen> createState() => _MyProfileScreenState();
@@ -288,6 +290,8 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                   width: 340,
                   child: InkWell(
                     onTap: () {
+                      disconnectDevice(widget.device);
+
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -312,5 +316,16 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> disconnectDevice(BluetoothDevice? device) async {
+    try {
+      await device!.disconnect();
+      setState(() {
+        device = null;
+      });
+    } catch (e) {
+      print("Błąd rozłączania urządzenia: $e");
+    }
   }
 }

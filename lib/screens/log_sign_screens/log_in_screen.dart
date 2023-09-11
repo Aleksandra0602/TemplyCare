@@ -21,8 +21,9 @@ import 'package:temp_app_v1/widgets/textformfields/password_field.dart';
 import '../../models/user_controller.dart';
 
 class LogInScreen extends StatefulWidget {
-  const LogInScreen({super.key, this.services});
+  const LogInScreen({super.key, this.services, this.device});
   final List<BluetoothService>? services;
+  final BluetoothDevice? device;
 
   @override
   State<LogInScreen> createState() => _LogInScreenState();
@@ -58,7 +59,8 @@ class _LogInScreenState extends State<LogInScreen> {
       NavigatorState navigator = Navigator.of(context);
 
       navigator.pushReplacement(MaterialPageRoute(
-          builder: ((context) => CategoriesScreen(services: widget.services))));
+          builder: ((context) => CategoriesScreen(
+              services: widget.services, device: widget.device))));
     } else {
       if (!mounted) return;
       hideLoadingWidget(context);
@@ -155,7 +157,8 @@ class _LogInScreenState extends State<LogInScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const SignUpScreen()));
+                        builder: (context) => SignUpScreen(
+                            services: widget.services, device: widget.device)));
               },
               child: Text(
                 AppLocalizations.of(context)!.signIn,

@@ -7,6 +7,7 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get/get.dart';
 
 import 'package:temp_app_v1/utils/constans/dimensions.dart';
+import 'package:temp_app_v1/utils/constans/loading_widget.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:temp_app_v1/utils/methods/data_processing_utils.dart';
 import 'package:temp_app_v1/utils/scale_utils/scale_controller.dart';
@@ -48,8 +49,7 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
   late Stream<List<int>> stream;
   final Map<Guid, List<int>> readValues = Map<Guid, List<int>>();
 
-  @override
-  void initState() {
+  void fetchData() {
     Future.delayed(Duration.zero, () async {
       widget.services!.forEach((service) {
         if (service.uuid.toString() == Dimensions.service_uuid) {
@@ -83,6 +83,11 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
         }
       });
     });
+  }
+
+  @override
+  void initState() {
+    fetchData();
     super.initState();
   }
 
@@ -106,68 +111,70 @@ class _ReadTemperatureScreenState extends State<ReadTemperatureScreen> {
         title: Text(AppLocalizations.of(context)!.secondAppBar),
         backgroundColor: MyColor.primary1,
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              const SizedBox(
-                height: 30,
+      body: showMe
+          ? SingleChildScrollView(
+              child: Center(
+                child: Column(
+                  children: <Widget>[
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    MyCircularSliders(
+                      trackWidth: 4,
+                      progressBarWidth: 12,
+                      shadowWidth: 40,
+                      displayedTemp: displayedTemp,
+                      textValue: AppLocalizations.of(context)!.tempValue1,
+                      returnText:
+                          '$displayedTemp ${scaleController.isCelsius ? '˚C' : '˚F'}',
+                      startAngle: 180,
+                      angleRange: 180,
+                      size: 250,
+                      min: DataProcessingUtils.convertCelsiusToFah(
+                          0, scaleController.isCelsius),
+                      max: DataProcessingUtils.convertCelsiusToFah(
+                          45, scaleController.isCelsius),
+                    ),
+                    MyCircularSliders(
+                      trackWidth: 4,
+                      progressBarWidth: 12,
+                      shadowWidth: 40,
+                      displayedTemp: displayedTemp2,
+                      textValue: AppLocalizations.of(context)!.tempValue2,
+                      returnText:
+                          '$displayedTemp2 ${scaleController.isCelsius ? '˚C' : '˚F'}',
+                      startAngle: 180,
+                      angleRange: 180,
+                      size: 250,
+                      min: DataProcessingUtils.convertCelsiusToFah(
+                          0, scaleController.isCelsius),
+                      max: DataProcessingUtils.convertCelsiusToFah(
+                          45, scaleController.isCelsius),
+                    ),
+                    MyCircularSliders(
+                      trackWidth: 3,
+                      progressBarWidth: 10,
+                      shadowWidth: 40,
+                      displayedTemp: hum,
+                      textValue: AppLocalizations.of(context)!.humValue,
+                      returnText: '$hum %',
+                      startAngle: 135,
+                      angleRange: 270,
+                      size: 230,
+                      min: 0,
+                      max: 100,
+                    ),
+                    ChartContainer(
+                      dataPoints: dataPoints,
+                      humPoints: humPoints,
+                      dataPoints2: dataPoints2,
+                      showMe: showMe,
+                    ),
+                  ],
+                ),
               ),
-              MyCircularSliders(
-                trackWidth: 4,
-                progressBarWidth: 12,
-                shadowWidth: 40,
-                displayedTemp: displayedTemp,
-                textValue: AppLocalizations.of(context)!.tempValue1,
-                returnText:
-                    '$displayedTemp ${scaleController.isCelsius ? '˚C' : '˚F'}',
-                startAngle: 180,
-                angleRange: 180,
-                size: 250,
-                min: DataProcessingUtils.convertCelsiusToFah(
-                    0, scaleController.isCelsius),
-                max: DataProcessingUtils.convertCelsiusToFah(
-                    45, scaleController.isCelsius),
-              ),
-              MyCircularSliders(
-                trackWidth: 4,
-                progressBarWidth: 12,
-                shadowWidth: 40,
-                displayedTemp: displayedTemp2,
-                textValue: AppLocalizations.of(context)!.tempValue2,
-                returnText:
-                    '$displayedTemp2 ${scaleController.isCelsius ? '˚C' : '˚F'}',
-                startAngle: 180,
-                angleRange: 180,
-                size: 250,
-                min: DataProcessingUtils.convertCelsiusToFah(
-                    0, scaleController.isCelsius),
-                max: DataProcessingUtils.convertCelsiusToFah(
-                    45, scaleController.isCelsius),
-              ),
-              MyCircularSliders(
-                trackWidth: 3,
-                progressBarWidth: 10,
-                shadowWidth: 40,
-                displayedTemp: hum,
-                textValue: AppLocalizations.of(context)!.humValue,
-                returnText: '$hum %',
-                startAngle: 135,
-                angleRange: 270,
-                size: 230,
-                min: 0,
-                max: 100,
-              ),
-              ChartContainer(
-                dataPoints: dataPoints,
-                humPoints: humPoints,
-                dataPoints2: dataPoints2,
-                showMe: showMe,
-              ),
-            ],
-          ),
-        ),
-      ),
+            )
+          : const LoadingWidget(),
     );
   }
 }

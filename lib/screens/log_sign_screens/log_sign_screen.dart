@@ -9,8 +9,9 @@ import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:temp_app_v1/widgets/bars_and_buttons/my_button.dart';
 
 class LogSignScreen extends StatefulWidget {
-  const LogSignScreen({super.key, this.services});
+  const LogSignScreen({super.key, this.services, this.device});
   final List<BluetoothService>? services;
+  final BluetoothDevice? device;
 
   @override
   State<LogSignScreen> createState() => _LogSignScreenState();
@@ -53,6 +54,7 @@ class _LogSignScreenState extends State<LogSignScreen> {
                     MaterialPageRoute(
                         builder: ((context) => LogInScreen(
                               services: widget.services,
+                              device: widget.device,
                             ))));
               },
               child: MyButton(
@@ -68,7 +70,9 @@ class _LogSignScreenState extends State<LogSignScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: ((context) => const SignUpScreen())));
+                        builder: ((context) => SignUpScreen(
+                            services: widget.services,
+                            device: widget.device))));
               },
               child: MyButton(
                 color: Get.isDarkMode

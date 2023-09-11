@@ -8,11 +8,14 @@ class LoadingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: SizedBox(
-        height: 100,
-        width: 100,
-        child: CircularProgressIndicator(
-          strokeWidth: 6,
-          color: MyColor.additionalColor,
+        height: 120,
+        width: 120,
+        child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: CircularProgressIndicator(
+            strokeWidth: 8,
+            color: MyColor.additionalColor,
+          ),
         ),
       ),
     );
