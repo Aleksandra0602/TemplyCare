@@ -1,14 +1,19 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-
+import 'package:http/http.dart' as http;
+import 'package:temp_app_v1/models/login_response_model.dart';
 import 'package:temp_app_v1/models/user_controller.dart';
+import 'package:temp_app_v1/screens/log_sign_screens/log_sign_screen.dart';
+import 'package:temp_app_v1/utils/api/api_utils.dart';
 import 'package:temp_app_v1/utils/constans/my_color.dart';
 import 'package:temp_app_v1/widgets/bars_and_buttons/my_button.dart';
-import 'package:temp_app_v1/screens/ripple_animate_screen.dart';
+import 'package:temp_app_v1/widgets/bars_and_buttons/my_snack_bar.dart';
+
 import 'package:temp_app_v1/widgets/textformfields/password_field.dart';
 
 class MyProfileScreen extends StatefulWidget {
@@ -21,29 +26,65 @@ class MyProfileScreen extends StatefulWidget {
 
 class _MyProfileScreenState extends State<MyProfileScreen> {
   bool isPasswordVisible = false;
+  final UserController userController = Get.put(UserController());
 
   final _passwordCheckController = TextEditingController();
   final _passwordController = TextEditingController();
 
   File? storedImage;
 
-  Future getPhoto() async {
+  Future getPhoto(int idUser) async {
     final photo = ImagePicker();
     final profilePhoto =
         await photo.pickImage(source: ImageSource.gallery, maxWidth: 600);
 
     setState(() {
       storedImage = File(profilePhoto!.path);
+      changePicture(idUser, storedImage);
     });
+  }
+
+  void changePicture(int idUser, File? storedImage) async {
+    http.Response response = await changeImage(idUser, storedImage);
+    if (response.statusCode == 200) {
+      var decodedResponse =
+          jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
+      final dataUser = LoginResponseModel.fromJson(decodedResponse);
+      _onChangeImage(dataUser);
+      print("udało się");
+    } else {
+      print("Nie udało się wgrać zdjęcia");
+    }
+  }
+
+  void _onChangeImage(LoginResponseModel responseModel) {
+    userController.updateImageUrl(responseModel.image);
+  }
+
+  void changePass(int idUser, String password, String password2,
+      BuildContext context) async {
+    if (password.compareTo(password2) == 0) {
+      http.Response responsePassword = await changePassword(idUser, password);
+
+      if (responsePassword.statusCode == 200) {
+        ScaffoldMessenger.of(context).showSnackBar(MySnackBar(
+            textSnackBar: "Hasło zostało zmienione", context: context));
+        Navigator.of(context).pop();
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          MySnackBar(textSnackBar: "Hasła są różne", context: context));
+    }
   }
 
   late String loginUser;
   late String mailUSer;
   late String imageUSer;
+  late int idUser;
 
   @override
   Widget build(BuildContext context) {
-    final UserController userController = Get.put(UserController());
+    idUser = userController.id.value;
     loginUser = userController.login.value;
     mailUSer = userController.email.value;
     imageUSer = userController.imageUrl.value;
@@ -92,26 +133,15 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  storedImage == null
-                                      ? Text(
-                                          AppLocalizations.of(context)!.addPic,
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              color: Get.isDarkMode
-                                                  ? MyColor.backgroundColor
-                                                      .withOpacity(0.7)
-                                                  : MyColor.appBarColor1),
-                                        )
-                                      : Text(
-                                          AppLocalizations.of(context)!
-                                              .changePic,
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              color: Get.isDarkMode
-                                                  ? MyColor.backgroundColor
-                                                      .withOpacity(0.7)
-                                                  : MyColor.appBarColor1),
-                                        ),
+                                  Text(
+                                    AppLocalizations.of(context)!.changePic,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: Get.isDarkMode
+                                            ? MyColor.backgroundColor
+                                                .withOpacity(0.7)
+                                            : MyColor.appBarColor1),
+                                  ),
                                   IconButton(
                                     icon: Icon(
                                       Icons.add_a_photo,
@@ -119,7 +149,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                           ? MyColor.darkAdditionalColor
                                           : MyColor.additionalColor,
                                     ),
-                                    onPressed: getPhoto,
+                                    onPressed: () => getPhoto(idUser),
                                   ),
                                 ],
                               ),
@@ -130,11 +160,28 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                   ? SizedBox(
                                       height: 180,
                                       width: 180,
-                                      child: ClipOval(
-                                        child: Image.network(
-                                          imageUSer,
+                                      child: Stack(children: [
+                                        Container(
+                                          decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  color: Colors.grey,
+                                                  blurRadius: 15,
+                                                  spreadRadius: 5),
+                                            ],
+                                          ),
                                         ),
-                                      ),
+                                        SizedBox(
+                                          height: 180,
+                                          width: 180,
+                                          child: ClipOval(
+                                            child: Image.network(
+                                              imageUSer,
+                                            ),
+                                          ),
+                                        ),
+                                      ]),
                                     )
                                   : SizedBox(
                                       height: 180,
@@ -252,9 +299,13 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                               ),
                                               actions: [
                                                 TextButton(
-                                                    onPressed: () =>
-                                                        Navigator.of(context)
-                                                            .pop(),
+                                                    onPressed: () => changePass(
+                                                        idUser,
+                                                        _passwordController
+                                                            .text,
+                                                        _passwordCheckController
+                                                            .text,
+                                                        context),
                                                     child: Text(
                                                         AppLocalizations.of(
                                                                 context)!
@@ -290,12 +341,10 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                   width: 340,
                   child: InkWell(
                     onTap: () {
-                      disconnectDevice(widget.device);
-
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const RippleAnimateScreen()),
+                            builder: (context) => const LogSignScreen()),
                       );
                     },
                     child: MyButton(
@@ -316,16 +365,5 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
         ),
       ),
     );
-  }
-
-  Future<void> disconnectDevice(BluetoothDevice? device) async {
-    try {
-      await device!.disconnect();
-      setState(() {
-        device = null;
-      });
-    } catch (e) {
-      print("Błąd rozłączania urządzenia: $e");
-    }
   }
 }

@@ -13,4 +13,8 @@ class UserController extends GetxController {
     email.value = userEmail;
     imageUrl.value = userImageUrl;
   }
+
+  void updateImageUrl(String userImageUrl) {
+    imageUrl.value = userImageUrl;
+  }
 }

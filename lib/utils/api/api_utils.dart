@@ -40,19 +40,40 @@ Future<http.Response> loginUser(String email, String password) async {
   );
 
   return response;
-
-  // print(decodedResponse);
-
-  // return LoginResponseModel.fromJson(decodedResponse);
 }
 
-// Future<http.Response> loadData(int id){
-//   return http.get(
-//     Uri.parse('https://temply.mathomelab.stream/user/$id'),
-//     headers: <String, String>{
-//       'Content-Type': 'application/json; charset=UTF-8',
-//     },
-//     body: 
-//   );
+Future<http.Response> changeImage(int id, File? storedImage) async {
+  final bytes = File(storedImage!.path).readAsBytesSync();
+  final base64Image = base64Encode(bytes);
 
-// }
+  final Map<String, dynamic> requestBody = {
+    'id': id,
+    'image': base64Image,
+  };
+
+  final response = await http.put(
+    Uri.parse('https://temply.mathomelab.stream/user/$id'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(requestBody),
+  );
+
+  return response;
+}
+
+Future<http.Response> changePassword(int id, String password) async {
+  final Map<String, dynamic> requestBody = {
+    'id': id,
+    'password': password,
+  };
+
+  final response = await http.put(
+    Uri.parse('https://temply.mathomelab.stream/user/$id'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(requestBody),
+  );
+  return response;
+}
