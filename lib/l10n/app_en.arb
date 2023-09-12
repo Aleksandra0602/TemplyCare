@@ -89,6 +89,9 @@
     "repeatNewPassword": "Repeat new password",
     "changePassowrd": "Change password",
     "logoutButton": "Log out",
+    "passwordChanged": "The password has been changed",
+    "errorPasswordChange": "The passwords provided are different",
+   
 
     "language": "Language",
     "polish": "Polski",

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
@@ -23,6 +24,12 @@ class _LogSignScreenState extends State<LogSignScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () => SystemNavigator.pop(),
+            icon: const Icon(Icons.exit_to_app),
+          )
+        ],
         backgroundColor: MyColor.appBarColor2,
         title: const Text('TemplyCare'),
         centerTitle: true,

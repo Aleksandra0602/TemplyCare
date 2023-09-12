@@ -89,6 +89,8 @@
     "repeatNewPassword": "Powtórz nowe hasło",
     "changePassowrd": "Zmień hasło",
     "logoutButton": "Wyloguj się",
+    "passwordChanged": "Hasło zostało zmienione",
+    "errorPasswordChange":"Podane hasła są różne",
 
     "language": "Język",
     "polish": "Polski",

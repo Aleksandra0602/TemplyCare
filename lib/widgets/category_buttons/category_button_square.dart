@@ -17,6 +17,7 @@ class CategoryButtonSquare extends StatelessWidget {
   final double height;
 
   const CategoryButtonSquare({
+    Key? key,
     required this.title,
     required this.color,
     required this.color2,
@@ -24,7 +25,7 @@ class CategoryButtonSquare extends StatelessWidget {
     required this.screens,
     required this.width,
     required this.height,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
